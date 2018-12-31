@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Black">
+
+    <RelativeLayout
+        android:id="@+id/layer_youtube_player"
+        android:layout_width="120dp"
+        android:layout_height="90dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp">
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/layer_youtube_player"
+        android:layout_marginBottom="60dp">
+
+        <TextView
+            android:id="@+id/tv_comments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#828282"
+            android:layout_marginTop="20dp"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:textSize="12sp"
+            android:text="@string/message_battery_save_mode"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/tv_comments"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="10dp"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:textColor="#fff400"
+            android:text="@string/change_save_mode"
+            android:drawablePadding="10dp"
+            android:drawableStart="@drawable/ico_battery_big"/>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/layer_touch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_exit"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/White"
+        android:textSize="15sp"
+        android:background="@color/colorPrimary"
+        android:text="@string/clear_battery_save_mode"
+        android:visibility="gone"/>
+
+
+    <RelativeLayout
+        android:id="@+id/layer_close_btn"
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:layout_marginBottom="60dp"
+        android:layout_alignParentBottom="true">
+
+        <ImageView
+            android:layout_width="20dp" android:contentDescription="TODO"
+            android:layout_height="29dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/ico_rock"/>
+
+        <View
+            android:id="@+id/btn_slicer"
+            android:layout_width="78dp"
+            android:layout_height="78dp"
+            android:background="@drawable/btn_slide"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="15dp"
+        android:textSize="16sp"
+        android:textColor="#ffffff"
+        android:letterSpacing="-0.02"
+        android:lineSpacingExtra="-1sp"
+        android:text="@string/deselected_save_mode" />
+
+
+</RelativeLayout>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="22dp"
+    android:paddingBottom="18dp"
+    android:paddingStart="18dp"
+    android:paddingEnd="12dp"
+    android:background="@drawable/btn_bg">
+
+    <TextView
+        android:id="@+id/tv_comments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="#000000"
+        tools:text="이거 이렇게 하는게 좋을거 같아요."/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_below="@id/tv_comments">
+
+        <TextView
+            android:id="@+id/tv_create_at"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="11sp"
+            android:textColor="#8d8d8d"
+            tools:text="09/30 20:18"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:layout_alignParentEnd="true">
+
+            <ImageView
+                android:layout_width="12dp" android:contentDescription="TODO"
+                android:layout_height="12dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/ico_like"/>
+
+            <TextView
+                android:id="@+id/tv_like_cnt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="2dp"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:textColor="#6461bb"
+                tools:text="10"/>
+
+            <ImageView
+                android:layout_width="12dp" android:contentDescription="TODO"
+                android:layout_height="12dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="9dp"
+                android:background="@drawable/ico_comment"/>
+
+            <TextView
+                android:id="@+id/tv_comments_cnt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="5dp"
+                android:textSize="12sp"
+                android:textColor="#454545"
+                tools:text="20"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

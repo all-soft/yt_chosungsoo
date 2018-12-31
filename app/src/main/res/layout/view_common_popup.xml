@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@null"
+    tools:background="@color/color_88000000">
+
+    <LinearLayout
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/xml_btn_edge_ffffff"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="visible"
+            tools:text="Title" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#d5d5d5"/>
+
+        <TextView
+            android:id="@+id/tv_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="25dp"
+            android:paddingBottom="25dp"
+            android:gravity="center"
+            android:textColor="#202020"
+            android:textSize="15sp"
+            tools:text="가나다라\n마바사아\n자차카타파하abcdefghijklmnopqrstuvwxyz" />
+
+        <RelativeLayout
+            android:id="@+id/layer_input"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginEnd="9dp"
+            android:layout_marginStart="9dp"
+            android:layout_marginBottom="20dp"
+            android:background="#d8d8d8"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/et_input"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="" android:paddingEnd="15dp"
+                android:paddingStart="15dp"
+                android:textColor="#656565"
+                android:textSize="13sp"
+                android:visibility="visible"
+                tools:text="스카이라이프"
+                android:background="@color/White"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="0dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_negative"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textColor="#939393"
+                android:text="@string/Cancel"
+                android:textStyle="bold"
+                android:background="#d7d7d7"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/btn_positive"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:text="@string/Done"
+                android:textColor="@color/White"
+                android:textStyle="bold"
+                android:visibility="visible" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,290 @@
+{
+  "project_info": {
+    "project_number": "1003456424398",
+    "firebase_url": "https://utils-7cd4d.firebaseio.com",
+    "project_id": "utils-7cd4d",
+    "storage_bucket": "utils-7cd4d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1003456424398:android:024b548a3d80f863",
+        "android_client_info": {
+          "package_name": "com.chsapps.alltrot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1003456424398-9qmgq7nietp348hc232qkr8d8dahfe5u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_KU5Sxllruq6Z1FHSGaw6POWdW5uhA_Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1003456424398:android:09feaf2c2eb0b5af",
+        "android_client_info": {
+          "package_name": "com.chsapps.autonavirun"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1003456424398-9qmgq7nietp348hc232qkr8d8dahfe5u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_KU5Sxllruq6Z1FHSGaw6POWdW5uhA_Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1003456424398:android:ef25109cbd5778ed",
+        "android_client_info": {
+          "package_name": "com.chsapps.babycrying"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1003456424398-9qmgq7nietp348hc232qkr8d8dahfe5u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_KU5Sxllruq6Z1FHSGaw6POWdW5uhA_Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1003456424398:android:a03cb4c86119eca6",
+        "android_client_info": {
+          "package_name": "com.chsapps.lullaby"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1003456424398-9qmgq7nietp348hc232qkr8d8dahfe5u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_KU5Sxllruq6Z1FHSGaw6POWdW5uhA_Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1003456424398:android:1c4806e67bf22dd5",
+        "android_client_info": {
+          "package_name": "com.chsapps.mirrormode"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1003456424398-9qmgq7nietp348hc232qkr8d8dahfe5u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_KU5Sxllruq6Z1FHSGaw6POWdW5uhA_Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1003456424398:android:51868c1e7a4f5657",
+        "android_client_info": {
+          "package_name": "com.chsapps.sleepsound"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1003456424398-9qmgq7nietp348hc232qkr8d8dahfe5u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_KU5Sxllruq6Z1FHSGaw6POWdW5uhA_Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1003456424398:android:2364bb510277f994",
+        "android_client_info": {
+          "package_name": "com.chsapps.yt7080"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1003456424398-9qmgq7nietp348hc232qkr8d8dahfe5u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_KU5Sxllruq6Z1FHSGaw6POWdW5uhA_Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1003456424398:android:460553b5db29f0cc",
+        "android_client_info": {
+          "package_name": "com.chsapps.yt8090"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1003456424398-9qmgq7nietp348hc232qkr8d8dahfe5u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_KU5Sxllruq6Z1FHSGaw6POWdW5uhA_Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1003456424398:android:8449366c740de9d9",
+        "android_client_info": {
+          "package_name": "com.chsapps.yt_nahoonha"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1003456424398-9qmgq7nietp348hc232qkr8d8dahfe5u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_KU5Sxllruq6Z1FHSGaw6POWdW5uhA_Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

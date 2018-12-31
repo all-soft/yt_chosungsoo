@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:id="@+id/player_control_top"
+    android:layout_width="300dp"
+    android:layout_height="38dp"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp"
+    android:background="@drawable/xml_top_edge_ffffff">
+
+
+    <LinearLayout
+        android:id="@+id/btn_home"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="TODO"  android:src="@drawable/ico_mainapp_off"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:textColor="#0c0c0c"
+            android:layout_gravity="center_vertical"
+            android:text="@string/GoToHome" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/layer_top_move"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"/>
+
+    <ImageView
+        android:id="@+id/btn_close"
+        android:layout_width="25dp" android:contentDescription="TODO"
+        android:layout_height="25dp"
+        android:layout_marginStart="15dp"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/close"/>
+
+
+
+</LinearLayout>

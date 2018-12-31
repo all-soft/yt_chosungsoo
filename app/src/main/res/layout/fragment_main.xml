@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/layer_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="20dp"
+        android:paddingStart="25dp"
+        android:paddingEnd="25dp"
+        android:paddingBottom="46dp"
+        android:background="@color/colorPrimary">
+
+        <RelativeLayout
+            android:layout_width="90dp"
+            android:layout_height="32dp"
+            android:background="@drawable/xml_btn_edge_side_ffffff">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="@color/White"
+                android:textSize="15sp"
+                android:text="@string/app_name"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/White"
+            android:textSize="34sp"
+            android:text="@string/main_fragment_title"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/layer_search"
+        android:layout_width="match_parent"
+        android:layout_height="59dp"
+        android:layout_below="@id/layer_top"
+        android:layout_marginTop="-28dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:paddingStart="0dp"
+        android:paddingEnd="20dp"
+        android:background="@drawable/xml_select_singer_edittext">
+
+        <RelativeLayout
+            android:id="@+id/btn_search"
+            android:layout_width="39dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="10dp"
+            android:layout_centerVertical="true"
+            tools:visibility="visible">
+
+            <ImageView
+                android:layout_width="19dp" android:contentDescription="TODO"
+                android:layout_height="19dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/stroke_17"/>
+
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/btn_search"
+            android:inputType="" android:paddingStart="5dp"
+            android:singleLine="true"
+            android:textSize="16sp"
+            android:textColor="@color/color_2c2c2c"
+            android:textColorHint="#a8a8a8"
+            android:hint="@string/search_singer"
+            android:background="@color/White"
+            android:imeOptions="actionSearch"
+            tools:visibility="visible"
+            tools:text=""/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/btn_selected"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:textColor="@color/White"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:text="@string/complete_selected"
+        android:background="#a0a0a0"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/layer_search"
+        android:layout_above="@id/btn_selected"
+        android:paddingTop="10dp"
+        tools:visibility="visible">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <include
+            android:id="@+id/view_empty"
+            layout="@layout/view_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

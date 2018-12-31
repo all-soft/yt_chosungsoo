@@ -1,0 +1,6 @@
+.gradle
+.idea/*
+*.apk
+build/*
+.externalNativeBuild
+release

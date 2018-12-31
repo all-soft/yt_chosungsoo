@@ -1,0 +1,125 @@
+<resources>
+    <string name="app_name">나훈아 모아보기</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <!--common strings. for copy application-->
+    <string name="Delete">삭제</string>
+    <string name="Share">공유</string>
+    <string name="Search">검색</string>
+    <string name="GiveGrade">별점주기</string>
+    <string name="Storage">보관함</string>
+    <string name="change_font_size">글자 크기 변경</string>
+    <string name="Warning">경고</string>
+    <string name="Done">확인</string>
+    <string name="Cancel">취소</string>
+    <string name="Save">저장</string>
+    <string name="Alarm">알림</string>
+    <string name="Exit">종료</string>
+    <string name="Minimum">최소화</string>
+    <string name="PlaySong">노래재생</string>
+    <string name="Reply">답장</string>
+    <string name="Setting">설정</string>
+    <string name="Small">작게</string>
+    <string name="Large">크게</string>
+    <string name="Close">닫기</string>
+
+    <string name="svg_play">M8,5v14l11,-7z</string>
+    <string name="svg_pause">M6,19h4V5H6v14zm8,-14v14h4V5h-4z</string>
+
+    <string name="title_permission_positive_btn">예 허용하겠습니다.</string>
+    <string name="title_permittion_guide">권한 승인 요청</string>
+    <string name="title_share_application">나훈아 모아보기</string>
+    <string name="message_double_click_exit">종료하시려면 Back 버튼을 한번 더 눌러주세요.</string>
+    <string name="message_share_application">좋아하는 가수들만 선택!\n노래, 공연 영상을 중간에 광고없이, 끈김없이 평생 무료로 감상 가능!.\n 평생 무료! 다른 앱 사용중에도 편하게 음악을 들을 수 있는 나훈아 모아보기 앱을 설치해보세요.\nhttp://bit.ly/2PWqwZ3 </string>
+    <string name="message_permission_guide">나훈아 모아보기는 아래의 기능을 정상적으로 수행하기 위해서 권한 승인이 필요합니다.\n\n최소한의 목적으로만 사용되니 안심하고 모두 허용해 주십시오</string>
+    <string name="message_loading_ad">광고 불러오는 중..</string>
+    <string name="message_exit_question">종료 하시겠습니까?</string>
+    <string name="dont_connected_network">네트워크가 연결되어 있지 않습니다.</string>
+    <string name="title_force_update">필수 업데이트 알림</string>
+    <string name="message_force_update">지금 업데이트 하여 더욱 편리해진 페이스 미러 앱을 사용해보세요.</string>
+    <string name="button_force_update">업데이트 하기</string>
+    <string name="SettingPermission">권한 설정</string>
+    <string name="must_need_permission">권한을 허용해 주셔야 앱을 이용할 수 있습니다.</string>
+    <string name="message_battery_save_mode">배터리 절약모드는 실수로 화면을 탭하는 것을 방지하며 배터리 소모를 최소화합니다. 백그라운드 재생은 Youtube 서비스 이용 약관을 준수하여 제공되지 않습니다.</string>
+    <string name="clear_battery_save_mode">절약모드 해제하기</string>
+
+
+
+    <string name="select_favorite_singer">가장 좋아하는 가수를 선택하세요.</string>
+    <string name="search_singer">검색할 가수 이름을 입력하세요.</string>
+    <string name="search_song">검색할 노래의 키워드를 입력하세요.</string>
+    <string name="home">홈</string>
+    <string name="save_mode">절약</string>
+
+
+    <!--Content Policy Dialog-->
+    <string name="policy_dialog_title">콘텐츠</string>
+    <string name="policy_dialog_comments">1. 모든 영상의 저작권은 유투브의 영상제작자에게 있습니다.\n\n2. 영상이 재생되면서 발생하는 수익은 영상제작자에게 제공됩니다.\n\n3. 본 앱은 구글 및 유투브의 정책을 준수합니다.</string>
+
+    <string name="no_songs">데이터가 없습니다.</string>
+
+    <string name="please_input_review">댓글을 입력하세요.</string>
+    <string name="must_permission">필수 권한</string>
+    <string name="permission_system_alert_message">앱을 사용하시기 위해서는 [다른 앱 위에 표시]가 허용 되어야 합니다.</string>
+
+    <string name="menu_reselect_singers">가수 선택 다시하기</string>
+    <string name="menu_play_together">친구와 함께 듣기</string>
+    <string name="menu_searching">검색 하기</string>
+    <string name="menu_resize_font">글자 크기 변경</string>
+    <string name="menu_auto_stop">자동 종료 타이머 설정</string>
+    <string name="menu_give_grade">별점주기</string>
+    <string name="menu_additional_music">추가 무료 음악 듣기</string>
+
+    <string name="main_fragment_title">가장 좋아하는 가수를 선택하세요.</string>
+
+    <string name="must_have_2_character_keyword">최소 2자 이상 입력하셔야 합니다.</string>
+    <string name="success_to_save_storage">저장되었습니다.</string>
+    <string name="success_to_remove_storage">삭제되었습니다.</string>
+
+    <string name="set_auto_timer_title">슬립 타이머 설정</string>
+    <string name="auto_destroy_half_hour">30분 후 자동 종료</string>
+    <string name="auto_destroy_1_hour">1시간 후 자동 종료</string>
+    <string name="auto_destroy_2_hour">2시간 후 자동 종료</string>
+    <string name="auto_destroy_4_hour">4시간 후 자동 종료</string>
+    <string name="auto_destroy_6_hour">6시간 후 자동 종료</string>
+
+    <string name="change_save_mode">절약모드 전환</string>
+    <string name="deselected_save_mode">슬라이드 절약모드 해제하기</string>
+    <string name="complete_selected">선택 완료</string>
+    <string name="list_of_video">영상목록</string>
+    <string name="list_of_review">댓글목록</string>
+    <string name="papular_song">인기곡</string>
+    <string name="papular_video">동영상</string>
+    <string name="papular_news">뉴스</string>
+    <string name="papular_storage">보관함</string>
+    <string name="hint_input_review">댓글을 입력하세요.</string>
+    <string name="empty_storage_message">보관함이 비어 있습니다.</string>
+    <string name="add_song_search">검색을 통해 보관함에 곡을 추가해보세요.</string>
+    <string name="listen_recommand_song">아래의 추천곡을 들어보세요.</string>
+
+    <string name="left_menu_1">최애 가수 선택 다시 하기</string>
+    <string name="left_menu_2">친구와 함께 듣기</string>
+    <string name="left_menu_3">검색하기</string>
+    <string name="left_menu_4">글자 크기 변경</string>
+    <string name="left_menu_5">자동종료 타이머 설정</string>
+    <string name="left_menu_6">별점주기</string>
+    <string name="left_menu_7">추가 무료음악 듣기</string>
+    <string name="Favorite">즐겨찾기</string>
+    <string name="DoShare">공유하기</string>
+    <string name="More">더보기</string>
+    <string name="Minimum_player">화면축소</string>
+    <string name="GoToHome">홈으로 가기</string>
+    <string name="Battery_save_mode">배터리 절약 모드</string>
+    <string name="Prev">이전</string>
+    <string name="Next">다음</string>
+    <string name="Add_Favorite">즐겨찾기에 추가</string>
+    <string name="listen_song">노래 듣기</string>
+    <string name="notice_allow">의 소식 받기</string>
+
+    <string name="btn_change_save_mode">절약모드\n전환</string>
+</resources>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:background="@null"
+    tools:background="@color/color_88000000">
+
+    <LinearLayout
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/xml_btn_edge_ffffff"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@color/colorPrimary">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="@color/White"
+                android:text="@string/set_auto_timer_title"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:textSize="11sp"
+                android:textColor="@color/White"
+                android:text="(선택 후 바로 적용 됩니다.)"/>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/btn_30_min"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:layout_marginTop="0dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:textSize="16sp"
+                android:layout_centerVertical="true"
+                android:textColor="@color/color_2c2c2c"
+                android:text="@string/auto_destroy_half_hour"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_alignParentBottom="true"
+                android:background="#e8e8e8"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/btn_1_hour"
+            android:layout_width="match_parent"
+            android:layout_height="47dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textSize="16sp"
+                android:textColor="@color/color_2c2c2c"
+                android:text="@string/auto_destroy_1_hour"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_alignParentBottom="true"
+                android:background="#e8e8e8"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/btn_2_hour"
+            android:layout_width="match_parent"
+            android:layout_height="47dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textSize="16sp"
+                android:textColor="@color/color_2c2c2c"
+                android:text="@string/auto_destroy_2_hour"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_alignParentBottom="true"
+                android:background="#e8e8e8"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/btn_4_hour"
+            android:layout_width="match_parent"
+            android:layout_height="47dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textSize="16sp"
+                android:textColor="@color/color_2c2c2c"
+                android:text="@string/auto_destroy_4_hour"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_alignParentBottom="true"
+                android:background="#e8e8e8"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/btn_6_hour"
+            android:layout_width="match_parent"
+            android:layout_height="47dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textSize="16sp"
+                android:textColor="@color/color_2c2c2c"
+                android:text="@string/auto_destroy_6_hour"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_alignParentBottom="true"
+                android:background="#e8e8e8"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@id/btn_close"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="0dp"
+            android:background="#f2f2f2">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="#a3a3a3"
+                android:text="@string/Close"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>
