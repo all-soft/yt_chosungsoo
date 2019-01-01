@@ -24,6 +24,8 @@ public class NewsAdapter extends BaseAdapter {
     private List<NewsData> arrayNews = new ArrayList<>();
 
     public NewsAdapter(Context context, NewsAdapterHolderListener listener){
+        super(context);
+
         this.context = context;
         this.listener = listener;
 
@@ -61,6 +63,9 @@ public class NewsAdapter extends BaseAdapter {
     public int getItemCount() {
         if(arrayNews == null) {
             return 0;
+        }
+        if(!isAddAd || isPlayerStatus) {
+            return arrayNews.size();
         }
         return arrayNews.size() + arrayNews.size() / adTerm + 1;
     }

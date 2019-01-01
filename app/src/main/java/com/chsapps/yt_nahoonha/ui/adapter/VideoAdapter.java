@@ -24,6 +24,8 @@ public class VideoAdapter extends BaseAdapter {
     private List<SongData> arraySongs = new ArrayList<>();
 
     public VideoAdapter(Context context, SongAdapterHolderListener listener){
+        super(context);
+
         this.context = context;
         this.listener = listener;
 
@@ -61,6 +63,9 @@ public class VideoAdapter extends BaseAdapter {
     public int getItemCount() {
         if(arraySongs == null) {
             return 0;
+        }
+        if(!isAddAd || isPlayerStatus) {
+            return arraySongs.size();
         }
         return arraySongs.size() + arraySongs.size() / adTerm + 1;
     }

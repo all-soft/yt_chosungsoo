@@ -372,7 +372,7 @@ public class PlaySongMainFragment extends BaseFragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void playTime(PlayTimeStatus status) {
         currentVideoTotalTime = status.totalTime;
-        int current = status.currentTime == 0 ? 0 : status.currentTime * 100 / status.totalTime;
+        int current = status.currentTime == 0  || status.totalTime == 0 ? 0 : status.currentTime * 100 / status.totalTime;
         seekBar.setProgress(current);
     }
 

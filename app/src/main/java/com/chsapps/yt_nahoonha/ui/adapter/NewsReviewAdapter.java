@@ -21,6 +21,8 @@ public class NewsReviewAdapter extends BaseAdapter {
     private List<NewsReviewData> arrayNewsReview;
 
     public NewsReviewAdapter(Context context){
+        super(context);
+
         this.context = context;
 
         try {
@@ -57,6 +59,9 @@ public class NewsReviewAdapter extends BaseAdapter {
     public int getItemCount() {
         if(arrayNewsReview == null) {
             return 0;
+        }
+        if(!isAddAd || isPlayerStatus) {
+            return arrayNewsReview.size();
         }
         return arrayNewsReview.size() + arrayNewsReview.size() / adTerm + 1;
     }

@@ -22,6 +22,8 @@ public class ReviewAdapter extends BaseAdapter {
     private List<ReviewData> arrayReview;
 
     public ReviewAdapter(Context context, ReviewAdapterHolderListener listener){
+        super(context);
+
         this.context = context;
         this.listener = listener;
 
@@ -59,6 +61,9 @@ public class ReviewAdapter extends BaseAdapter {
     public int getItemCount() {
         if(arrayReview == null) {
             return 0;
+        }
+        if(!isAddAd || isPlayerStatus) {
+            return arrayReview.size();
         }
         return getItemCount(arrayReview.size());
     }

@@ -23,6 +23,8 @@ public class SingersAdapter extends BaseAdapter {
     private SingersData selectedSinger;
 
     public SingersAdapter(Context context, SingerAdapterHolderListener listener) {
+        super(context);
+
         this.context = context;
         this.listener = listener;
 
@@ -34,6 +36,8 @@ public class SingersAdapter extends BaseAdapter {
     }
 
     public SingersAdapter(Context context, boolean isAddAd, SingerAdapterHolderListener listener) {
+        super(context);
+
         this.context = context;
         this.listener = listener;
         setIsAddedAd(isAddAd);
@@ -90,6 +94,9 @@ public class SingersAdapter extends BaseAdapter {
     public int getItemCount() {
         if (arraySingers == null) {
             return 0;
+        }
+        if(!isAddAd || isPlayerStatus) {
+            return arraySingers.size();
         }
         return arraySingers.size() == 1 ? 1 : getItemCount(arraySingers.size()) / 2;
     }

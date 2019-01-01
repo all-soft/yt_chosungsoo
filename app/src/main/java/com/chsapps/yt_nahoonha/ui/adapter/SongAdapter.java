@@ -28,6 +28,7 @@ public class SongAdapter extends BaseAdapter {
 
 
     public SongAdapter(Context context, SongAdapterHolderListener listener){
+        super(context);
         this.context = context;
         this.listener = listener;
 
@@ -60,15 +61,16 @@ public class SongAdapter extends BaseAdapter {
             ((SongAdapterHolder) holder).update(arraySongs.get(getPosition(position)), true, isDeletedItem);
         } else if(holder instanceof AdmobNativeAdAdapterHolder) {
             loadAdmobAd(position, ((AdmobNativeAdAdapterHolder)holder));
-        } /*else if(holder instanceof FacebookNativeAdAdapterHolder) {
-            loadFacebookAd(position, ((FacebookNativeAdAdapterHolder)holder));
-        }*/
+        }
     }
 
     @Override
     public int getItemCount() {
         if(arraySongs == null) {
             return 0;
+        }
+        if(!isAddAd || isPlayerStatus) {
+            return arraySongs.size();
         }
         return arraySongs.size() + arraySongs.size() / adTerm + 1;
     }

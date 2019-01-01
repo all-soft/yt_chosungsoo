@@ -34,6 +34,7 @@ import com.chsapps.yt_nahoonha.app.Global;
 import com.chsapps.yt_nahoonha.constants.Constants;
 import com.chsapps.yt_nahoonha.constants.PlayerConstants;
 import com.chsapps.yt_nahoonha.data.PlayerStatus;
+import com.chsapps.yt_nahoonha.data.YoutubePlayerStatus;
 import com.chsapps.yt_nahoonha.service.YoutubePlayerService;
 import com.chsapps.yt_nahoonha.ui.activity.NavigationListener;
 import com.chsapps.yt_nahoonha.ui.activity.PlayerActivity;
@@ -181,7 +182,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         ActivityStack.getInstance().regOnResumeState(this);
 
         resizeTextSize(Global.getInstance().getResizeTextSize());
-        onResumePlayer();
+        onResumePlayer(true);
     }
 
     @Override
@@ -439,16 +440,21 @@ public abstract class BaseActivity extends AppCompatActivity {
         isHavePlayer = value;
     }
 
-    private void onResumePlayer() {
+    private void onResumePlayer(boolean isEventBus) {
         if (layer_player != null) {
             if (WebPlayer.getPlayer() != null) {
+                layer_banner_ad.setVisibility(View.GONE);
                 setPlayerLayout(WebPlayer.getPlayer());
             } else {
+                layer_banner_ad.setVisibility(View.VISIBLE);
                 layer_player.setVisibility(View.GONE);
             }
 
             if (!isHavePlayer) {
                 layer_player.setVisibility(View.GONE);
+            }
+            if(isEventBus) {
+                EventBus.getDefault().post(new YoutubePlayerStatus(WebPlayer.getPlayer() != null));
             }
         }
     }
@@ -509,6 +515,9 @@ public abstract class BaseActivity extends AppCompatActivity {
             WebPlayer.destroyWebView();
         }
         layer_player.setVisibility(View.GONE);
+
+        onResumePlayer(false);
+        EventBus.getDefault().post(new YoutubePlayerStatus(false));
     }
 
     public void onClick_layer_player() {

@@ -14,6 +14,7 @@ import com.chsapps.yt_nahoonha.constants.AdConstants;
 import com.chsapps.yt_nahoonha.ui.adapter.holder.AdmobNativeAdAdapterHolder;
 import com.chsapps.yt_nahoonha.ui.adapter.holder.FacebookNativeAdAdapterHolder;
 import com.chsapps.yt_nahoonha.ui.adapter.holder.FailedLoadAdAdapterHolder;
+import com.chsapps.yt_nahoonha.ui.youtube_player.WebPlayer;
 import com.chsapps.yt_nahoonha.utils.LogUtil;
 import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
@@ -25,6 +26,10 @@ import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.formats.NativeAdOptions;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.HashMap;
 
@@ -43,6 +48,18 @@ public class BaseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     protected int adTerm = 0;
     protected int currentPage = 1;
 
+    protected boolean isPlayerStatus = false;
+
+    public BaseAdapter(Context context) {
+        this.context = context;
+        isPlayerStatus = WebPlayer.getPlayer() != null;
+        EventBus.getDefault().register(this);
+    }
+
+    public void clear() {
+        EventBus.getDefault().unregister(this);
+    }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -51,13 +68,6 @@ public class BaseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             return new AdmobNativeAdAdapterHolder(context, LayoutInflater.from(parent.getContext()).inflate(R.layout.view_admob_list_ad, parent, false));
 
         return new FailedLoadAdAdapterHolder(context, LayoutInflater.from(parent.getContext()).inflate(R.layout.view_adapter_failed_load_ad, parent, false));
-//        if (Global.getInstance().getAdConfig().getAd_native_type().equals("1")) {
-//            //Admob
-//            return new AdmobNativeAdAdapterHolder(context, LayoutInflater.from(parent.getContext()).inflate(R.layout.view_admob_list_ad, parent, false));
-//        } else {
-//            //Facebook
-//            return new FacebookNativeAdAdapterHolder(context, LayoutInflater.from(parent.getContext()).inflate(R.layout.view_facebook_list_ad, parent, false));
-//        }
     }
 
     @Override
@@ -72,7 +82,7 @@ public class BaseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        if (isAddAd && position % adTerm == 0) {
+        if (!isPlayerStatus && isAddAd && position % adTerm == 0) {
             if(mapFailedLoadAdmobAd.containsKey(position)) {
                 return LIST_ITEM_TYPE_NONE;
             }
@@ -97,7 +107,7 @@ public class BaseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     protected int getPosition(int position) {
-        if(!isAddAd || adTerm == 0) {
+        if(isPlayerStatus || !isAddAd || adTerm == 0) {
             return position;
         }
         return position - (position / adTerm) - 1;
@@ -199,5 +209,14 @@ public class BaseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public int getCurrentPage() {
         return currentPage;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onResumeListView(com.chsapps.yt_nahoonha.data.YoutubePlayerStatus status) {
+        LogUtil.e(TAG, "Ad status in base adapter : " + status.playStatus);
+        if(status.playStatus != isPlayerStatus) {
+            isPlayerStatus = status.playStatus;
+            notifyDataSetChanged();
+        }
     }
 }

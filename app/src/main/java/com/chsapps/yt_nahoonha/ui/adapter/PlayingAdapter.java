@@ -27,8 +27,11 @@ public class PlayingAdapter extends BaseAdapter {
     private String playingVideoId = "";
 
     public PlayingAdapter(Context context, SongAdapterHolderListener listener){
+        super(context);
+
         this.context = context;
         this.listener = listener;
+        this.isAddAd = false;
 
         try {
             adTerm = Global.getInstance().getAdConfig().getNative_ad_term();
@@ -64,6 +67,9 @@ public class PlayingAdapter extends BaseAdapter {
     public int getItemCount() {
         if(arraySongs == null) {
             return 0;
+        }
+        if(!isAddAd || isPlayerStatus) {
+            return arraySongs.size();
         }
         return arraySongs.size() + arraySongs.size() / adTerm + 1;
     }
