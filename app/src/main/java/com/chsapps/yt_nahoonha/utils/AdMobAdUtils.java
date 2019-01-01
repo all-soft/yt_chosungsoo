@@ -54,15 +54,15 @@ public class AdMobAdUtils {
     }
 
     public static void showAdMobBannerAd(AdView adMobAdView, String adId) {
-        adMobAdView.setAdSize(AdSize.BANNER);
-        adMobAdView.setAdUnitId(AdConstants.AD_ID_BANNER);
-        Bundle extras = new FacebookAdapter.FacebookExtrasBundleBuilder()
-                .setNativeAdChoicesIconExpandable(false)
-                .build();
-        AdRequest adRequest = new AdRequest.Builder()
-                .addNetworkExtrasBundle(FacebookAdapter.class, extras)
-                .addTestDevice("086A436107A5322A6AD435A899DADB5A")
-                .build();
-        adMobAdView.loadAd(adRequest);
+//        adMobAdView.setAdSize(AdSize.BANNER);
+//        adMobAdView.setAdUnitId(AdConstants.AD_ID_BANNER);
+//        Bundle extras = new FacebookAdapter.FacebookExtrasBundleBuilder()
+//                .setNativeAdChoicesIconExpandable(false)
+//                .build();
+//        AdRequest adRequest = new AdRequest.Builder()
+//                .addNetworkExtrasBundle(FacebookAdapter.class, extras)
+//                .addTestDevice("086A436107A5322A6AD435A899DADB5A")
+//                .build();
+//        adMobAdView.loadAd(adRequest);
     }
 }

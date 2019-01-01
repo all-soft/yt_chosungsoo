@@ -28,8 +28,8 @@
 }
 
 #data class
--keep class yt_nahoonha.api.model.** { *; }
--keep class yt_nahoonha.data.**{ *; }
+-keep class com.chsapps.yt_nahoonha.api.model.** { *; }
+-keep class com.chsapps.yt_nahoonha.data.**{ *; }
 
 #webview
 -keepclassmembers class * {
