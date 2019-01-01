@@ -256,9 +256,288 @@
     },
     {
       "client_info": {
+        "mobilesdk_app_id": "1:1003456424398:android:96f6fa68affa9bb3",
+        "android_client_info": {
+          "package_name": "com.chsapps.yt_hongjinyoung"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1003456424398-9qmgq7nietp348hc232qkr8d8dahfe5u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_KU5Sxllruq6Z1FHSGaw6POWdW5uhA_Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1003456424398:android:df5c7517169347b0",
+        "android_client_info": {
+          "package_name": "com.chsapps.yt_joyongpi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1003456424398-9qmgq7nietp348hc232qkr8d8dahfe5u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_KU5Sxllruq6Z1FHSGaw6POWdW5uhA_Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1003456424398:android:9924c0df1df9d9f1",
+        "android_client_info": {
+          "package_name": "com.chsapps.yt_kangjin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1003456424398-9qmgq7nietp348hc232qkr8d8dahfe5u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_KU5Sxllruq6Z1FHSGaw6POWdW5uhA_Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1003456424398:android:d83ee728feda6b7f",
+        "android_client_info": {
+          "package_name": "com.chsapps.yt_karaoke"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1003456424398-9qmgq7nietp348hc232qkr8d8dahfe5u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_KU5Sxllruq6Z1FHSGaw6POWdW5uhA_Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1003456424398:android:94da984c3702fb09",
+        "android_client_info": {
+          "package_name": "com.chsapps.yt_kimyeonja"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1003456424398-9qmgq7nietp348hc232qkr8d8dahfe5u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_KU5Sxllruq6Z1FHSGaw6POWdW5uhA_Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1003456424398:android:7922647e2706e974",
+        "android_client_info": {
+          "package_name": "com.chsapps.yt_kimyongim"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1003456424398-9qmgq7nietp348hc232qkr8d8dahfe5u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_KU5Sxllruq6Z1FHSGaw6POWdW5uhA_Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1003456424398:android:fd51995ea0a689e5",
+        "android_client_info": {
+          "package_name": "com.chsapps.yt_krtop100"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1003456424398-9qmgq7nietp348hc232qkr8d8dahfe5u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_KU5Sxllruq6Z1FHSGaw6POWdW5uhA_Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1003456424398:android:1289b37ba0b637a0",
+        "android_client_info": {
+          "package_name": "com.chsapps.yt_kumjandi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1003456424398-9qmgq7nietp348hc232qkr8d8dahfe5u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_KU5Sxllruq6Z1FHSGaw6POWdW5uhA_Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:1003456424398:android:8449366c740de9d9",
         "android_client_info": {
           "package_name": "com.chsapps.yt_nahoonha"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1003456424398-9qmgq7nietp348hc232qkr8d8dahfe5u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_KU5Sxllruq6Z1FHSGaw6POWdW5uhA_Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1003456424398:android:816a000f540fb79b",
+        "android_client_info": {
+          "package_name": "com.chsapps.yt_namjin"
         }
       },
       "oauth_client": [

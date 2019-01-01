@@ -28,8 +28,8 @@
 }
 
 #data class
--keep class com.chsapps.yt_nahoonha.api.model.** { *; }
--keep class com.chsapps.yt_nahoonha.data.**{ *; }
+-keep class com.chsapps.yt_hongjinyoung.api.model.** { *; }
+-keep class com.chsapps.yt_hongjinyoung.data.**{ *; }
 
 #webview
 -keepclassmembers class * {
