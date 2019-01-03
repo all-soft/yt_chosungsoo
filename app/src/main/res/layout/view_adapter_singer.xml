@@ -48,7 +48,7 @@
             android:textColor="#4c4c4c"
             android:textStyle="bold"
             android:gravity="center"
-            tools:text="나훈아"
+            tools:text="홍진영"
             tools:visibility="visible" />
 
     </LinearLayout>
@@ -91,7 +91,7 @@
             android:textColor="#4c4c4c"
             android:textStyle="bold"
             android:gravity="center"
-            tools:text="나훈아"
+            tools:text="홍진영"
             tools:visibility="visible" />
 
     </LinearLayout>

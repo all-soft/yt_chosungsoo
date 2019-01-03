@@ -11,9 +11,9 @@ keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
     compileSdkVersion 28
-    project.archivesBaseName = "Nahoonha"
+    project.archivesBaseName = "Hongjinyoung"
     defaultConfig {
-        applicationId "com.chsapps.yt_nahoonha"
+        applicationId "com.chsapps.yt_hongjinyoung"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 2

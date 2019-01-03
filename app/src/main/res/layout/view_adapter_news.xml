@@ -53,7 +53,7 @@
                 android:textColor="@color/Black"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                tools:text="나훈아 뉴스" />
+                tools:text="홍진영 뉴스" />
 
             <TextView
                 android:id="@+id/tv_contents"
@@ -65,7 +65,7 @@
                 android:singleLine="false"
                 android:textColor="#5f5f5f"
                 android:textSize="12sp"
-                tools:text="2018년 12월 3일 나훈아씨가 자택에서 밥을 맛있게 먹었다. 이를 본 나훈아의..." />
+                tools:text="2018년 12월 3일 홍진영씨가 자택에서 밥을 맛있게 먹었다. 이를 본 홍진영의..." />
 
             <TextView
                 android:id="@+id/tv_from"

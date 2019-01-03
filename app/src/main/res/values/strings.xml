@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">나훈아 모아보기</string>
+    <string name="app_name">홍진영 모아보기</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -33,10 +33,10 @@
 
     <string name="title_permission_positive_btn">예 허용하겠습니다.</string>
     <string name="title_permittion_guide">권한 승인 요청</string>
-    <string name="title_share_application">나훈아 모아보기</string>
+    <string name="title_share_application">홍진영 모아보기</string>
     <string name="message_double_click_exit">종료하시려면 Back 버튼을 한번 더 눌러주세요.</string>
-    <string name="message_share_application">좋아하는 가수들만 선택!\n노래, 공연 영상을 중간에 광고없이, 끈김없이 평생 무료로 감상 가능!.\n 평생 무료! 다른 앱 사용중에도 편하게 음악을 들을 수 있는 나훈아 모아보기 앱을 설치해보세요.\nhttp://bit.ly/2F1uX2O </string>
-    <string name="message_permission_guide">나훈아 모아보기는 아래의 기능을 정상적으로 수행하기 위해서 권한 승인이 필요합니다.\n\n최소한의 목적으로만 사용되니 안심하고 모두 허용해 주십시오</string>
+    <string name="message_share_application">좋아하는 가수들만 선택!\n노래, 공연 영상을 중간에 광고없이, 끈김없이 평생 무료로 감상 가능!.\n 평생 무료! 다른 앱 사용중에도 편하게 음악을 들을 수 있는 홍진영 모아보기 앱을 설치해보세요.\nhttp://bit.ly/2RpZAWx </string>
+    <string name="message_permission_guide">홍진영 모아보기는 아래의 기능을 정상적으로 수행하기 위해서 권한 승인이 필요합니다.\n\n최소한의 목적으로만 사용되니 안심하고 모두 허용해 주십시오</string>
     <string name="message_loading_ad">광고 불러오는 중..</string>
     <string name="message_exit_question">종료 하시겠습니까?</string>
     <string name="dont_connected_network">네트워크가 연결되어 있지 않습니다.</string>

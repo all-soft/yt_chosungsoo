@@ -71,7 +71,7 @@
         android:gravity="center_vertical"
         android:textSize="16sp"
         android:textColor="#5f5f5f"
-        tools:text="나훈아 노래 모음 30곡"/>
+        tools:text="홍진영 노래 모음 30곡"/>
 
     <View
         android:layout_width="match_parent"
