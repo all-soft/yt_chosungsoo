@@ -24,7 +24,6 @@ import com.chsapps.yt_hongjinyoung.data.SingersData;
 import com.chsapps.yt_hongjinyoung.ui.activity.MainActivity;
 import com.chsapps.yt_hongjinyoung.ui.activity.NavigationListener;
 import com.chsapps.yt_hongjinyoung.ui.activity.SearchActivity;
-import com.chsapps.yt_hongjinyoung.ui.view.popup.AutoClosePopup;
 import com.chsapps.yt_hongjinyoung.ui.view.popup.ResizeTextSizePopup;
 import com.chsapps.yt_hongjinyoung.utils.Utils;
 
@@ -244,14 +243,15 @@ public class SingerMainFragment extends BaseFragment implements NavigationListen
             }
             break;
             case 4: {
-                AutoClosePopup dlg = new AutoClosePopup(parentActivity);
-                dlg.show();
+//                AutoClosePopup dlg = new AutoClosePopup(parentActivity);
+//                dlg.show();
             }
             break;
             case 5:
                 Utils.moveMarket();
                 break;
             case 6:
+                Utils.moveCompanyAppsMarket();
                 break;
         }
         parentActivity.closeDrawer();

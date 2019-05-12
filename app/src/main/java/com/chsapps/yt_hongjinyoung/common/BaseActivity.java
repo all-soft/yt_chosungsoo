@@ -21,7 +21,6 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.webkit.WebView;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -40,7 +39,6 @@ import com.chsapps.yt_hongjinyoung.ui.activity.NavigationListener;
 import com.chsapps.yt_hongjinyoung.ui.activity.PlayerActivity;
 import com.chsapps.yt_hongjinyoung.ui.view.CicleDialog;
 import com.chsapps.yt_hongjinyoung.ui.view.popup.ExitPopup;
-import com.chsapps.yt_hongjinyoung.ui.youtube_player.JavaScript;
 import com.chsapps.yt_hongjinyoung.ui.youtube_player.WebPlayer;
 
 import org.greenrobot.eventbus.EventBus;
@@ -182,7 +180,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         ActivityStack.getInstance().regOnResumeState(this);
 
         resizeTextSize(Global.getInstance().getResizeTextSize());
-        onResumePlayer(true);
     }
 
     @Override
@@ -444,7 +441,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (layer_player != null) {
             if (WebPlayer.getPlayer() != null) {
                 layer_banner_ad.setVisibility(View.GONE);
-                setPlayerLayout(WebPlayer.getPlayer());
             } else {
                 layer_banner_ad.setVisibility(View.VISIBLE);
                 layer_player.setVisibility(View.GONE);
@@ -459,45 +455,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    private void setPlayerLayout(WebView webPlayer) {
-        if (webPlayer == null) {
-            return;
-        }
-        layer_player.setVisibility(View.VISIBLE);
-
-        YoutubePlayerService.getInstance().hideFloatingPlayer();
-
-        WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-                WindowManager.LayoutParams.MATCH_PARENT,
-                WindowManager.LayoutParams.MATCH_PARENT
-        );
-
-        ViewGroup PlayerParent = (ViewGroup) webPlayer.getParent();
-        if (PlayerParent != null)
-            PlayerParent.removeView(WebPlayer.getPlayer());
-
-        layer_youtube_player.addView(webPlayer, params);
-
-        tv_title.setText(YoutubePlayerService.title);
-
-        int playingState = Global.getInstance().getPlayerState();
-        if (playingState == 1) {
-            WebPlayer.loadScript(JavaScript.playVideoScript());
-            btn_play.setBackgroundResource(R.drawable.pause);
-        } else {
-            btn_play.setBackgroundResource(R.drawable.play);
-        }
-    }
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void changePlayerStatus(PlayerStatus status) {
-        if (status != null && btn_play != null && isHavePlayer) {
-            if (status.playStatus == 1) {
-                btn_play.setBackgroundResource(R.drawable.pause);
-            } else {
-                btn_play.setBackgroundResource(R.drawable.play);
-            }
-        }
     }
 
     public void onClick_btn_play() {

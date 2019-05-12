@@ -28,7 +28,7 @@
                 android:background="@color/colorPrimary">
 
                 <ImageView
-                    android:layout_width="30dp" android:contentDescription="TODO"
+                    android:layout_width="30dp"
                     android:layout_height="25dp"
                     android:layout_centerInParent="true"
                     android:background="@drawable/btn_send" />
@@ -43,7 +43,7 @@
                 android:layout_toStartOf="@id/btn_regist"
                 android:background="@color/White"
                 android:hint="@string/please_input_review"
-                android:inputType="" android:padding="5dp"
+                android:padding="5dp"
                 android:textSize="13sp" />
         </RelativeLayout>
 
@@ -86,7 +86,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="15dp" android:contentDescription="TODO"
+                android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/ico_like" />
@@ -102,7 +102,7 @@
                 tools:text="10" />
 
             <ImageView
-                android:layout_width="15dp" android:contentDescription="TODO"
+                android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="20dp"

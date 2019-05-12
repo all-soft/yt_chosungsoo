@@ -4,6 +4,7 @@ package com.chsapps.yt_hongjinyoung.api;
 import com.chsapps.yt_hongjinyoung.api.model.BaseAPIData;
 import com.chsapps.yt_hongjinyoung.api.model.HomeData;
 import com.chsapps.yt_hongjinyoung.api.model.NewsAPIData;
+import com.chsapps.yt_hongjinyoung.api.model.RecommAppAPIData;
 import com.chsapps.yt_hongjinyoung.api.model.SingersAPIData;
 import com.chsapps.yt_hongjinyoung.api.model.SongAPIData;
 
@@ -114,5 +115,12 @@ public interface RequestService {
             @Field("max") int max,
             @Field("page") int page,
             @Field("category_idx") int category_idx
+    );
+
+    @FormUrlEncoded
+    @POST("/app/recommend")
+    Observable<RecommAppAPIData> request_recommend_app_list(
+            @Field("app_id") int app_id,
+            @Field("lang") String lang
     );
 }

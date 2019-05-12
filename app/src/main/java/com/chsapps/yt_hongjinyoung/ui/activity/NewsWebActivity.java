@@ -51,7 +51,8 @@ public class NewsWebActivity extends BaseActivity implements NavigationView.OnNa
     @Override
     protected void onResume() {
         super.onResume();
-        if (Global.getInstance().isShowInterstitialAdInMainActivity() && !Global.getInstance().isMainActivityAdShow) {
+        if (Global.getInstance().isShowInterstitialAdInMainActivity() && !Global.getInstance().isMainActivityAdShow)
+        {
             Global.getInstance().isMainActivityAdShow = true;
             AdUtils.showInterstitialAd(this);
         }

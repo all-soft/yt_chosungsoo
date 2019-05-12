@@ -8,7 +8,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:background="@color/colorPrimary"/>
+        android:background="@color/colorPrimary" />
 
     <RelativeLayout
         android:id="@+id/layer_search"
@@ -17,23 +17,23 @@
         android:layout_below="@id/layer_top"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
+        android:background="@drawable/xml_select_singer_edittext"
         android:paddingStart="0dp"
-        android:paddingEnd="20dp"
-        android:background="@drawable/xml_select_singer_edittext">
+        android:paddingEnd="20dp">
 
         <RelativeLayout
             android:id="@+id/btn_search"
             android:layout_width="39dp"
             android:layout_height="39dp"
-            android:layout_marginStart="10dp"
             android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
             tools:visibility="visible">
 
             <ImageView
-                android:layout_width="19dp" android:contentDescription="TODO"
+                android:layout_width="19dp"
                 android:layout_height="19dp"
                 android:layout_centerInParent="true"
-                android:background="@drawable/stroke_17"/>
+                android:background="@drawable/stroke_17" />
 
         </RelativeLayout>
 
@@ -43,16 +43,16 @@
             android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@id/btn_search"
-            android:inputType="" android:paddingStart="5dp"
+            android:background="@color/White"
+            android:hint="@string/search_song"
+            android:imeOptions="actionSearch"
+            android:paddingStart="5dp"
             android:singleLine="true"
-            android:textSize="16sp"
             android:textColor="@color/color_2c2c2c"
             android:textColorHint="#a8a8a8"
-            android:hint="@string/search_song"
-            android:background="@color/White"
-            android:imeOptions="actionSearch"
-            tools:visibility="visible"
-            tools:text=""/>
+            android:textSize="16sp"
+            tools:text=""
+            tools:visibility="visible" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -60,21 +60,34 @@
         android:layout_height="match_parent"
         android:layout_below="@id/layer_search">
 
+        <RelativeLayout
+            android:id="@+id/layer_play"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+            <include layout="@layout/view_select_play_layer" />
+
+        </RelativeLayout>
+
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/refresh_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/list_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_above="@id/layer_play">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/list_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
         </android.support.v4.widget.SwipeRefreshLayout>
+
         <include
             android:id="@+id/view_empty"
             layout="@layout/view_empty"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
     </RelativeLayout>
 

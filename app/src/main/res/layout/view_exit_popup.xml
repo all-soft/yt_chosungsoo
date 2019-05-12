@@ -8,95 +8,154 @@
     tools:background="@color/color_88000000">
 
     <LinearLayout
-        android:id="@+id/layer_none_ad_content"
-        android:layout_width="280dp"
+        android:id="@+id/layer_review"
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_centerInParent="true"
-        tools:visibility="visible">
+        android:visibility="gone"
+        android:orientation="vertical"
+        tools:visibility="gone">
 
-        <ImageView
-            android:id="@+id/image_share"
-            android:layout_width="240dp"
-            android:layout_height="239dp"
-            android:layout_gravity="center_horizontal"
-            android:contentDescription="TODO"  tools:visibility="visible">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/colorPrimary">
 
-        </ImageView>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="19dp"
-            android:textSize="28sp"
-            android:textColor="#eb9600"
-            android:letterSpacing="-0.04"
-            android:text="방금 들은 노래 " />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="36sp"
-            android:textColor="#ffe900"
-            android:letterSpacing="-0.04"
-            android:text="친구랑 듣기"
-            android:layout_gravity="center_horizontal"/>
-        <LinearLayout
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="@color/White"
+                android:textStyle="bold"
+                android:textSize="19sp"
+                android:text="종료 하시겠습니까?"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical">
+            android:padding="10dp"
+            android:background="@color/White">
 
-            <Button
-                android:id="@+id/btn_share"
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:textColor="#fae832"
-                android:text="좋아요"
-                android:textStyle="bold"
-                android:background="@drawable/xml_btn_exti_popup_done"
-                android:visibility="visible" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:layout_marginBottom="13dp"
+                android:gravity="center"
+                android:textColor="@color/Black"
+                android:textSize="18sp"
+                android:text="@string/evaluation_message"/>
+        </RelativeLayout>
 
-            <Button
-                android:id="@+id/btn_exit"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:padding="10dp"
+            android:background="@color/White"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/btn_layer_1_exit"
+                android:layout_width="90dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_888888">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/White"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:text="@string/Destroy"/>
+            </RelativeLayout>
+            <View
+                android:layout_width="10dp"
+                android:layout_height="35dp"/>
+
+            <RelativeLayout
+                android:id="@+id/btn_layer_1_review"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/xml_btn_exti_popup_cancel"
-                android:text="앱종료"
-                android:textColor="#9a9a9a"
-                android:textStyle="bold"
-                android:visibility="visible" />
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/White"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:text="@string/Evaluation"/>
+
+            </RelativeLayout>
         </LinearLayout>
+
     </LinearLayout>
+
     <LinearLayout
-        android:id="@+id/layer_ad_content"
-        android:layout_width="280dp"
+        android:id="@+id/layer_exit"
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:background="@color/White"
         android:orientation="vertical"
-        android:padding="0dp"
-        tools:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <RelativeLayout
+            android:id="@+id/image_share"
+            android:layout_width="match_parent"
+            android:layout_height="340dp"
+            android:background="@drawable/ic_7080_banner"
+            tools:visibility="visible">
+
+            <View
+                android:id="@+id/btn_share"
+                android:layout_width="210dp"
+                android:layout_height="55dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="225dp" />
+
+        </RelativeLayout>
 
         <FrameLayout
             android:id="@+id/adView"
             android:layout_width="match_parent"
-            android:layout_height="286dp"
+            android:layout_height="200dp"
             android:layout_gravity="center_horizontal"
-            tools:background="@color/White" />
+            tools:visibility="gone" />
+
+        <!--<com.google.android.gms.ads.AdView-->
+        <!--xmlns:ads="http://schemas.android.com/apk/res-auto"-->
+        <!--android:id="@+id/adView"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--ads:adSize="MEDIUM_RECTANGLE"-->
+        <!--ads:adUnitId="ca-app-pub-5539000902582500/6781044317"-->
+        <!--android:visibility="gone">-->
+        <!--</com.google.android.gms.ads.AdView>-->
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:textSize="15sp"
-            android:textColor="@color/White"
-            android:text="@string/message_exit_question"/>
+            android:text="@string/exit_application"
+            android:textColor="#4d4d4d"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="16dp"
+            android:background="#80000000" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="20dp"
+            android:layout_height="40dp"
             android:orientation="horizontal">
 
             <Button
@@ -104,28 +163,27 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:textColor="#9a9a9a"
+                android:background="@null"
                 android:text="@string/Cancel"
+                android:textColor="#4d4d4d"
                 android:textStyle="bold"
-                android:background="@drawable/xml_btn_exti_popup_cancel"
                 android:visibility="visible" />
 
             <View
-                android:layout_width="8dp"
-                android:layout_height="match_parent" />
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="#80000000" />
 
             <Button
                 android:id="@+id/btn_positive"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/xml_btn_exti_popup_done"
+                android:background="@null"
                 android:text="@string/Done"
-                android:textColor="#fae832"
+                android:textColor="#4d4d4d"
                 android:textStyle="bold"
                 android:visibility="visible" />
         </LinearLayout>
-
-
     </LinearLayout>
 </RelativeLayout>

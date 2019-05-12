@@ -31,15 +31,18 @@ import com.chsapps.yt_hongjinyoung.ui.activity.PlayerActivity;
 import com.chsapps.yt_hongjinyoung.ui.adapter.SongAdapter;
 import com.chsapps.yt_hongjinyoung.ui.adapter.listener.SongAdapterHolderListener;
 import com.chsapps.yt_hongjinyoung.ui.view.EndlessRecyclerOnScrollListener;
+import com.chsapps.yt_hongjinyoung.ui.view.popup.YoutubePolicyPopup;
 import com.chsapps.yt_hongjinyoung.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class SingerPopularFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener{
+public class SingerPopularFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
     public final static String TAG = SingerPopularFragment.class.getSimpleName();
 
     @BindView(R.id.refresh_layout)
@@ -59,15 +62,22 @@ public class SingerPopularFragment extends BaseFragment implements SwipeRefreshL
     @BindView(R.id.btn_all_songs)
     TextView btn_all_songs;
 
+    @BindView(R.id.btn_play_selected_song)
+    TextView btn_play_selected_song;
+    @BindView(R.id.btn_all_select)
+    TextView btn_all_select;
+
     private int songsType = 0;
     private static List<SongData> responseData = new ArrayList<>();
+    private static Map<String, SongData> mapSelectedSong = new HashMap<>();
+
     private SingersData singersData;
     private SongAdapter adapter;
 
     private EndlessRecyclerOnScrollListener scrollListener = new EndlessRecyclerOnScrollListener() {
         @Override
         public void onLoadMore(int currentPage) {
-            if(currentPage - 1 != adapter.getCurrentPage()) {
+            if (currentPage - 1 != adapter.getCurrentPage()) {
                 adapter.setCurrentPage(currentPage - 1);
                 requestSongList(true);
             }
@@ -119,6 +129,12 @@ public class SingerPopularFragment extends BaseFragment implements SwipeRefreshL
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        mapSelectedSong = adapter.getSelectedSongs();
+    }
+
+    @Override
     public void initialize() {
         tv_empty_title.setText(R.string.no_songs);
         singersData = getArguments().getParcelable(ParamConstants.PARAM_SINGER_DATA);
@@ -126,19 +142,23 @@ public class SingerPopularFragment extends BaseFragment implements SwipeRefreshL
         adapter = new SongAdapter(parentActivity, new SongAdapterHolderListener() {
             @Override
             public void selected(SongData song) {
-                Global.getInstance().setPlaySongListData(adapter.getSongDataList());
-
-                Intent intent = new Intent(parentActivity, PlayerActivity.class);
-                intent.putExtra(ParamConstants.PARAM_PLAY_SONG_IDX, song.song_idx);
-                parentActivity.startActivity(intent);
+                adapter.selectedSong(song);
+                List<SongData> arrayList = adapter.getSelectedSongsList();
+                try {
+                    if(arrayList.size() == adapter.getSongDataList().size()) {
+                        btn_all_select.setText(R.string.deselect_all);
+                    } else {
+                        btn_all_select.setText(R.string.select_all);
+                    }
+                } catch (Exception e) {
+                    btn_all_select.setText(R.string.select_all);
+                }
             }
 
             @Override
             public void save(SongData song) {
-                if(StorageDBHelper.getInstance().addData(song)) {
+                if (StorageDBHelper.getInstance().addData(song)) {
                     Toast.makeText(parentActivity, R.string.success_to_save_storage, Toast.LENGTH_SHORT).show();
-                } else {
-
                 }
             }
         });
@@ -179,15 +199,16 @@ public class SingerPopularFragment extends BaseFragment implements SwipeRefreshL
 
 
     private void requestSongList(boolean isForceRequest) {
-        if(!isForceRequest && responseData.size() > 0) {
+        if (!isForceRequest && responseData.size() > 0) {
             adapter.insert(responseData);
+            adapter.setSelectedSongs(mapSelectedSong);
             return;
         }
-        if(RequestUtils.getInstanse().requestSongList(parentActivity, subscription, singersData.getCategory_idx(), adapter.getCurrentPage() - 1, songsType + 1, new RequestServiceListener() {
+        if (RequestUtils.getInstanse().requestSongList(parentActivity, subscription, singersData.getCategory_idx(), adapter.getCurrentPage() - 1, songsType + 1, new RequestServiceListener() {
             @Override
             public void response(boolean is_success, BaseAPIData response) {
-                if(is_success) {
-                    if(response instanceof SongAPIData) {
+                if (is_success) {
+                    if (response instanceof SongAPIData) {
                         responseData.addAll(((SongAPIData) response).message);
                         adapter.insert(((SongAPIData) response).message);
                     }
@@ -200,7 +221,7 @@ public class SingerPopularFragment extends BaseFragment implements SwipeRefreshL
 
                 dismissLoading();
                 view_empty.setVisibility(adapter.getItemDataCount() == 0 ? View.VISIBLE : View.GONE);
-                list_view.setVisibility(adapter.getItemDataCount() == 0 ? View.GONE: View.VISIBLE);
+                list_view.setVisibility(adapter.getItemDataCount() == 0 ? View.GONE : View.VISIBLE);
             }
         })) {
             showLoading();
@@ -223,7 +244,7 @@ public class SingerPopularFragment extends BaseFragment implements SwipeRefreshL
 
     @OnClick(R.id.btn_medley)
     public void onClick_btn_medley() {
-        if(songsType != 0) {
+        if (songsType != 0) {
             updatePopularSongsTap(0);
             responseData.clear();
             adapter.clear();
@@ -233,7 +254,7 @@ public class SingerPopularFragment extends BaseFragment implements SwipeRefreshL
 
     @OnClick(R.id.btn_hit)
     public void onClick_btn_hit() {
-        if(songsType != 1) {
+        if (songsType != 1) {
             updatePopularSongsTap(1);
             responseData.clear();
             adapter.clear();
@@ -243,7 +264,7 @@ public class SingerPopularFragment extends BaseFragment implements SwipeRefreshL
 
     @OnClick(R.id.btn_all_songs)
     public void onClick_btn_all_songs() {
-        if(songsType != 2) {
+        if (songsType != 2) {
             updatePopularSongsTap(2);
             responseData.clear();
             adapter.clear();
@@ -263,7 +284,7 @@ public class SingerPopularFragment extends BaseFragment implements SwipeRefreshL
         btn_all_songs.setBackgroundResource(R.drawable.xml_singers_popular_type_btn_none_selected);
         btn_all_songs.setTypeface(btn_all_songs.getTypeface(), Typeface.NORMAL);
         btn_all_songs.setTextColor(getResources().getColor(R.color.color_5c5c5c));
-        switch (type){
+        switch (type) {
             case 0: {
                 btn_medley.setBackgroundResource(R.drawable.xml_singers_popular_type_btn);
                 btn_medley.setTypeface(btn_medley.getTypeface(), Typeface.BOLD);
@@ -284,4 +305,63 @@ public class SingerPopularFragment extends BaseFragment implements SwipeRefreshL
             }
         }
     }
+
+
+    @OnClick(R.id.btn_play_selected_song)
+    public void onClick_btn_play_selected_song() {
+        ArrayList<SongData> listSelectedSongs = adapter.getSelectedSongsList();
+        if (listSelectedSongs == null || listSelectedSongs.size() == 0) {
+            Toast.makeText(parentActivity, R.string.toast_have_not_selected_song, Toast.LENGTH_SHORT).show();
+        } else {
+//            Global.getInstance().setPlaySongListData(listSelectedSongs);
+//            Intent intent = new Intent(parentActivity, PlayerActivity.class);
+//            intent.putExtra(ParamConstants.PARAM_PLAY_SONG_IDX, listSelectedSongs.get(0).song_idx);
+//            parentActivity.startActivity(intent);
+
+            if(Global.getInstance().isShowYoutubePlayPolicy()) {
+                YoutubePolicyPopup dlg = new YoutubePolicyPopup(parentActivity);
+                dlg.setListener(new YoutubePolicyPopup.onPlayListener() {
+                    @Override
+                    public void play() {
+                        Global.getInstance().setPlaySongListData(listSelectedSongs);
+                        Intent intent = new Intent(parentActivity, PlayerActivity.class);
+                        intent.putExtra(ParamConstants.PARAM_PLAY_SONG_IDX, listSelectedSongs.get(0).song_idx);
+                        parentActivity.startActivity(intent);
+                    }
+                });
+                dlg.show();
+            } else {
+                Global.getInstance().setPlaySongListData(listSelectedSongs);
+                Intent intent = new Intent(parentActivity, PlayerActivity.class);
+                intent.putExtra(ParamConstants.PARAM_PLAY_SONG_IDX, listSelectedSongs.get(0).song_idx);
+                parentActivity.startActivity(intent);
+            }
+        }
+    }
+
+    @OnClick(R.id.btn_all_select)
+    public void onClick_btn_all_select() {
+        if(btn_all_select.getText().equals(Utils.getString(R.string.select_all))) {
+            adapter.setAllSelectedSongs();
+            btn_all_select.setText(R.string.deselect_all);
+        } else {
+            adapter.setAllDeSelectedSongs();
+            btn_all_select.setText(R.string.select_all);
+        }
+    }
+
+    @OnClick(R.id.btn_save_storage)
+    public void onClick_btn_save_storage() {
+        List<SongData> arrayList = adapter.getSelectedSongsList();
+        if (arrayList != null && arrayList.size() > 0) {
+            for (SongData song : arrayList) {
+                StorageDBHelper.getInstance().addData(song);
+            }
+            Toast.makeText(parentActivity, R.string.message_save_storage, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(parentActivity, R.string.not_selected_message_save_storage, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
 }

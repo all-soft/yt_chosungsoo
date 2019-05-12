@@ -5,48 +5,47 @@ import android.view.ViewGroup;
 import com.chsapps.yt_hongjinyoung.api.model.HomeData;
 import com.chsapps.yt_hongjinyoung.app.Global;
 import com.chsapps.yt_hongjinyoung.common.BaseActivity;
+import com.chsapps.yt_hongjinyoung.constants.AdConstants;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 public class AdUtils {
     public static final String TAG = AdUtils.class.getSimpleName();
 
-    public static void showInterstitialAd(BaseActivity activity) {
+    private static AdUtils instance = null;
 
+    public static AdUtils getInstance() {
+        if(instance == null) {
+            instance = new AdUtils();
+        }
+        return instance;
+    }
+
+    public static void showInterstitialAd(BaseActivity activity) {
         //Admob mediation.
         HomeData.AD_CONFIG adConfig = Global.getInstance().getAdConfig();
         AdMobAdUtils.showAdMobInterstitialAd(activity, adConfig);
-
-//        if (adConfig.getAd_fullad_type().equals("2")) {
-//            //Show Facebook Ad.
-//            FacebookAdUtils.showFacebookInterstitialAd(activity, adConfig);
-//        } else {
-//            //Show Admob Ad.
-//            AdMobAdUtils.showAdMobInterstitialAd(activity, adConfig);
-//        }
     }
 
     public static boolean addBannerView(BaseActivity activity, boolean isBannerAdSet, ViewGroup layerAd) {
         if (Global.getInstance().isShowBannerAdInBottom()) {
             if (!isBannerAdSet) {
-                HomeData.AD_CONFIG adConfig = Global.getInstance().getAdConfig();
+                HomeData.AD_CONFIG adConfig = null;//Global.getInstance().getAdConfig();
                 //Admob mediation.
-                com.google.android.gms.ads.AdView adMobAdView = new com.google.android.gms.ads.AdView(activity);
+                AdView adMobAdView = new AdView(activity);
                 layerAd.addView(adMobAdView);
-                AdMobAdUtils.showAdMobBannerAd(adMobAdView, adConfig.getBanner_id());
-
-//                if (adConfig.getAd_banner_type().equals("2")) {
-//                    //Show Facebook Ad.
-//                    com.facebook.ads.AdView fbAdView = new com.facebook.ads.AdView(activity, adConfig.getBanner_id(), AdSize.BANNER_HEIGHT_50);
-//                    layerAd.addView(fbAdView);
-//                    fbAdView.loadAd();
-//                } else {
-//                    //Show Admob Ad.
-//                    com.google.android.gms.ads.AdView adMobAdView = new com.google.android.gms.ads.AdView(activity);
-//                    layerAd.addView(adMobAdView);
-//                    AdMobAdUtils.showAdMobBannerAd(adMobAdView, adConfig.getBanner_id());
-//                }
+//                AdMobAdUtils.showAdMobBannerAd(adMobAdView, adConfig.getBanner_id());
+                AdMobAdUtils.showAdMobBannerAd(adMobAdView, AdConstants.AD_ID_BANNER);
                 return true;
             }
         }
         return false;
+    }
+
+    public AdRequest getAdMobAdRequest() {
+        AdRequest adRequest = new AdRequest.Builder()
+//                .addTestDevice("086A436107A5322A6AD435A899DADB5A")
+                .build();
+        return adRequest;
     }
 }

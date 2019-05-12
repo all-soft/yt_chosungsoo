@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="2.2"
-        android:contentDescription="TODO"  android:scaleType="centerCrop"
+        android:scaleType="centerCrop"
         android:src="@drawable/thumbnail"/>
     <TextView
         android:id="@+id/author"
@@ -32,19 +32,19 @@
             android:id="@+id/pause_play_video"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:contentDescription="TODO"  android:src="@drawable/pause"
+            android:src="@drawable/pause"
             android:layout_weight="1"/>
         <ImageView
             android:id="@+id/next_video"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:contentDescription="TODO"  android:src="@drawable/ic_skip_next"
+            android:src="@drawable/ic_skip_next"
             android:layout_weight="1"/>
         <ImageView
             android:id="@+id/stop_service"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:contentDescription="TODO"  android:src="@drawable/stop"
+            android:src="@drawable/stop"
             android:layout_weight="1"/>
     </LinearLayout>
 

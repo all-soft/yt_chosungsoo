@@ -10,7 +10,7 @@
 
     <ImageView
         android:id="@+id/iv_thumbnail"
-        android:layout_width="120dp" android:contentDescription="TODO"
+        android:layout_width="120dp"
         android:layout_height="80dp"
         android:layout_marginStart="10dp"
         android:layout_centerVertical="true"/>
@@ -35,7 +35,7 @@
         android:gravity="center_vertical"
         android:textSize="15sp"
         android:textColor="@color/color_2c2c2c"
-        tools:text="홍진영 노래 모음 30곡"/>
+        tools:text="나훈아 노래 모음 30곡"/>
 
     <View
         android:layout_width="match_parent"

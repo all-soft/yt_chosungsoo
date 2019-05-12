@@ -4,13 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:baselineAligned="false" android:orientation="horizontal"
+    android:orientation="horizontal"
     android:paddingTop="15dp"
     android:paddingBottom="15dp"
     android:layout_margin="3dp"
     android:background="@color/White">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/btn_singer_thumb_start"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -18,22 +18,31 @@
         android:layout_weight="1">
 
         <RelativeLayout
-            android:layout_width="122dp"
-            android:layout_height="122dp"
-            android:layout_gravity="center_horizontal"
-            tools:background="#ff0000">
+            android:layout_width="match_parent"
+            android:layout_height="62dp"
+            android:layout_centerHorizontal="true">
 
             <ImageView
                 android:id="@+id/iv_singer_thumb_start"
-                android:layout_width="122dp" android:contentDescription="TODO"
+                android:layout_width="122dp"
                 android:layout_height="122dp"
+                android:visibility="gone"
                 android:background="#00666666"/>
 
             <ImageView
-                android:id="@+id/iv_selected_singer_thumb_start"
-                android:layout_width="122dp"
+                android:layout_width="152dp"
                 android:layout_height="122dp"
-                android:contentDescription="TODO"  android:visibility="gone"
+                android:layout_centerHorizontal="true"
+                android:visibility="visible"
+                tools:visibility="visible"
+                android:background="@drawable/xml_select_singer_image"/>
+
+            <ImageView
+                android:id="@+id/iv_selected_singer_thumb_start"
+                android:layout_width="152dp"
+                android:layout_height="122dp"
+                android:layout_centerHorizontal="true"
+                android:visibility="gone"
                 android:background="@drawable/xml_select_singer_selected_image"/>
 
         </RelativeLayout>
@@ -43,16 +52,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_gravity="center_horizontal"
-            android:textSize="26sp"
+            android:layout_centerInParent="true"
+            android:textSize="23sp"
             android:textColor="#4c4c4c"
             android:textStyle="bold"
             android:gravity="center"
-            tools:text="홍진영"
+            tools:text="나훈아"
             tools:visibility="visible" />
 
-    </LinearLayout>
-    <LinearLayout
+    </RelativeLayout>
+    <RelativeLayout
         android:id="@+id/btn_singer_thumb_end"
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -60,40 +69,49 @@
         android:layout_weight="1">
 
         <RelativeLayout
-            android:layout_width="122dp"
-            android:layout_height="122dp"
-            android:layout_gravity="center_horizontal"
-            tools:background="#ff0000">
+            android:layout_width="match_parent"
+            android:layout_height="62dp"
+            android:layout_centerHorizontal="true">
 
             <ImageView
                 android:id="@+id/iv_singer_thumb_end"
-                android:layout_width="122dp" android:contentDescription="TODO"
+                android:layout_width="122dp"
                 android:layout_height="122dp"
+                android:visibility="gone"
                 android:background="#00666666"/>
 
             <ImageView
-                android:id="@+id/iv_selected_singer_thumb_end"
-                android:layout_width="122dp"
+                android:layout_width="152dp"
                 android:layout_height="122dp"
-                android:contentDescription="TODO"  android:visibility="gone"
+                android:layout_centerHorizontal="true"
+                android:visibility="visible"
+                tools:visibility="visible"
+                android:background="@drawable/xml_select_singer_image"/>
+
+            <ImageView
+                android:id="@+id/iv_selected_singer_thumb_end"
+                android:layout_width="152dp"
+                android:layout_height="122dp"
+                android:layout_centerHorizontal="true"
+                android:visibility="gone"
+                tools:visibility="gone"
                 android:background="@drawable/xml_select_singer_selected_image"/>
 
         </RelativeLayout>
-
 
         <TextView
             android:id="@+id/tv_singer_end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_gravity="center_horizontal"
-            android:textSize="26sp"
+            android:layout_centerInParent="true"
+            android:textSize="23sp"
             android:textColor="#4c4c4c"
             android:textStyle="bold"
             android:gravity="center"
-            tools:text="홍진영"
+            tools:text="나훈아"
             tools:visibility="visible" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

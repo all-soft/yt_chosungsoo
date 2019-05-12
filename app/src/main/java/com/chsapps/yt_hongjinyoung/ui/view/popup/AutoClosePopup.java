@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.chsapps.yt_hongjinyoung.R;
-import com.chsapps.yt_hongjinyoung.app.AllSoft;
 
 import butterknife.OnClick;
 
@@ -14,10 +13,15 @@ public class AutoClosePopup extends BaseDialog {
     private final static String TAG = AutoClosePopup.class.getSimpleName();
 
     private Context context;
+    private onAutoClosePopupEventListener listener;
+    public interface onAutoClosePopupEventListener {
+        void autoClose(int msTime);
+    }
 
-    public AutoClosePopup(Context context) {
+    public AutoClosePopup(Context context, onAutoClosePopupEventListener listener) {
         super(context, true, null);
         this.context = context;
+        this.listener = listener;
         initialize();
     }
 
@@ -70,7 +74,9 @@ public class AutoClosePopup extends BaseDialog {
 
         if(msTime > 0) {
             Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-            AllSoft.SetClosePlayerTimer(msTime);
+            if(listener != null) {
+                listener.autoClose(msTime);
+            }
         }
 
         dismiss();

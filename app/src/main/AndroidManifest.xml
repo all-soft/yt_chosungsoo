@@ -10,13 +10,12 @@
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 
     <application
         android:name="com.chsapps.yt_hongjinyoung.app.AllSoft"
         android:hardwareAccelerated="true"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
@@ -37,12 +36,12 @@
             android:name="io.fabric.ApiKey"
             android:value="763e87c34a8c31de60c4615861c6cefa52a49cd4" />
 
-        <meta-data
-            android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id" />
-        <meta-data
-            android:name="com.facebook.sdk.AutoLogAppEventsEnabled"
-            android:value="true" />
+        <!--<meta-data-->
+            <!--android:name="com.facebook.sdk.ApplicationId"-->
+            <!--android:value="@string/facebook_app_id" />-->
+        <!--<meta-data-->
+            <!--android:name="com.facebook.sdk.AutoLogAppEventsEnabled"-->
+            <!--android:value="true" />-->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -74,6 +73,17 @@
         <activity android:name="com.chsapps.yt_hongjinyoung.ui.activity.NewsWebActivity"
             android:screenOrientation="portrait"/>
 
+        <activity android:name="com.chsapps.yt_hongjinyoung.ui.activity.RecommendAppStoreActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name="com.chsapps.yt_hongjinyoung.ui.activity.RemovedAppActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="com.chsapps.yt_hongjinyoung.ui.activity.FullScreenPlayerActivity"
+            android:excludeFromRecents="true"
+            android:screenOrientation="landscape" />
+
         <!--SERVICE-->
         <service
             android:name="com.chsapps.yt_hongjinyoung.service.YoutubePlayerService"
@@ -89,6 +99,9 @@
             </intent-filter>
         </service>
 
+        <service android:name="com.chsapps.yt_hongjinyoung.service.PlayAPIService"
+            android:exported="true"/>
+
         <!--RECEIVER-->
 
         <!--Firebase messaging-->
@@ -98,14 +111,32 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id" />
 
-        <service
-            android:name="com.chsapps.yt_hongjinyoung.service.MyFirebaseMessagingService"
-            android:stopWithTask="false">
+        <!--<service-->
+            <!--android:name=".service.MyFirebaseMessagingService"-->
+            <!--android:stopWithTask="false">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.google.firebase.MESSAGING_EVENT" />-->
+            <!--</intent-filter>-->
+        <!--</service>-->
+
+        <service android:name="com.chsapps.yt_hongjinyoung.service.IntentService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <receiver
+            android:name="com.adjust.sdk.AdjustReferrerReceiver"
+            android:permission="android.permission.INSTALL_PACKAGES"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
 
     </application>
 

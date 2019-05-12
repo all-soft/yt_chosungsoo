@@ -24,7 +24,11 @@ import com.chsapps.yt_hongjinyoung.ui.view.popup.AppPolicyPopup;
 import com.chsapps.yt_hongjinyoung.ui.view.popup.CommonPopup;
 import com.chsapps.yt_hongjinyoung.utils.DelayListenerListener;
 import com.chsapps.yt_hongjinyoung.utils.Utils;
-import com.chsapps.yt_hongjinyoung.utils.permission.PermissionsUtils;
+import com.fingerpush.android.FingerPushManager;
+import com.fingerpush.android.NetworkUtility;
+import com.google.firebase.analytics.FirebaseAnalytics;
+
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -34,12 +38,50 @@ public class SplashActivity extends BaseActivity {
     private static final int DELAY_TIME = 2000;
 
     private int showNoticeIndex = 0;
-    private boolean isMoveSettings = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        if (getIntent().getExtras() != null) {
+            onNewIntent(getIntent());
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        if (intent.getExtras() != null) {
+
+            String msgTag = intent.getExtras().getString("msgTag");
+            String mode = intent.getExtras().getString("mode");
+            String lCode = intent.getExtras().getString("lCode");
+
+            FingerPushManager.getInstance(this).checkPush(msgTag, mode, lCode, new NetworkUtility.ObjectListener() {
+                @Override
+                public void onComplete(String code, String message, JSONObject jsonObject) {
+
+                }
+
+                @Override
+                public void onError(String code, String message) {
+
+                }
+            });
+        }
+
+        if(intent != null) {
+            boolean isReceive = intent.getBooleanExtra("receive_push", false);
+            if (isReceive) {
+                Bundle bundle = new Bundle();
+                bundle.putString("push_type", "app_launching");
+                FirebaseAnalytics.getInstance(this).logEvent("push_event", bundle);
+            }
+        }
+
+        setIntent(intent);
     }
 
     @Override
@@ -51,7 +93,7 @@ public class SplashActivity extends BaseActivity {
         Utils.delay(subscription, DELAY_TIME, new DelayListenerListener() {
             @Override
             public void delayedTime() {
-                checkPermission();
+                request_home();
             }
         });
     }
@@ -65,49 +107,11 @@ public class SplashActivity extends BaseActivity {
     @Override
     public void onResume() {
         super.onResume();
-        if (isMoveSettings) {
-            checkPermission();
-        }
-    }
-
-    private void checkPermission() {
-        //TODO : Camera and Recoding Permission Check. {}
-        if (PermissionsUtils.reqAllPermissions()) {
-            request_home();
-        } else {
-            CommonPopup dlg = new CommonPopup(this);
-            dlg.setTitleString(R.string.must_permission)
-                    .setMessageString(R.string.permission_system_alert_message)
-                    .setBtn_negative(false, null)
-                    .setBtn_positive(true, R.string.Setting)
-                    .setActionListener(new CommonPopup.CommonPopupActionListener() {
-                        @Override
-                        public void onActionPositiveBtn() {
-                            isMoveSettings = true;
-                            Utils.moveOverlaySetting(SplashActivity.this, 1000);
-                        }
-
-                        @Override
-                        public void onActionNegativeBtn() {
-                        }
-                    }).show();
-//                dlg.show();
-//                PermissionGuidePopup popup = new PermissionGuidePopup(this);
-//                popup.setCanceledOnTouchOutside(false);
-//                popup.setListner(new PermissionGuidePopup.PermissionGuidePopupListener() {
-//                    @Override
-//                    public void onClickButton() {
-//                        PermissionsUtils.showPermissionPopup(SplashActivity.this);
-//                    }
-//                });
-//                popup.show();
-
-        }
     }
 
     private void showAppPolicyDialog() {
         if (Global.getInstance().isShowAppPolicyDialog()) {
-            moveMainActivity();
+            moveRemovedAppGuideActivity();
             return;
         }
         AppPolicyPopup dlg = new AppPolicyPopup(this);
@@ -116,10 +120,26 @@ public class SplashActivity extends BaseActivity {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
                 Global.getInstance().setShowAppPolicyDialog(true);
-                moveMainActivity();
+                moveRemovedAppGuideActivity();
             }
         });
         dlg.show();
+    }
+
+    private void moveRemovedAppGuideActivity() {
+        try {
+            HomeData.VERSION_INFO version_info = Global.getInstance().getVersionInfo();
+            if (version_info != null && version_info.isRemovedApplication() && !TextUtils.isEmpty(version_info.getAppstore_url())) {
+                Intent intent = new Intent(this, RemovedAppActivity.class);
+                intent.putExtra(ParamConstants.PARAM_MARKET_URL, version_info.getAppstore_url());
+                startActivity(intent);
+                finish();
+            } else {
+                moveMainActivity();
+            }
+        } catch (Exception e) {
+            moveMainActivity();
+        }
     }
 
     private void moveMainActivity() {

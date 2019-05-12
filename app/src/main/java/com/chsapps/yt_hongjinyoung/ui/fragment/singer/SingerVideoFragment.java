@@ -30,12 +30,16 @@ import com.chsapps.yt_hongjinyoung.ui.activity.PlayerActivity;
 import com.chsapps.yt_hongjinyoung.ui.adapter.VideoAdapter;
 import com.chsapps.yt_hongjinyoung.ui.adapter.listener.SongAdapterHolderListener;
 import com.chsapps.yt_hongjinyoung.ui.view.EndlessRecyclerOnScrollListener;
+import com.chsapps.yt_hongjinyoung.ui.view.popup.YoutubePolicyPopup;
 import com.chsapps.yt_hongjinyoung.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class SingerVideoFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
     public final static String TAG = SingerVideoFragment.class.getSimpleName();
@@ -50,10 +54,16 @@ public class SingerVideoFragment extends BaseFragment implements SwipeRefreshLay
     @BindView(R.id.tv_empty_title)
     TextView tv_empty_title;
 
+    @BindView(R.id.btn_play_selected_song)
+    TextView btn_play_selected_song;
+    @BindView(R.id.btn_all_select)
+    TextView btn_all_select;
+
     private SingersData singersData;
     private VideoAdapter adapter;
 
     private static List<SongData> responseData = new ArrayList<>();
+    private static Map<String, SongData> mapSelectedSong = new HashMap<>();
 
     private EndlessRecyclerOnScrollListener scrollListener = new EndlessRecyclerOnScrollListener() {
         @Override
@@ -110,6 +120,12 @@ public class SingerVideoFragment extends BaseFragment implements SwipeRefreshLay
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        mapSelectedSong = adapter.getSelectedSongs();
+    }
+
+    @Override
     public void initialize() {
         tv_empty_title.setText(R.string.no_songs);
         singersData = getArguments().getParcelable(ParamConstants.PARAM_SINGER_DATA);
@@ -117,12 +133,17 @@ public class SingerVideoFragment extends BaseFragment implements SwipeRefreshLay
         adapter = new VideoAdapter(parentActivity, new SongAdapterHolderListener() {
             @Override
             public void selected(SongData song) {
-                song.log();
-                Global.getInstance().setPlaySongListData(adapter.getSongDataList());
-
-                Intent intent = new Intent(parentActivity, PlayerActivity.class);
-                intent.putExtra(ParamConstants.PARAM_PLAY_SONG_IDX, song.song_idx);
-                parentActivity.startActivity(intent);
+                adapter.selectedSong(song);
+                List<SongData> arrayList = adapter.getSelectedSongsList();
+                try {
+                    if(arrayList.size() == adapter.getSongDataList().size()) {
+                        btn_all_select.setText(R.string.deselect_all);
+                    } else {
+                        btn_all_select.setText(R.string.select_all);
+                    }
+                } catch (Exception e) {
+                    btn_all_select.setText(R.string.select_all);
+                }
             }
 
             @Override
@@ -213,5 +234,61 @@ public class SingerVideoFragment extends BaseFragment implements SwipeRefreshLay
 
         adapter.clear();
         requestSongList(true);
+    }
+
+    @OnClick(R.id.btn_play_selected_song)
+    public void onClick_btn_play_selected_song() {
+        ArrayList<SongData> listSelectedSongs = adapter.getSelectedSongsList();
+        if (listSelectedSongs == null || listSelectedSongs.size() == 0) {
+            Toast.makeText(parentActivity, R.string.toast_have_not_selected_song, Toast.LENGTH_SHORT).show();
+        } else {
+//            Global.getInstance().setPlaySongListData(listSelectedSongs);
+//            Intent intent = new Intent(parentActivity, PlayerActivity.class);
+//            intent.putExtra(ParamConstants.PARAM_PLAY_SONG_IDX, listSelectedSongs.get(0).song_idx);
+//            parentActivity.startActivity(intent);
+
+            if(Global.getInstance().isShowYoutubePlayPolicy()) {
+                YoutubePolicyPopup dlg = new YoutubePolicyPopup(parentActivity);
+                dlg.setListener(new YoutubePolicyPopup.onPlayListener() {
+                    @Override
+                    public void play() {
+                        Global.getInstance().setPlaySongListData(listSelectedSongs);
+                        Intent intent = new Intent(parentActivity, PlayerActivity.class);
+                        intent.putExtra(ParamConstants.PARAM_PLAY_SONG_IDX, listSelectedSongs.get(0).song_idx);
+                        parentActivity.startActivity(intent);
+                    }
+                });
+                dlg.show();
+            } else {
+                Global.getInstance().setPlaySongListData(listSelectedSongs);
+                Intent intent = new Intent(parentActivity, PlayerActivity.class);
+                intent.putExtra(ParamConstants.PARAM_PLAY_SONG_IDX, listSelectedSongs.get(0).song_idx);
+                parentActivity.startActivity(intent);
+            }
+        }
+    }
+
+    @OnClick(R.id.btn_all_select)
+    public void onClick_btn_all_select() {
+        if(btn_all_select.getText().equals(Utils.getString(R.string.select_all))) {
+            adapter.setAllSelectedSongs();
+            btn_all_select.setText(R.string.deselect_all);
+        } else {
+            adapter.setAllDeSelectedSongs();
+            btn_all_select.setText(R.string.select_all);
+        }
+    }
+
+    @OnClick(R.id.btn_save_storage)
+    public void onClick_btn_save_storage() {
+        List<SongData> arrayList = adapter.getSelectedSongsList();
+        if (arrayList != null && arrayList.size() > 0) {
+            for (SongData song : arrayList) {
+                StorageDBHelper.getInstance().addData(song);
+            }
+            Toast.makeText(parentActivity, R.string.message_save_storage, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(parentActivity, R.string.not_selected_message_save_storage, Toast.LENGTH_SHORT).show();
+        }
     }
 }

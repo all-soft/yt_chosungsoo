@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,6 +36,12 @@ public class VideoAdapterHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.btn_save)
     ViewGroup btn_save;
 
+    @BindView(R.id.view_selected)
+    View view_selected;
+
+    @BindView(R.id.chb_selected)
+    CheckBox chb_selected;
+
     public VideoAdapterHolder(Context context, View itemView, SongAdapterHolderListener listener) {
         super(itemView);
         this.context = context;
@@ -43,10 +50,12 @@ public class VideoAdapterHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, itemView);
     }
 
-    public void update(SongData songData) {
+    public void update(SongData songData, boolean isSelected) {
         this.songData = songData;
         Glide.with(context).load(songData.getThumbnail()).into(iv_thumbnail);
         tv_title.setText(songData.getTitle());
+        view_selected.setVisibility(isSelected ? View.VISIBLE : View.GONE);
+        chb_selected.setChecked(isSelected);
     }
 
     @OnClick(R.id.layer_main)

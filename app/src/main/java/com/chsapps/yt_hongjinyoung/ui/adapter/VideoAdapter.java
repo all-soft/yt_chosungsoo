@@ -13,9 +13,12 @@ import com.chsapps.yt_hongjinyoung.data.SongData;
 import com.chsapps.yt_hongjinyoung.ui.adapter.holder.AdmobNativeAdAdapterHolder;
 import com.chsapps.yt_hongjinyoung.ui.adapter.holder.VideoAdapterHolder;
 import com.chsapps.yt_hongjinyoung.ui.adapter.listener.SongAdapterHolderListener;
+import com.chsapps.yt_hongjinyoung.utils.LogUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class VideoAdapter extends BaseAdapter {
     private static String TAG = VideoAdapter.class.getSimpleName();
@@ -51,12 +54,14 @@ public class VideoAdapter extends BaseAdapter {
         }
 
         if(holder instanceof VideoAdapterHolder) {
-            ((VideoAdapterHolder) holder).update(arraySongs.get(getPosition(position)));
+            SongData song = arraySongs.get(getPosition(position));
+            song.log();
+            boolean isSelected = mapSelectedSongs.containsKey(song.getRealVideoId());
+            LogUtil.e("HSSEO", "SIZE : " + mapSelectedSongs.size() + "/" + song.getRealVideoId());
+            ((VideoAdapterHolder) holder).update(song, isSelected);
         } else if(holder instanceof AdmobNativeAdAdapterHolder) {
             loadAdmobAd(position, ((AdmobNativeAdAdapterHolder)holder));
-        } /*else if(holder instanceof FacebookNativeAdAdapterHolder) {
-            loadFacebookAd(position, ((FacebookNativeAdAdapterHolder)holder));
-        }*/
+        }
     }
 
     @Override
@@ -64,7 +69,7 @@ public class VideoAdapter extends BaseAdapter {
         if(arraySongs == null) {
             return 0;
         }
-        if(!isAddAd || isPlayerStatus) {
+        if(!isAddAd) {
             return arraySongs.size();
         }
         return arraySongs.size() + arraySongs.size() / adTerm + 1;
@@ -97,7 +102,7 @@ public class VideoAdapter extends BaseAdapter {
             if(!TextUtils.isEmpty(stringBuilder)){
                 stringBuilder.append(",");
             }
-            stringBuilder.append(song.song_idx);
+            stringBuilder.append(song.getRealVideoId());
         }
         return stringBuilder.toString();
     }
@@ -115,5 +120,47 @@ public class VideoAdapter extends BaseAdapter {
     public void clear() {
         arraySongs.clear();
         currentPage = 1;
+    }
+
+    private Map<String, SongData> mapSelectedSongs = new HashMap<>();
+    public void setSelectedSongs(Map<String, SongData> mapSelectedSongs) {
+        this.mapSelectedSongs = mapSelectedSongs;
+        notifyDataSetChanged();
+    }
+    public Map<String, SongData> getSelectedSongs() {
+        return mapSelectedSongs;
+    }
+    public ArrayList<SongData> getSelectedSongsList() {
+        ArrayList<SongData> selectedSongsList = new ArrayList<>();
+        for(SongData song : arraySongs) {
+            if(song == null)  continue;
+            if(mapSelectedSongs.containsKey(song.getRealVideoId()))
+                selectedSongsList.add(song);
+        }
+        return selectedSongsList;
+    }
+    public void selectedSong(SongData song) {
+        song.log();
+        if(mapSelectedSongs.containsKey(song.getRealVideoId())) {
+            mapSelectedSongs.remove(song.getRealVideoId());
+        } else {
+            mapSelectedSongs.put(song.getRealVideoId(), song);
+        }
+        notifyDataSetChanged();
+    }
+    public boolean isAllSelected() {
+        return arraySongs.size() == mapSelectedSongs.size();
+    }
+    public void setAllSelectedSongs() {
+        mapSelectedSongs.clear();
+        for(SongData song : arraySongs) {
+            if(song == null)  continue;
+            mapSelectedSongs.put(song.getRealVideoId(), song);
+        }
+        notifyDataSetChanged();
+    }
+    public void setAllDeSelectedSongs() {
+        mapSelectedSongs.clear();
+        notifyDataSetChanged();
     }
 }

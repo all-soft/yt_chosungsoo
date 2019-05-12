@@ -13,6 +13,8 @@ import com.chsapps.yt_hongjinyoung.ui.adapter.holder.AdmobNativeAdAdapterHolder;
 import com.chsapps.yt_hongjinyoung.ui.adapter.holder.SingerAdapterHolder;
 import com.chsapps.yt_hongjinyoung.ui.adapter.listener.SingerAdapterHolderListener;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class SingersAdapter extends BaseAdapter {
@@ -21,6 +23,8 @@ public class SingersAdapter extends BaseAdapter {
     private SingerAdapterHolderListener listener;
     private List<SingersData> arraySingers;
     private SingersData selectedSinger;
+
+    private int category_layout = 1;
 
     public SingersAdapter(Context context, SingerAdapterHolderListener listener) {
         super(context);
@@ -40,6 +44,12 @@ public class SingersAdapter extends BaseAdapter {
 
         this.context = context;
         this.listener = listener;
+
+        try {
+            category_layout = Global.getInstance().getVersionInfo().getCategory_layout();
+        } catch (Exception e) {
+            category_layout = 2;
+        }
         setIsAddedAd(isAddAd);
 
         try {
@@ -54,7 +64,12 @@ public class SingersAdapter extends BaseAdapter {
         if(viewType != LIST_ITEM_TYPE_DATA) {
             return super.onCreateViewHolder(parent, viewType);
         }
-        return new SingerAdapterHolder(context, LayoutInflater.from(parent.getContext()).inflate(R.layout.view_adapter_singer, parent, false), listener);
+        return new SingerAdapterHolder(context,
+                LayoutInflater.from(
+                        parent.getContext()).inflate(
+                                category_layout == 2 ? R.layout.view_adapter_singer_type_2 : R.layout.view_adapter_singer_type_1,
+                                parent, false),
+                listener);
     }
 
     @Override
@@ -85,9 +100,7 @@ public class SingersAdapter extends BaseAdapter {
             ((SingerAdapterHolder) holder).update(startData, endData, selectedSinger);
         } else if (holder instanceof AdmobNativeAdAdapterHolder) {
             loadAdmobAd(position, ((AdmobNativeAdAdapterHolder) holder));
-        } /*else if (holder instanceof FacebookNativeAdAdapterHolder) {
-            loadFacebookAd(position, ((FacebookNativeAdAdapterHolder) holder));
-        }*/
+        }
     }
 
     @Override
@@ -95,18 +108,17 @@ public class SingersAdapter extends BaseAdapter {
         if (arraySingers == null) {
             return 0;
         }
-        if(!isAddAd || isPlayerStatus) {
-            return arraySingers.size();
+        if(!isAddAd) {
+            return arraySingers.size() / 2;
         }
         return arraySingers.size() == 1 ? 1 : getItemCount(arraySingers.size()) / 2;
     }
-
-
 
     public void insert(List<SingersData> arraySongData) {
         if (this.arraySingers != null)
             this.arraySingers.clear();
         this.arraySingers = arraySongData;
+        sort();
         notifyDataSetChanged();
     }
 
@@ -117,5 +129,17 @@ public class SingersAdapter extends BaseAdapter {
     public void selectedSinger(SingersData selectedSinger) {
         this.selectedSinger = selectedSinger;
         notifyDataSetChanged();
+    }
+
+    private void sort() {
+        Collections.sort(arraySingers, new NameAscCompare());
+    }
+
+    static class NameAscCompare implements Comparator<SingersData> {
+        @Override
+        public int compare(SingersData arg0, SingersData arg1) {
+            return arg0.getCategory_name().compareTo(arg1.getCategory_name());
+        }
+
     }
 }

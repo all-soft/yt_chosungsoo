@@ -54,9 +54,7 @@ public class NewsAdapter extends BaseAdapter {
             ((NewsAdapterHolder) holder).update(arrayNews.get(getPosition(position)));
         } else if(holder instanceof AdmobNativeAdAdapterHolder) {
             loadAdmobAd(position, ((AdmobNativeAdAdapterHolder)holder));
-        } /*else if(holder instanceof FacebookNativeAdAdapterHolder) {
-            loadFacebookAd(position, ((FacebookNativeAdAdapterHolder)holder));
-        }*/
+        }
     }
 
     @Override
@@ -64,7 +62,7 @@ public class NewsAdapter extends BaseAdapter {
         if(arrayNews == null) {
             return 0;
         }
-        if(!isAddAd || isPlayerStatus) {
+        if(!isAddAd) {
             return arrayNews.size();
         }
         return arrayNews.size() + arrayNews.size() / adTerm + 1;

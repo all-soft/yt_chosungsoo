@@ -52,7 +52,8 @@ public class NewsReviewActivity extends BaseActivity implements NavigationView.O
     @Override
     protected void onResume() {
         super.onResume();
-        if (Global.getInstance().isShowInterstitialAdInMainActivity() && !Global.getInstance().isMainActivityAdShow) {
+        if (Global.getInstance().isShowInterstitialAdInMainActivity() && !Global.getInstance().isMainActivityAdShow)
+        {
             Global.getInstance().isMainActivityAdShow = true;
             AdUtils.showInterstitialAd(this);
         }

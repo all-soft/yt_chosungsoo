@@ -16,9 +16,10 @@ android {
         applicationId "com.chsapps.yt_hongjinyoung"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 2
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        versionCode 8
+        versionName "1.2"
+        ndk.abiFilters 'armeabi-v7a','arm64-v8a','x86','x86_64'
+
         multiDexEnabled true
         externalNativeBuild {
             cmake {
@@ -27,7 +28,7 @@ android {
         }
 
         ndk {
-            abiFilters 'x86','armeabi-v7a'
+            abiFilters 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
         }
     }
 
@@ -35,6 +36,13 @@ android {
         cmake {
             path "CMakeLists.txt"
         }
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
     }
 
     signingConfigs {
@@ -53,6 +61,7 @@ android {
 
     buildTypes {
         release {
+            aaptOptions.cruncherEnabled=false
             minifyEnabled true
             shrinkResources true
             zipAlignEnabled true
@@ -74,6 +83,7 @@ android {
             outputFileName = "${archivesBaseName}-v${variant.versionName}-${variant.buildType.name}.apk"
         }
     }
+    buildToolsVersion '28.0.3'
 }
 
 configurations.all{
@@ -86,34 +96,27 @@ configurations.all{
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    implementation 'com.google.firebase:firebase-messaging:17.3.4'
+//    implementation 'com.android.support:support-annotations:28.0.0'
+//    implementation "com.android.support:support-compat:28.0.0"
+    implementation 'com.google.firebase:firebase-core:16.0.8'
+    implementation 'com.google.firebase:firebase-messaging:17.6.0'
+    implementation project(':fingerpush_3.1.5')
     implementation 'com.android.support:recyclerview-v7:28.0.0'
     implementation 'com.android.support:cardview-v7:28.0.0'
     implementation 'com.android.support:design:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation 'com.android.support:multidex:1.0.3'
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation('com.android.support.test:runner:1.0.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-
-    implementation "com.google.ads.mediation:facebook:$rootProject.ext.mediationFacebookVersion"
     implementation "com.google.android.gms:play-services-ads:$rootProject.ext.playservicesAdsVersion"
-    implementation "com.google.android.ads:mediation-test-suite:$rootProject.ext.mediationTestSuiteVersion"
 
-    implementation "com.facebook.android:facebook-core:4.39.0"
     implementation 'com.facebook.stetho:stetho:1.5.0'
 
     implementation 'com.jakewharton:butterknife:8.5.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     implementation 'com.jakewharton.rxrelay2:rxrelay:2.1.0'
 
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.4'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.6'
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
@@ -124,11 +127,9 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.0.0'
 
     implementation 'com.scottyab:secure-preferences-lib:0.1.4'
-    implementation 'com.facebook.android:facebook-android-sdk:4.39.0'
-    implementation 'com.facebook.android:audience-network-sdk:5.1.0'
     implementation 'pub.devrel:easypermissions:2.0.0'
 
-    implementation 'com.airbnb.android:lottie:2.5.5'
+    implementation 'com.airbnb.android:lottie:2.7.0'
     implementation 'com.nick.mowen.linkpreview:linkpreview:1.1.3'
 
     implementation 'com.github.bumptech.glide:glide:4.8.0'
@@ -136,7 +137,12 @@ dependencies {
 
     implementation 'com.squareup.sqlbrite:sqlbrite:1.1.1'
 
-    implementation "com.crashlytics.sdk.android:crashlytics:2.9.8"
+    implementation "com.crashlytics.sdk.android:crashlytics:2.9.9"
+
+    implementation 'com.adjust.sdk:adjust-android:4.17.0'
+    implementation 'com.android.installreferrer:installreferrer:1.0'
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

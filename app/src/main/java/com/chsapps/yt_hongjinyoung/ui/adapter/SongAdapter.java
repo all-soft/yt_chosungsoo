@@ -14,7 +14,9 @@ import com.chsapps.yt_hongjinyoung.ui.adapter.holder.SongAdapterHolder;
 import com.chsapps.yt_hongjinyoung.ui.adapter.listener.SongAdapterHolderListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SongAdapter extends BaseAdapter {
     private static String TAG = SongAdapter.class.getSimpleName();
@@ -26,9 +28,9 @@ public class SongAdapter extends BaseAdapter {
 
     private boolean isDeletedItem = false;
 
-
     public SongAdapter(Context context, SongAdapterHolderListener listener){
         super(context);
+
         this.context = context;
         this.listener = listener;
 
@@ -58,7 +60,10 @@ public class SongAdapter extends BaseAdapter {
         }
 
         if(holder instanceof SongAdapterHolder) {
-            ((SongAdapterHolder) holder).update(arraySongs.get(getPosition(position)), true, isDeletedItem);
+            int index = position - position / adTerm;
+            SongData song = arraySongs.get(getPosition(position));
+            boolean isSelected = mapSelectedSongs.containsKey(song.getRealVideoId());
+            ((SongAdapterHolder) holder).update(index, song, true, isDeletedItem, isSelected);
         } else if(holder instanceof AdmobNativeAdAdapterHolder) {
             loadAdmobAd(position, ((AdmobNativeAdAdapterHolder)holder));
         }
@@ -69,7 +74,8 @@ public class SongAdapter extends BaseAdapter {
         if(arraySongs == null) {
             return 0;
         }
-        if(!isAddAd || isPlayerStatus) {
+
+        if(!isAddAd) {
             return arraySongs.size();
         }
         return arraySongs.size() + arraySongs.size() / adTerm + 1;
@@ -96,5 +102,46 @@ public class SongAdapter extends BaseAdapter {
 
     public List<SongData> getSongDataList() {
         return arraySongs;
+    }
+
+    private Map<String, SongData> mapSelectedSongs = new HashMap<>();
+    public void setSelectedSongs(Map<String, SongData> mapSelectedSongs) {
+        this.mapSelectedSongs = mapSelectedSongs;
+        notifyDataSetChanged();
+    }
+    public Map<String, SongData> getSelectedSongs() {
+        return mapSelectedSongs;
+    }
+    public ArrayList<SongData> getSelectedSongsList() {
+        ArrayList<SongData> selectedSongsList = new ArrayList<>();
+        for(SongData song : arraySongs) {
+            if(song == null)  continue;
+            if(mapSelectedSongs.containsKey(song.getRealVideoId()))
+                selectedSongsList.add(song);
+        }
+        return selectedSongsList;
+    }
+    public void selectedSong(SongData song) {
+        if(mapSelectedSongs.containsKey(song.getRealVideoId())) {
+            mapSelectedSongs.remove(song.getRealVideoId());
+        } else {
+            mapSelectedSongs.put(song.getRealVideoId(), song);
+        }
+        notifyDataSetChanged();
+    }
+    public boolean isAllSelected() {
+        return arraySongs.size() == mapSelectedSongs.size();
+    }
+    public void setAllSelectedSongs() {
+        mapSelectedSongs.clear();
+        for(SongData song : arraySongs) {
+            if(song == null)  continue;
+            mapSelectedSongs.put(song.getRealVideoId(), song);
+        }
+        notifyDataSetChanged();
+    }
+    public void setAllDeSelectedSongs() {
+        mapSelectedSongs.clear();
+        notifyDataSetChanged();
     }
 }

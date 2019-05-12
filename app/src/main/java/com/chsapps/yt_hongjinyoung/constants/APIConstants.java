@@ -1,7 +1,5 @@
 package com.chsapps.yt_hongjinyoung.constants;
 
-import com.chsapps.yt_hongjinyoung.BuildConfig;
-
 public class APIConstants {
 
     public static final int RESPONSE_SUCCESS = 200;
@@ -16,7 +14,8 @@ public class APIConstants {
 
 
     public static final int SERVER_CONNTECT_TIME = 10000;
-    public static final String API_SERVER_URL = BuildConfig.API_BASE_URL;
+    public static final String API_SERVER_URL = "https://api-idol-dot-calllocker-94b36.appspot.com";
+    public static final String API_TEST_SERVER_URL = "https://api-idol-test-dot-calllocker-94b36.appspot.com";
 
     public static final int LIST_MINIMUM_REQ_ITEM_CNT = 10;
 }

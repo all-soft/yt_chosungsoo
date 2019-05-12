@@ -23,6 +23,8 @@ public class SongAdapterHolder extends RecyclerView.ViewHolder {
     private SongData songData;
     private SongAdapterHolderListener listener;
 
+    @BindView(R.id.layer_selected)
+    View layer_selected;
     @BindView(R.id.iv_thumbnail)
     ImageView iv_thumbnail;
     @BindView(R.id.tv_title)
@@ -33,6 +35,8 @@ public class SongAdapterHolder extends RecyclerView.ViewHolder {
     View btn_ico_save;
     @BindView(R.id.btn_ico_delete)
     View btn_ico_delete;
+    @BindView(R.id.tv_index)
+    TextView tv_index;
 
     public SongAdapterHolder(Context context, View itemView, SongAdapterHolderListener listener) {
         super(itemView);
@@ -42,7 +46,7 @@ public class SongAdapterHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, itemView);
     }
 
-    public void update(SongData songData, boolean isVisibleActionBtn, boolean isDeleted) {
+    public void update(int index, SongData songData, boolean isVisibleActionBtn, boolean isDeleted, boolean isSelected) {
         this.songData = songData;
 
         btn_save.setVisibility(isVisibleActionBtn ? View.VISIBLE : View.GONE);
@@ -55,6 +59,8 @@ public class SongAdapterHolder extends RecyclerView.ViewHolder {
             btn_ico_save.setVisibility(View.VISIBLE);
             btn_ico_delete.setVisibility(View.GONE);
         }
+        layer_selected.setVisibility(isSelected ? View.VISIBLE : View.GONE);
+        tv_index.setText(String.valueOf(index));
     }
 
     @OnClick(R.id.btn_save)

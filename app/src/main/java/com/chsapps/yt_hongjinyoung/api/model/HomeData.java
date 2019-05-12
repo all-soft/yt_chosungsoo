@@ -1,5 +1,7 @@
 package com.chsapps.yt_hongjinyoung.api.model;
 
+import android.text.TextUtils;
+
 import java.util.List;
 
 public class HomeData extends BaseAPIData {
@@ -63,7 +65,7 @@ public class HomeData extends BaseAPIData {
         }
 
         public int getNative_ad_term() {
-            return 8;
+            return 100;//8;
         }
 
         String fullad_type;
@@ -100,10 +102,41 @@ public class HomeData extends BaseAPIData {
             return getString(minium_version_name);
         }
 
+        public boolean isAppRemoved() {
+            if(app_removed == 1 && !TextUtils.isEmpty(appstore_url)) {
+                return true;
+            }
+            return false;
+        }
+
+        public String getAppStoreURL() {
+            if(appstore_url == null)
+                return "";
+            return appstore_url;
+        }
+
+        public boolean isRemovedApplication() {
+            return app_removed == 1;
+        }
+
+        public String getAppstore_url() {
+            if(appstore_url == null) {
+                return "";
+            }
+            return appstore_url;
+        }
+
+        public int getCategory_layout() {
+            return category_layout;
+        }
+
         int lastest_version_code;
         String lasted_version_name;
         int minimum_version_code;
         String minium_version_name;
+        int app_removed;
+        String appstore_url;
+        int category_layout;
     }
 
     public class NOTICE {

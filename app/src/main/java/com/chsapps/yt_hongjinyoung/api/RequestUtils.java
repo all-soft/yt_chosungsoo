@@ -7,6 +7,7 @@ import com.chsapps.yt_hongjinyoung.R;
 import com.chsapps.yt_hongjinyoung.api.model.BaseAPIData;
 import com.chsapps.yt_hongjinyoung.api.model.HomeData;
 import com.chsapps.yt_hongjinyoung.api.model.NewsAPIData;
+import com.chsapps.yt_hongjinyoung.api.model.RecommAppAPIData;
 import com.chsapps.yt_hongjinyoung.api.model.SingersAPIData;
 import com.chsapps.yt_hongjinyoung.api.model.SongAPIData;
 import com.chsapps.yt_hongjinyoung.constants.Constants;
@@ -114,7 +115,7 @@ public class RequestUtils {
         }
 
         subscription.add(APIUtils.getInstanse().getApiService()
-                .request_singers(Constants.APP_ID, Utils.getLanguage(), 50, 0)
+                .request_singers(Constants.APP_ID, Utils.getLanguage(), 100, 0)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally(new Action() {
@@ -435,6 +436,48 @@ public class RequestUtils {
 
                         if (songAPIData != null && !isSuccessResponse(songAPIData)) {
                             showErrorDlg(activity, songAPIData);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                    }
+                }));
+
+        return true;
+    }
+
+    public boolean requestrequestRecomAppRecomApp(final Activity activity, CompositeDisposable subscription, final RequestServiceListener listener) {
+        if (Utils.unableRequestAPI(activity, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        })) {
+            return false;
+        }
+
+        subscription.add(APIUtils.getInstanse().getApiService()
+                .request_recommend_app_list(Constants.APP_ID, Utils.getLanguage())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doFinally(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        if(listener != null){
+                            listener.complete();
+                        }
+                    }
+                })
+                .subscribe(new Consumer<RecommAppAPIData>() {
+                    @Override
+                    public void accept(RecommAppAPIData appDatas) throws Exception {
+                        if (listener != null) {
+                            listener.response(isSuccessResponse(appDatas), appDatas);
+                        }
+
+                        if (appDatas != null && !isSuccessResponse(appDatas)) {
+                            showErrorDlg(activity, appDatas);
                         }
                     }
                 }, new Consumer<Throwable>() {

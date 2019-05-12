@@ -51,7 +51,8 @@ public class SearchActivity extends BaseActivity implements NavigationView.OnNav
     @Override
     protected void onResume() {
         super.onResume();
-        if (Global.getInstance().isShowInterstitialAdInMainActivity() && !Global.getInstance().isMainActivityAdShow) {
+        if (Global.getInstance().isShowInterstitialAdInMainActivity() && !Global.getInstance().isMainActivityAdShow)
+        {
             Global.getInstance().isMainActivityAdShow = true;
             AdUtils.showInterstitialAd(this);
         }

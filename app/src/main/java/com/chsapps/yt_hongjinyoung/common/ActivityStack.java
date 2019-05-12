@@ -2,10 +2,7 @@ package com.chsapps.yt_hongjinyoung.common;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Intent;
 
-import com.chsapps.yt_hongjinyoung.constants.PlayerConstants;
-import com.chsapps.yt_hongjinyoung.service.YoutubePlayerService;
 import com.chsapps.yt_hongjinyoung.ui.activity.MainActivity;
 
 import java.lang.ref.WeakReference;
@@ -285,12 +282,6 @@ public class ActivityStack {
         ActivityRef ref = getActivityRef(activity);
         if (ref != null) {
             ref.isResume = false;
-
-            Intent i = new Intent(activity, YoutubePlayerService.class);
-            i.putExtra("ACTION_SET_YOUTUBE_PLAYER_TYPE", PlayerConstants.PLAYER_TYPE_FLOATING);
-            i.setAction(PlayerConstants.ACTION.ACTION_SET_YOUTUBE_PLAYER_TYPE);
-            activity.startService(i);
-
             return true;
         }
         return false;

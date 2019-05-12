@@ -32,7 +32,8 @@
             android:id="@+id/layer_player"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/layer_bottom">
+            android:layout_above="@id/layer_bottom"
+            android:visibility="gone">
 
             <include
                 layout="@layout/view_player_layer_in_activity"

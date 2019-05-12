@@ -1,21 +1,17 @@
 package com.chsapps.yt_hongjinyoung.ui.view.popup;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.chsapps.yt_hongjinyoung.R;
 import com.chsapps.yt_hongjinyoung.app.Global;
+import com.chsapps.yt_hongjinyoung.utils.AdUtils;
 import com.chsapps.yt_hongjinyoung.utils.Utils;
-import com.google.ads.mediation.facebook.FacebookAdapter;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
-import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.formats.MediaView;
 import com.google.android.gms.ads.formats.NativeAdOptions;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
@@ -32,15 +28,15 @@ public class ExitPopup extends BaseDialog {
 
     private CommonPopupActionListener actionListener;
 
+    @BindView(R.id.layer_exit)
+    ViewGroup layer_exit;
     @BindView(R.id.image_share)
-    ImageView image_share;
+    ViewGroup image_share;
     @BindView(R.id.adView)
     FrameLayout adViewLayer;
 
-    @BindView(R.id.layer_none_ad_content)
-    ViewGroup layer_none_ad_content;
-    @BindView(R.id.layer_ad_content)
-    ViewGroup layer_ad_content;
+    @BindView(R.id.layer_review)
+    ViewGroup layer_review;
 
     public interface CommonPopupActionListener {
         void onActionPositiveBtn();
@@ -70,20 +66,29 @@ public class ExitPopup extends BaseDialog {
 
     private void initialize() {
         setContentView(R.layout.view_exit_popup);
-        if(false) {//Global.getInstance().isShowExitAd()) {
+
+        int exitType = Global.getInstance().isFirstExitApp();
+        if(exitType == 0) {
+            //TODO : 앱 평가 팝업.
+            layer_review.setVisibility(View.VISIBLE);
+            layer_exit.setVisibility(View.GONE);
+            Global.getInstance().setFirstExitApp(1);
+        } else if(exitType == 1) {
+            //TODO : 친구 곡 소개 추천 팝업
+            layer_exit.setVisibility(View.VISIBLE);
+            layer_review.setVisibility(View.GONE);
+            Global.getInstance().setFirstExitApp(2);
+
+            image_share.setVisibility(View.VISIBLE);
+            adViewLayer.setVisibility(View.GONE);
+        } else {
+            //TODO : 광고 팝업
+            loadAd();
+            layer_exit.setVisibility(View.VISIBLE);
+            layer_review.setVisibility(View.GONE);
+
             image_share.setVisibility(View.GONE);
             adViewLayer.setVisibility(View.VISIBLE);
-            loadAd();
-        } else {
-            layer_ad_content.setVisibility(View.GONE);
-            layer_none_ad_content.setVisibility(View.VISIBLE);
-
-            if(Global.staticSingersData != null) {
-                Global.staticSingersData.Log();
-                Glide.with(context).load(Global.staticSingersData.getCategory_share_url()).into(image_share);
-            } else {
-                image_share.setBackgroundResource(R.drawable.img_add);
-            }
         }
     }
 
@@ -105,18 +110,9 @@ public class ExitPopup extends BaseDialog {
         dismiss();
     }
 
-    @OnClick(R.id.btn_exit)
-    public void onClick_btn_exit() {
-        if(actionListener != null) {
-            actionListener.onActionPositiveBtn();
-        }
-
-        dismiss();
-    }
-
     @OnClick(R.id.btn_share)
     public void onClick_btn_share() {
-        Utils.showShare(context, Utils.getString(R.string.Share), Utils.getString(R.string.message_share_application));
+        Utils.showShare(context, Utils.getString(R.string.title_share_application), Utils.getString(R.string.message_share_application));
     }
 
     private void loadAd() {
@@ -154,13 +150,22 @@ public class ExitPopup extends BaseDialog {
                         // used here to specify individual options settings.
                         .build())
                 .build();
-        Bundle extras = new FacebookAdapter.FacebookExtrasBundleBuilder()
-                .setNativeAdChoicesIconExpandable(false)
-                .build();
-        AdRequest adRequest = new AdRequest.Builder()
-                .addNetworkExtrasBundle(FacebookAdapter.class, extras)
-                .addTestDevice("086A436107A5322A6AD435A899DADB5A")
-                .build();
-        adLoader.loadAd(adRequest);
+        adLoader.loadAd(AdUtils.getInstance().getAdMobAdRequest());
     }
+
+    @OnClick(R.id.btn_layer_1_exit)
+    public void onClick_btn_layer_1_exit() {
+        if(actionListener != null) {
+            actionListener.onActionPositiveBtn();
+        }
+
+        dismiss();
+    }
+
+    @OnClick(R.id.btn_layer_1_review)
+    public void onClick_btn_layer_1_review() {
+        dismiss();
+        Utils.moveMarket();
+    }
+
 }

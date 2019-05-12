@@ -11,7 +11,6 @@ import android.webkit.WebView;
 import android.widget.RelativeLayout;
 import com.chsapps.yt_hongjinyoung.R;
 import com.chsapps.yt_hongjinyoung.common.BaseActivity;
-import com.chsapps.yt_hongjinyoung.service.YoutubePlayerService;
 import com.chsapps.yt_hongjinyoung.ui.youtube_player.JavaScript;
 import com.chsapps.yt_hongjinyoung.ui.youtube_player.WebPlayer;
 import com.chsapps.yt_hongjinyoung.utils.DelayListenerListener;
@@ -131,8 +130,6 @@ public class BatterySaveActivity extends BaseActivity implements View.OnTouchLis
 
         player = WebPlayer.getPlayer();
         if(player != null) {
-            YoutubePlayerService.getInstance().hideFloatingPlayer();
-
             WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                     WindowManager.LayoutParams.MATCH_PARENT,
                     WindowManager.LayoutParams.MATCH_PARENT

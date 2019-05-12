@@ -8,6 +8,6 @@
         android:id="@+id/song_icon"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:contentDescription="TODO" android:src="@mipmap/ic_launcher"
+        android:src="@mipmap/ic_launcher"
         android:visibility="gone"/>
 </LinearLayout>

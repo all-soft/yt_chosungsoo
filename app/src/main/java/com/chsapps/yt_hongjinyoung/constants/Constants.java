@@ -9,4 +9,6 @@ public class Constants {
 
     public static final float MINIMUM_RESIZE_FONT_SCALE = 0.5f;
     public static final float MAXIMUM_RESIZE_FONT_SCALE = 1.5f;
+
+    public static String FCM_TOPIC = "yt_hongjinyoung";
 }

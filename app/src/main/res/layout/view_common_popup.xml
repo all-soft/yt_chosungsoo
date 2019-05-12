@@ -60,7 +60,7 @@
                 android:id="@+id/et_input"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="" android:paddingEnd="15dp"
+                android:paddingEnd="15dp"
                 android:paddingStart="15dp"
                 android:textColor="#656565"
                 android:textSize="13sp"

@@ -1,15 +1,15 @@
 package com.chsapps.yt_hongjinyoung.preference;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.chsapps.yt_hongjinyoung.app.AllSoft;
-import com.securepreferences.SecurePreferences;
 
 public class Preference {
     private final static String TAG = Preference.class.getSimpleName();
 
     private static Preference instance;
-    private SharedPreferences prefs = new SecurePreferences(AllSoft.getContext());
+    private SharedPreferences prefs = null;//new SecurePreferences(AllSoft.getContext());
     public static Preference getInstance() {
         if(instance == null) {
             instance = new Preference();
@@ -47,11 +47,13 @@ public class Preference {
     }
 
     private void initialize() {
+        prefs = AllSoft.getContext().getSharedPreferences(AllSoft.getContext().getPackageName(), Context.MODE_PRIVATE);
+
     }
 
     public void clear() {
         SharedPreferences.Editor editor = prefs.edit();
         editor.clear();
-        editor.apply();
+        editor.commit();
     }
 }

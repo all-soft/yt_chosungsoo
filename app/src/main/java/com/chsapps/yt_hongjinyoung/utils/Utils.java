@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.Parcelable;
 import android.provider.Settings;
@@ -23,13 +22,10 @@ import com.chsapps.yt_hongjinyoung.R;
 import com.chsapps.yt_hongjinyoung.app.AllSoft;
 import com.chsapps.yt_hongjinyoung.app.Global;
 import com.chsapps.yt_hongjinyoung.constants.Constants;
-import com.google.android.gms.ads.identifier.AdvertisingIdClient;
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.chsapps.yt_hongjinyoung.ui.activity.RecommendAppStoreActivity;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -230,18 +226,18 @@ public class Utils {
     }
 
     public static void setADID() {
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    AdvertisingIdClient.Info adInfo = AdvertisingIdClient.getAdvertisingIdInfo(getContext());
-                    String adId = adInfo != null ? adInfo.getId() : null;
-                    Global.getInstance().setADID(adId);
-                } catch (IOException | GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException exception) {
-                    LogUtil.e("UTILS_EXCEPTION. (setADID)", exception.getMessage());
-                }
-            }
-        });
+//        AsyncTask.execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    AdvertisingIdClient.Info adInfo = AdvertisingIdClient.getAdvertisingIdInfo(getContext());
+//                    String adId = adInfo != null ? adInfo.getId() : null;
+//                    Global.getInstance().setADID(adId);
+//                } catch (IOException | GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException exception) {
+//                    LogUtil.e("UTILS_EXCEPTION. (setADID)", exception.getMessage());
+//                }
+//            }
+//        });
     }
 
     public static String getDeviceId() {
@@ -249,7 +245,21 @@ public class Utils {
     }
 
     public static void moveMarket() {
-        AllSoft.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.MARKET_URL)));
+        moveMarket(Constants.MARKET_URL);
+    }
+
+    public static void moveMarket(String market_url) {
+        Intent goToMarket = new Intent(Intent.ACTION_VIEW).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK).setData(Uri.parse(market_url));
+        AllSoft.getContext().startActivity(goToMarket);
+    }
+
+    public static void moveCompanyAppsMarket() {
+//        Intent goToMarket = new Intent(Intent.ACTION_VIEW).setData(Uri.parse("market://search?q=<pub:CHS32Apps>"));
+//        AllSoft.getContext().startActivity(goToMarket);
+
+        Intent intent = new Intent(AllSoft.getContext(), RecommendAppStoreActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        AllSoft.getContext().startActivity(intent);
     }
 
     public static void delay(CompositeDisposable subscription, int delayTime, final DelayListenerListener listener) {

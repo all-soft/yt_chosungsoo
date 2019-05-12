@@ -1,10 +1,14 @@
 package com.chsapps.yt_hongjinyoung.ui.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.chsapps.yt_hongjinyoung.R;
 import com.chsapps.yt_hongjinyoung.app.Global;
@@ -14,10 +18,14 @@ import com.chsapps.yt_hongjinyoung.ui.fragment.singer.SingerMainFragment;
 import com.chsapps.yt_hongjinyoung.ui.fragment.singer.SingerNewsFragment;
 import com.chsapps.yt_hongjinyoung.ui.fragment.singer.SingerPopularFragment;
 import com.chsapps.yt_hongjinyoung.ui.fragment.singer.SingerVideoFragment;
-import com.chsapps.yt_hongjinyoung.ui.view.popup.AutoClosePopup;
 import com.chsapps.yt_hongjinyoung.ui.view.popup.ResizeTextSizePopup;
 import com.chsapps.yt_hongjinyoung.utils.AdUtils;
 import com.chsapps.yt_hongjinyoung.utils.Utils;
+import com.fingerpush.android.FingerPushManager;
+import com.fingerpush.android.NetworkUtility;
+import com.google.firebase.analytics.FirebaseAnalytics;
+
+import org.json.JSONObject;
 
 public class SingerMainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     @Override
@@ -43,7 +51,122 @@ public class SingerMainActivity extends BaseActivity implements NavigationView.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
+
+//        checkPermission();
+
+        setDeivce();
+
+        if (getIntent().getExtras() != null) {
+            onNewIntent(getIntent());
+        }
     }
+
+
+//    @Override
+//    protected void onNewIntent(Intent intent) {
+//        super.onNewIntent(intent);
+//        if(intent != null){
+//            boolean isReceive = intent.getBooleanExtra("receive_push",false);
+//            if(isReceive){
+//                Bundle bundle = new Bundle();
+//                bundle.putString("push_type","app_launching");
+//                FirebaseAnalytics.getInstance(this).logEvent("push_event",bundle);
+//            }
+//        }
+//        setIntent(intent);
+//    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        if (intent.getExtras() != null) {
+
+            String msgTag = intent.getExtras().getString("msgTag");
+            String mode = intent.getExtras().getString("mode");
+            String lCode = intent.getExtras().getString("lCode");
+
+            FingerPushManager.getInstance(this).checkPush(msgTag, mode, lCode, new NetworkUtility.ObjectListener() {
+                @Override
+                public void onComplete(String code, String message, JSONObject jsonObject) {
+
+                }
+
+                @Override
+                public void onError(String code, String message) {
+
+                }
+            });
+        }
+
+        if(intent != null) {
+            boolean isReceive = intent.getBooleanExtra("receive_push", false);
+            if (isReceive) {
+                Bundle bundle = new Bundle();
+                bundle.putString("push_type", "app_launching");
+                FirebaseAnalytics.getInstance(this).logEvent("push_event", bundle);
+            }
+        }
+
+        setIntent(intent);
+
+    }
+
+    private void checkPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED
+                    || checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+                // Should we show an explanation?
+                if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    // Explain to the user why we need to write the permission.
+                    Toast.makeText(this, "Read/Write external storage", Toast.LENGTH_SHORT).show();
+                }
+
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        1001);
+
+                // MY_PERMISSION_REQUEST_STORAGE is an
+                // app-defined int constant
+
+            } else {
+                // 다음 부분은 항상 허용일 경우에 해당이 됩니다.
+                setDeivce();
+            }
+        } else {
+            setDeivce();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case 1001:
+                setDeivce();
+                break;
+        }
+    }
+
+    /**
+     * 핑거푸시 등록
+     */
+    private void setDeivce() {
+        FingerPushManager.getInstance(this).setDevice(new NetworkUtility.ObjectListener() {
+            @Override
+            public void onComplete(String code, String message, JSONObject jsonObject) {
+                // 200, 201 성공
+            }
+
+            @Override
+            public void onError(String code, String message) {
+                // 504 이미 등록된 경우
+            }
+        });
+
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -82,8 +205,8 @@ public class SingerMainActivity extends BaseActivity implements NavigationView.O
                 }
                 break;
             case R.id.nav_auto_stop: {
-                AutoClosePopup dlg = new AutoClosePopup(this);
-                dlg.show();
+//                AutoClosePopup dlg = new AutoClosePopup(this);
+//                dlg.show();
                 }
                 break;
             case R.id.nav_give_grade:
@@ -99,7 +222,8 @@ public class SingerMainActivity extends BaseActivity implements NavigationView.O
     @Override
     protected void onResume() {
         super.onResume();
-        if (Global.getInstance().isShowInterstitialAdInMainActivity() && !Global.getInstance().isMainActivityAdShow) {
+        if (Global.getInstance().isShowInterstitialAdInMainActivity() && !Global.getInstance().isMainActivityAdShow)
+        {
             Global.getInstance().isMainActivityAdShow = true;
             AdUtils.showInterstitialAd(this);
         }

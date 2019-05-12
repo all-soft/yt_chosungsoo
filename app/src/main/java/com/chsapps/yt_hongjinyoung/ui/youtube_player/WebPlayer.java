@@ -10,7 +10,6 @@ import android.webkit.WebViewClient;
 import com.chsapps.yt_hongjinyoung.constants.ParamConstants;
 import com.chsapps.yt_hongjinyoung.service.PlayAPIService;
 import com.chsapps.yt_hongjinyoung.service.YoutubePlayerService;
-import com.chsapps.yt_hongjinyoung.utils.LogUtil;
 
 public class WebPlayer {
 
@@ -77,7 +76,6 @@ public class WebPlayer {
             setupPlayer();
         }
 
-        LogUtil.e("HSSEO", "url : " + historyUrl);
         sendPlayAPI();
         player.loadDataWithBaseURL(baseUrl, videoHTML, mimeType, encoding, historyUrl);
     }

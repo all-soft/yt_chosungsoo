@@ -42,7 +42,7 @@
             android:layout_alignParentEnd="true">
 
             <ImageView
-                android:layout_width="12dp" android:contentDescription="TODO"
+                android:layout_width="12dp"
                 android:layout_height="12dp"
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/ico_like"/>
@@ -59,7 +59,7 @@
                 tools:text="10"/>
 
             <ImageView
-                android:layout_width="12dp" android:contentDescription="TODO"
+                android:layout_width="12dp"
                 android:layout_height="12dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="9dp"

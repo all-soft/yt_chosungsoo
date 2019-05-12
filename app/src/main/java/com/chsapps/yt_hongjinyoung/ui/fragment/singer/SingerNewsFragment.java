@@ -2,6 +2,7 @@ package com.chsapps.yt_hongjinyoung.ui.fragment.singer;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -23,7 +24,6 @@ import com.chsapps.yt_hongjinyoung.common.BaseFragment;
 import com.chsapps.yt_hongjinyoung.constants.ParamConstants;
 import com.chsapps.yt_hongjinyoung.data.NewsData;
 import com.chsapps.yt_hongjinyoung.data.SingersData;
-import com.chsapps.yt_hongjinyoung.ui.activity.NewsWebActivity;
 import com.chsapps.yt_hongjinyoung.ui.adapter.NewsAdapter;
 import com.chsapps.yt_hongjinyoung.ui.adapter.listener.NewsAdapterHolderListener;
 import com.chsapps.yt_hongjinyoung.ui.view.EndlessRecyclerOnScrollListener;
@@ -114,13 +114,13 @@ public class SingerNewsFragment extends BaseFragment implements SwipeRefreshLayo
         adapter = new NewsAdapter(parentActivity, new NewsAdapterHolderListener() {
             @Override
             public void selected(NewsData news) {
-                Intent intent = new Intent(parentActivity, NewsWebActivity.class);
-                intent.putExtra(ParamConstants.PARAM_NEWS_TITLE, news.getTitle());
-                intent.putExtra(ParamConstants.PARAM_NEWS_URL, news.getLink());
-                startActivity(intent);
-//                Intent intent=new Intent(Intent.ACTION_VIEW, Uri.parse(news.getLink()));
-//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                Intent intent = new Intent(parentActivity, NewsWebActivity.class);
+//                intent.putExtra(ParamConstants.PARAM_NEWS_TITLE, news.getTitle());
+//                intent.putExtra(ParamConstants.PARAM_NEWS_URL, news.getLink());
 //                startActivity(intent);
+                Intent intent=new Intent(Intent.ACTION_VIEW, Uri.parse(news.getLink()));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
 
             @Override

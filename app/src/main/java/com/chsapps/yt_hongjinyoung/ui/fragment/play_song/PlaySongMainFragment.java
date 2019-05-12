@@ -9,6 +9,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -29,6 +32,8 @@ import com.chsapps.yt_hongjinyoung.data.SongData;
 import com.chsapps.yt_hongjinyoung.db.StorageDBHelper;
 import com.chsapps.yt_hongjinyoung.service.YoutubePlayerService;
 import com.chsapps.yt_hongjinyoung.ui.activity.BatterySaveActivity;
+import com.chsapps.yt_hongjinyoung.ui.activity.FullScreenPlayerActivity;
+import com.chsapps.yt_hongjinyoung.ui.view.popup.AutoClosePopup;
 import com.chsapps.yt_hongjinyoung.ui.youtube_player.ConstantStrings;
 import com.chsapps.yt_hongjinyoung.ui.youtube_player.JavaScript;
 import com.chsapps.yt_hongjinyoung.ui.youtube_player.WebPlayer;
@@ -45,6 +50,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 
@@ -81,6 +87,13 @@ public class PlaySongMainFragment extends BaseFragment {
     TextView tv_review;
     @BindView(R.id.line_review)
     View line_review;
+    @BindView(R.id.layer_player_control)
+    ViewGroup layer_player_control;
+
+    @BindView(R.id.tv_random)
+    TextView tv_random;
+    @BindView(R.id.tv_repeat)
+    TextView tv_repeat;
 
     private WebView player;
     private ViewGroup parent;
@@ -89,6 +102,8 @@ public class PlaySongMainFragment extends BaseFragment {
 
     private int selectedTab = 0;
     private PlaySongMainPagerAdapter adapter;
+
+    private CompositeDisposable alarmSubscription = new CompositeDisposable();
 
     public static PlaySongMainFragment newInstance(Bundle bundle) {
         if (bundle == null) {
@@ -149,6 +164,8 @@ public class PlaySongMainFragment extends BaseFragment {
     public void initialize() {
         EventBus.getDefault().register(this);
 
+        setHasOptionsMenu(true);
+
         setBackKey(true);
         setTitle(R.string.PlaySong);
 
@@ -156,6 +173,9 @@ public class PlaySongMainFragment extends BaseFragment {
 
         initViewPager();
         initSeekBar();
+
+        layer_player_control.setVisibility(View.GONE);
+        onClick_layer_player();
     }
 
     private void initViewPager() {
@@ -232,6 +252,26 @@ public class PlaySongMainFragment extends BaseFragment {
     @Override
     public void clearMemory() {
         EventBus.getDefault().unregister(this);
+
+        if (YoutubePlayerService.isVideoPlaying) {
+            try {
+                if (YoutubePlayerService.isVideoPlaying) {
+                    Intent i = new Intent(context, YoutubePlayerService.class);
+                    i.setAction(PlayerConstants.ACTION.ACTION_CLOSE_PLAYER);
+                    context.stopService(i);
+                }
+            } catch(Exception e) {
+            }
+
+
+//            Intent i = new Intent(context, YoutubePlayerService.class);
+//            i.setAction(PlayerConstants.ACTION.ACTION_CLOSE_PLAYER);
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                context.startForegroundService(i);
+//            } else {
+//                context.startService(i);
+//            }
+        }
     }
 
     @Override
@@ -242,6 +282,41 @@ public class PlaySongMainFragment extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        parentActivity.getMenuInflater().inflate(
+                R.menu.menu_play_song,
+                actionBarMenu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.btn_auto_close) {
+            AutoClosePopup dlg = new AutoClosePopup(parentActivity, new AutoClosePopup.onAutoClosePopupEventListener() {
+                @Override
+                public void autoClose(int msTime) {
+                    alarmSubscription.remove(alarmSubscription);
+                    Utils.delay(alarmSubscription, msTime, new DelayListenerListener() {
+                        @Override
+                        public void delayedTime() {
+                            try {
+                                if ((int) play_button.getTag() == 0) {
+                                    Intent i = new Intent(parentActivity, YoutubePlayerService.class);
+                                    i.setAction(PlayerConstants.ACTION.ACTION_PLAY_OR_PAUSE);
+                                    parentActivity.startService(i);
+                                }
+                            } catch (Exception e) {
+                            }
+                        }
+                    });
+                }
+            });
+            dlg.show();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void refreshPlayer() {
@@ -358,6 +433,27 @@ public class PlaySongMainFragment extends BaseFragment {
         startActivity(new Intent(context, BatterySaveActivity.class));
     }
 
+    @OnClick(R.id.btn_full_screen)
+    public void onClick_btn_full_screen() {
+        startActivity(new Intent(parentActivity, FullScreenPlayerActivity.class));
+    }
+
+    @OnClick(R.id.layer_player)
+    public void onClick_layer_player() {
+        subscription.remove(subscription);
+        if(layer_player_control.getVisibility() == View.VISIBLE) {
+            layer_player_control.setVisibility(View.GONE);
+        } else {
+            layer_player_control.setVisibility(View.VISIBLE);
+            Utils.delay(subscription, 2000, new DelayListenerListener() {
+                @Override
+                public void delayedTime() {
+                    onClick_layer_player();
+                }
+            });
+        }
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void changePlayerStatus(PlayerStatus status) {
         if(status != null) {
@@ -372,7 +468,7 @@ public class PlaySongMainFragment extends BaseFragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void playTime(PlayTimeStatus status) {
         currentVideoTotalTime = status.totalTime;
-        int current = status.currentTime == 0  || status.totalTime == 0 ? 0 : status.currentTime * 100 / status.totalTime;
+        int current = status.currentTime == 0 || status.totalTime == 0 ? 0 : status.currentTime * 100 / status.totalTime;
         seekBar.setProgress(current);
     }
 
@@ -399,15 +495,19 @@ public class PlaySongMainFragment extends BaseFragment {
          * 2 : repeat one song
          * */
         icon_random.setBackgroundResource(randomType == 0 ? R.drawable.none_shuffle : R.drawable.ic_shuffle);
+        tv_random.setText(randomType == 0 ? R.string.play_no_shuffle : R.string.play_shuffle);
         switch (repeatType) {
             case 0:
                 icon_repeat.setBackgroundResource(R.drawable.none_repeat);
+                tv_repeat.setText(R.string.repeat_none);
                 break;
             case 1:
                 icon_repeat.setBackgroundResource(R.drawable.ic_repeat);
+                tv_repeat.setText(R.string.repeat_all_songs);
                 break;
             case 2:
                 icon_repeat.setBackgroundResource(R.drawable.ic_repeat_one);
+                tv_repeat.setText(R.string.repeat_one_song);
                 break;
         }
     }

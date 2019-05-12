@@ -155,12 +155,10 @@ public class ConstantStrings {
     }
 
     public static void setPrevSongIndex() {
-        LogUtil.e("HSSEO", "before song idx : " + playSongIdx);
         playSongIdx--;
         if(playSongIdx < 0) {
             playSongIdx = ARRAY_P_LIST.size() - 1;
         }
-        LogUtil.e("HSSEO", "after song idx : " + playSongIdx);
     }
 
     public static int getCurrentSongAPIIndex() {

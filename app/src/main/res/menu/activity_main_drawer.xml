@@ -25,20 +25,20 @@
             android:icon="@drawable/ico_leftmenu_04_scale"
             android:title="@string/menu_resize_font" />
 
-        <item
+        <!--<item
             android:id="@+id/nav_auto_stop"
             android:icon="@drawable/ico_leftmenu_05_timer"
-            android:title="@string/menu_auto_stop" />
+            android:title="@string/menu_auto_stop" />-->
 
         <item
             android:id="@+id/nav_give_grade"
             android:icon="@drawable/ico_leftmenu_06_star"
             android:title="@string/menu_give_grade" />
 
-        <item
-            android:id="@+id/nav_another_app"
-            android:icon="@drawable/music_1004"
-            android:title="@string/menu_additional_music" />
+        <!--<item-->
+            <!--android:id="@+id/nav_another_app"-->
+            <!--android:icon="@drawable/music_1004"-->
+            <!--android:title="@string/menu_additional_music" />-->
 
     </group>
 

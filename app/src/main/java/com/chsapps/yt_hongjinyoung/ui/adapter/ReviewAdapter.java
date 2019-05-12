@@ -52,9 +52,7 @@ public class ReviewAdapter extends BaseAdapter {
             ((ReviewAdapterHolder) holder).update(arrayReview.get(getPosition(position)));
         } else if(holder instanceof AdmobNativeAdAdapterHolder) {
             loadAdmobAd(position, ((AdmobNativeAdAdapterHolder)holder));
-        } /*else if(holder instanceof FacebookNativeAdAdapterHolder) {
-            loadFacebookAd(position, ((FacebookNativeAdAdapterHolder)holder));
-        }*/
+        }
     }
 
     @Override
@@ -62,7 +60,7 @@ public class ReviewAdapter extends BaseAdapter {
         if(arrayReview == null) {
             return 0;
         }
-        if(!isAddAd || isPlayerStatus) {
+        if(!isAddAd) {
             return arrayReview.size();
         }
         return getItemCount(arrayReview.size());

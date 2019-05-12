@@ -1,15 +1,13 @@
 package com.chsapps.yt_hongjinyoung.utils;
 
-import android.os.Bundle;
-
 import com.chsapps.yt_hongjinyoung.api.model.HomeData;
 import com.chsapps.yt_hongjinyoung.app.Global;
 import com.chsapps.yt_hongjinyoung.common.BaseActivity;
 import com.chsapps.yt_hongjinyoung.constants.AdConstants;
 import com.chsapps.yt_hongjinyoung.ui.view.popup.LoadingAdPopup;
-import com.google.ads.mediation.facebook.FacebookAdapter;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 
@@ -26,11 +24,7 @@ public class AdMobAdUtils {
 
         final InterstitialAd am_interstitialAd = new InterstitialAd(activity);
         am_interstitialAd.setAdUnitId(AdConstants.AD_ID_INTERSTITIAL);
-        Bundle extras = new FacebookAdapter.FacebookExtrasBundleBuilder()
-                .setNativeAdChoicesIconExpandable(false)
-                .build();
         AdRequest adRequest = new AdRequest.Builder()
-                .addNetworkExtrasBundle(FacebookAdapter.class, extras)
                 .addTestDevice("086A436107A5322A6AD435A899DADB5A")
                 .build();
         am_interstitialAd.loadAd(adRequest);
@@ -53,15 +47,11 @@ public class AdMobAdUtils {
     }
 
     public static void showAdMobBannerAd(AdView adMobAdView, String adId) {
-//        adMobAdView.setAdSize(AdSize.BANNER);
-//        adMobAdView.setAdUnitId(AdConstants.AD_ID_BANNER);
-//        Bundle extras = new FacebookAdapter.FacebookExtrasBundleBuilder()
-//                .setNativeAdChoicesIconExpandable(false)
-//                .build();
-//        AdRequest adRequest = new AdRequest.Builder()
-//                .addNetworkExtrasBundle(FacebookAdapter.class, extras)
-//                .addTestDevice("086A436107A5322A6AD435A899DADB5A")
-//                .build();
-//        adMobAdView.loadAd(adRequest);
+        adMobAdView.setAdSize(AdSize.SMART_BANNER);
+        adMobAdView.setAdUnitId(AdConstants.AD_ID_BANNER);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("086A436107A5322A6AD435A899DADB5A")
+                .build();
+        adMobAdView.loadAd(adRequest);
     }
 }

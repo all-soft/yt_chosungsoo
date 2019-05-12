@@ -24,7 +24,6 @@ public class NewsReviewAdapter extends BaseAdapter {
         super(context);
 
         this.context = context;
-
         try {
             adTerm = Global.getInstance().getAdConfig().getNative_ad_term();
         } catch (Exception e) {
@@ -50,9 +49,7 @@ public class NewsReviewAdapter extends BaseAdapter {
             ((NewsReviewAdapterHolder) holder).update(arrayNewsReview.get(getPosition(position)));
         } else if(holder instanceof AdmobNativeAdAdapterHolder) {
             loadAdmobAd(position, ((AdmobNativeAdAdapterHolder)holder));
-        } /*else if(holder instanceof FacebookNativeAdAdapterHolder) {
-            loadFacebookAd(position, ((FacebookNativeAdAdapterHolder)holder));
-        }*/
+        }
     }
 
     @Override
@@ -60,7 +57,7 @@ public class NewsReviewAdapter extends BaseAdapter {
         if(arrayNewsReview == null) {
             return 0;
         }
-        if(!isAddAd || isPlayerStatus) {
+        if(!isAddAd) {
             return arrayNewsReview.size();
         }
         return arrayNewsReview.size() + arrayNewsReview.size() / adTerm + 1;

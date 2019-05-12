@@ -14,4 +14,6 @@ public class ParamConstants {
 
     public static final String PARAM_NEWS_TITLE = "PARAM_NEWS_TITLE";
     public static final String PARAM_NEWS_URL = "PARAM_NEWS_URL";
+
+    public static final String PARAM_MARKET_URL = "PARAM_MARKET_URL";
 }

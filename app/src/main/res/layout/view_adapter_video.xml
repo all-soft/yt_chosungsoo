@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layer_main"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -11,14 +11,17 @@
     <RelativeLayout
         android:id="@+id/layer_thumbnail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="0dp">
+        android:layout_height="@dimen/adapter_video_thumbnail_height"
+        android:layout_margin="0dp"
+        android:background="@color/Black">
 
         <ImageView
             android:id="@+id/iv_thumbnail"
-            android:layout_width="match_parent" android:contentDescription="TODO"
-            android:layout_height="wrap_content"
-            android:layout_margin="0dp"/>
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="0dp"
+            tools:background="#ff0000" />
 
     </RelativeLayout>
 
@@ -28,28 +31,50 @@
         android:layout_height="94dp"
         android:layout_below="@id/layer_thumbnail">
 
+        <View
+            android:id="@+id/view_selected"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#88bbbbbb" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingStart="15dp"
             android:paddingEnd="15dp">
 
-            <ImageView
-                android:id="@+id/iv_user_thumbnail"
-                android:layout_width="54dp"
-                android:layout_height="54dp"
-                android:layout_centerVertical="true"
-                android:contentDescription="TODO"  android:visibility="visible"
-                android:background="@drawable/ico_profile"/>
+            <RelativeLayout
+                android:id="@+id/layer_first"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true">
+
+                <ImageView
+                    android:id="@+id/iv_user_thumbnail"
+                    android:layout_width="54dp"
+                    android:layout_height="54dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ico_profile"
+                    android:visibility="gone" />
+
+                <CheckBox
+                    android:id="@+id/chb_selected"
+                    android:layout_width="30dp"
+                    android:layout_height="40dp"
+                    android:clickable="false"
+                    android:checked="true"
+                    android:layout_centerVertical="true" />
+
+            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/btn_save"
                 android:layout_width="46dp"
                 android:layout_height="46dp"
-                android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
-                android:padding="2dp"
-                android:background="@color/colorPrimary">
+                android:layout_centerVertical="true"
+                android:background="@color/colorPrimary"
+                android:padding="2dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -60,10 +85,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
+                        android:text="@string/Save"
                         android:textColor="@color/colorPrimary"
-                        android:text="@string/Save"/>
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
 
                 </RelativeLayout>
 
@@ -76,9 +101,9 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="13dp"
                 android:layout_marginEnd="13dp"
-                android:orientation="vertical"
-                android:layout_toEndOf="@id/iv_user_thumbnail"
-                android:layout_toStartOf="@id/btn_save">
+                android:layout_toStartOf="@id/btn_save"
+                android:layout_toEndOf="@id/layer_first"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tv_title"
@@ -88,12 +113,12 @@
                     android:textColor="#5f5f5f"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    tools:text="동영상 제목"/>
+                    tools:text="동영상 제목" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="5dp"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/tv_info"
@@ -102,13 +127,12 @@
                     android:singleLine="true"
                     android:textColor="@color/color_2c2c2c"
                     android:textSize="13sp"
-                    tools:text="작성자, 조회수90만, 1주전"
-                    android:visibility="gone"/>
+                    android:visibility="gone"
+                    tools:text="작성자, 조회수90만, 1주전" />
 
             </LinearLayout>
 
         </RelativeLayout>
-
 
 
     </RelativeLayout>
@@ -117,6 +141,6 @@
         android:layout_width="match_parent"
         android:layout_height="14dp"
         android:layout_below="@id/layer_info"
-        android:background="#e7e7e7"/>
+        android:background="#e7e7e7" />
 
 </RelativeLayout>

@@ -30,8 +30,8 @@ public class PlayingAdapter extends BaseAdapter {
         super(context);
 
         this.context = context;
-        this.listener = listener;
         this.isAddAd = false;
+        this.listener = listener;
 
         try {
             adTerm = Global.getInstance().getAdConfig().getNative_ad_term();
@@ -58,9 +58,7 @@ public class PlayingAdapter extends BaseAdapter {
             ((PlayingAdapterHolder) holder).update(arraySongs.get(getPosition(position)), playingVideoId);
         } else if(holder instanceof AdmobNativeAdAdapterHolder) {
             loadAdmobAd(position, ((AdmobNativeAdAdapterHolder)holder));
-        } /*else if(holder instanceof FacebookNativeAdAdapterHolder) {
-            loadFacebookAd(position, ((FacebookNativeAdAdapterHolder)holder));
-        }*/
+        }
     }
 
     @Override
@@ -68,7 +66,7 @@ public class PlayingAdapter extends BaseAdapter {
         if(arraySongs == null) {
             return 0;
         }
-        if(!isAddAd || isPlayerStatus) {
+        if(!isAddAd) {
             return arraySongs.size();
         }
         return arraySongs.size() + arraySongs.size() / adTerm + 1;
@@ -82,6 +80,9 @@ public class PlayingAdapter extends BaseAdapter {
     }
 
     public boolean insert(List<SongData> arraySongData) {
+        if(arraySongData == null) {
+            return false;
+        }
         if(this.arraySongs != null)
             this.arraySongs.clear();
         this.arraySongs = arraySongData;

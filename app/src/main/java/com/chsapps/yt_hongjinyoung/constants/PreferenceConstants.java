@@ -10,6 +10,8 @@ public class PreferenceConstants {
     public final static String PREFERS_RESIZE_TEXT_SIZE = "PREFERS_RESIZE_TEXT_SIZE";
 
     public final static String PREFERS_IS_SHOW_APP_POLICY_DIALOG = "PREFERS_IS_SHOW_APP_POLICY_DIALOG";
+    public final static String PREFERS_IS_SHOW_YOUTUBBE_DLG = "PREFERS_IS_SHOW_YOUTUBBE_DLG";
+    public final static String PREFERS_FIRST_RECOMMEND_APP = "PREFERS_FIRST_RECOMMEND_APP";
+    public final static String PREFERS_FIRST_EXIT_APP = "PREFERS_FIRST_EXIT_APP";
     public final static String PREFERS_ = "PREFERS_";
-
 }

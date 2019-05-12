@@ -1,5 +1,6 @@
 package com.chsapps.yt_hongjinyoung.api;
 
+import com.chsapps.yt_hongjinyoung.common.BuildConfig;
 import com.chsapps.yt_hongjinyoung.constants.APIConstants;
 import com.chsapps.yt_hongjinyoung.utils.LogUtil;
 
@@ -25,9 +26,9 @@ public class APIUtils {
 
     public APIUtils() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(APIConstants.API_SERVER_URL)
-                .client(createOkHttpClient())
+                .baseUrl(BuildConfig.IS_DEBUG_MODE ? APIConstants.API_TEST_SERVER_URL : APIConstants.API_SERVER_URL)
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(createOkHttpClient())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
 

@@ -28,11 +28,14 @@ import com.chsapps.yt_hongjinyoung.db.StorageDBHelper;
 import com.chsapps.yt_hongjinyoung.ui.activity.PlayerActivity;
 import com.chsapps.yt_hongjinyoung.ui.adapter.SongAdapter;
 import com.chsapps.yt_hongjinyoung.ui.adapter.listener.SongAdapterHolderListener;
+import com.chsapps.yt_hongjinyoung.ui.view.popup.YoutubePolicyPopup;
 import com.chsapps.yt_hongjinyoung.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class SingerStorageFragment extends BaseFragment {
     public final static String TAG = SingerStorageFragment.class.getSimpleName();
@@ -47,6 +50,13 @@ public class SingerStorageFragment extends BaseFragment {
 
     @BindView(R.id.layer_recomment_empty)
     ViewGroup layer_recomment_empty;
+
+    @BindView(R.id.btn_play_selected_song)
+    TextView btn_play_selected_song;
+    @BindView(R.id.btn_all_select)
+    TextView btn_all_select;
+    @BindView(R.id.btn_save_storage)
+    TextView btn_save_storage;
 
     private SingersData singersData;
     private SongAdapter adapter;
@@ -96,16 +106,23 @@ public class SingerStorageFragment extends BaseFragment {
     @Override
     public void initialize() {
         tv_empty_title.setText(R.string.no_songs);
+        btn_save_storage.setVisibility(View.GONE);
         singersData = getArguments().getParcelable(ParamConstants.PARAM_SINGER_DATA);
         Utils.initLayoutListView(parentActivity, list_view);
         adapter = new SongAdapter(parentActivity, new SongAdapterHolderListener() {
             @Override
             public void selected(SongData song) {
-                Global.getInstance().setPlaySongListData(adapter.getSongDataList());
-
-                Intent intent = new Intent(parentActivity, PlayerActivity.class);
-                intent.putExtra(ParamConstants.PARAM_PLAY_SONG_IDX, song.song_idx);
-                parentActivity.startActivity(intent);
+                adapter.selectedSong(song);
+                List<SongData> arrayList = adapter.getSelectedSongsList();
+                try {
+                    if(arrayList.size() == adapter.getSongDataList().size()) {
+                        btn_all_select.setText(R.string.deselect_all);
+                    } else {
+                        btn_all_select.setText(R.string.select_all);
+                    }
+                } catch (Exception e) {
+                    btn_all_select.setText(R.string.select_all);
+                }
             }
 
             @Override
@@ -199,6 +216,49 @@ public class SingerStorageFragment extends BaseFragment {
             }
         })) {
             showLoading();
+        }
+    }
+
+    @OnClick(R.id.btn_play_selected_song)
+    public void onClick_btn_play_selected_song() {
+        ArrayList<SongData> listSelectedSongs = adapter.getSelectedSongsList();
+        if (listSelectedSongs == null || listSelectedSongs.size() == 0) {
+            Toast.makeText(parentActivity, R.string.toast_have_not_selected_song, Toast.LENGTH_SHORT).show();
+        } else {
+//            Global.getInstance().setPlaySongListData(listSelectedSongs);
+//            Intent intent = new Intent(parentActivity, PlayerActivity.class);
+//            intent.putExtra(ParamConstants.PARAM_PLAY_SONG_IDX, listSelectedSongs.get(0).song_idx);
+//            parentActivity.startActivity(intent);
+
+            if(Global.getInstance().isShowYoutubePlayPolicy()) {
+                YoutubePolicyPopup dlg = new YoutubePolicyPopup(parentActivity);
+                dlg.setListener(new YoutubePolicyPopup.onPlayListener() {
+                    @Override
+                    public void play() {
+                        Global.getInstance().setPlaySongListData(listSelectedSongs);
+                        Intent intent = new Intent(parentActivity, PlayerActivity.class);
+                        intent.putExtra(ParamConstants.PARAM_PLAY_SONG_IDX, listSelectedSongs.get(0).song_idx);
+                        parentActivity.startActivity(intent);
+                    }
+                });
+                dlg.show();
+            } else {
+                Global.getInstance().setPlaySongListData(listSelectedSongs);
+                Intent intent = new Intent(parentActivity, PlayerActivity.class);
+                intent.putExtra(ParamConstants.PARAM_PLAY_SONG_IDX, listSelectedSongs.get(0).song_idx);
+                parentActivity.startActivity(intent);
+            }
+        }
+    }
+
+    @OnClick(R.id.btn_all_select)
+    public void onClick_btn_all_select() {
+        if(btn_all_select.getText().equals(Utils.getString(R.string.select_all))) {
+            adapter.setAllSelectedSongs();
+            btn_all_select.setText(R.string.deselect_all);
+        } else {
+            adapter.setAllDeSelectedSongs();
+            btn_all_select.setText(R.string.select_all);
         }
     }
 }

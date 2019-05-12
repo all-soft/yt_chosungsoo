@@ -28,7 +28,7 @@
 
             <ImageView
                 android:id="@+id/iv_thumbnail"
-                android:layout_width="match_parent" android:contentDescription="TODO"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="3dp"
                 android:background="@color/White" />
@@ -53,7 +53,7 @@
                 android:textColor="@color/Black"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                tools:text="홍진영 뉴스" />
+                tools:text="나훈아 뉴스" />
 
             <TextView
                 android:id="@+id/tv_contents"
@@ -65,7 +65,7 @@
                 android:singleLine="false"
                 android:textColor="#5f5f5f"
                 android:textSize="12sp"
-                tools:text="2018년 12월 3일 홍진영씨가 자택에서 밥을 맛있게 먹었다. 이를 본 홍진영의..." />
+                tools:text="2018년 12월 3일 나훈아씨가 자택에서 밥을 맛있게 먹었다. 이를 본 나훈아의..." />
 
             <TextView
                 android:id="@+id/tv_from"
@@ -97,7 +97,7 @@
             android:visibility="gone">
 
             <ImageView
-                android:layout_width="25dp" android:contentDescription="TODO"
+                android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/ico_like" />
@@ -131,7 +131,7 @@
                 android:visibility="gone">
 
                 <ImageView
-                    android:layout_width="25dp" android:contentDescription="TODO"
+                    android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/ico_comment" />
@@ -159,7 +159,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="12dp" android:contentDescription="TODO"
+                    android:layout_width="12dp"
                     android:layout_height="14dp"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/ico_share_list" />

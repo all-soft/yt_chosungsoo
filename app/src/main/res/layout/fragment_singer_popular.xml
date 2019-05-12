@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
@@ -56,10 +55,23 @@
             android:background="@drawable/xml_singers_popular_type_btn_none_selected"
             android:text="모든노래"/>
     </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/layer_play"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <include
+            layout="@layout/view_select_play_layer" />
+
+    </RelativeLayout>
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/layer_play"
         android:layout_marginTop="70dp">
 
         <android.support.v7.widget.RecyclerView

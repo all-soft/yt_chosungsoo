@@ -1,14 +1,11 @@
 package com.chsapps.yt_hongjinyoung.app;
 
-import android.content.SharedPreferences;
-
 import com.chsapps.yt_hongjinyoung.common.BuildConfig;
 import com.chsapps.yt_hongjinyoung.api.model.HomeData;
 import com.chsapps.yt_hongjinyoung.constants.PreferenceConstants;
 import com.chsapps.yt_hongjinyoung.data.SingersData;
 import com.chsapps.yt_hongjinyoung.data.SongData;
 import com.chsapps.yt_hongjinyoung.preference.Preference;
-import com.securepreferences.SecurePreferences;
 
 import java.util.List;
 
@@ -17,10 +14,13 @@ public class Global {
 
     private static Global instance;
     public static SingersData staticSingersData;
+
+    public int cntMovePlaySongList = 0;
+
     /***
      * Preference setting.
      * */
-    private SharedPreferences prefs = new SecurePreferences(AllSoft.getContext());
+//    private SharedPreferences prefs = new SecurePreferences(AllSoft.getContext());
 
     public static Global getInstance() {
         if (instance == null) {
@@ -69,20 +69,34 @@ public class Global {
         return null;
     }
 
-    public boolean isShowInterstitialAdInMainActivity() {
+    public HomeData.VERSION_INFO getVersionInfo() {
+        if(homeData == null) {
+            return null;
+        }
+
         try {
-            return homeData.message.ad_config.get(0).ad_is_show_at_launch == 1;
+            return homeData.message.version_info.get(0);
         } catch (Exception e) {
-            return false;
+            return null;
         }
     }
 
+    public boolean isShowInterstitialAdInMainActivity() {
+        return true;
+//        try {
+//            return homeData.message.ad_config.get(0).ad_is_show_at_launch == 1;
+//        } catch (Exception e) {
+//            return false;
+//        }
+    }
+
     public boolean isShowBannerAdInBottom() {
-        try {
-            return homeData.message.ad_config.get(0).ad_is_show_bottom_banner == 1;
-        } catch (Exception e) {
-            return false;
-        }
+        return true;
+//        try {
+//            return homeData.message.ad_config.get(0).ad_is_show_bottom_banner == 1;
+//        } catch (Exception e) {
+//            return false;
+//        }
     }
 
     public boolean isShowExitAd() {
@@ -107,7 +121,8 @@ public class Global {
     }
 
     public void setADID(String value) {
-        Preference.getInstance().putString(PreferenceConstants.PREFERS_GOOGLE_AD_ID, value);
+//        Preference.getInstance().putString(PreferenceConstants.PREFERS_GOOGLE_AD_ID, value);
+        Preference.getInstance().putString(PreferenceConstants.PREFERS_GOOGLE_AD_ID, "__DUMMY__");
     }
 
     /**
@@ -141,7 +156,11 @@ public class Global {
     }
 
     public int getResizeTextSize() {
-        return Preference.getInstance().getInteger(PreferenceConstants.PREFERS_RESIZE_TEXT_SIZE, 5);
+        try {
+            return Preference.getInstance().getInteger(PreferenceConstants.PREFERS_RESIZE_TEXT_SIZE, 5);
+        } catch (Exception e) {
+            return 5;
+        }
     }
 
     public void setResizeTextSize(int val) {
@@ -232,5 +251,26 @@ public class Global {
         String news_keyword = BuildConfig.FLAG_SINGER_INFO_NEWS_KEYWORD;
 
         return new SingersData(category_idx, category_name, category_image_url, category_share_url, video_keyword, news_keyword);
+    }
+
+    public boolean isShowYoutubePlayPolicy() {
+        return Preference.getInstance().getBoolean(PreferenceConstants.PREFERS_IS_SHOW_YOUTUBBE_DLG, true);
+    }
+
+    public void setShowYoutubePlayPolicy() {
+        Preference.getInstance().putBoolean(PreferenceConstants.PREFERS_IS_SHOW_YOUTUBBE_DLG, false);
+    }
+
+    public boolean isFirstRecommendedApp() {
+        return Preference.getInstance().getBoolean(PreferenceConstants.PREFERS_FIRST_RECOMMEND_APP, true);
+    }
+    public void setFirstRecommendedApp(boolean val) {
+        Preference.getInstance().putBoolean(PreferenceConstants.PREFERS_FIRST_RECOMMEND_APP, val);
+    }
+    public int isFirstExitApp() {
+        return Preference.getInstance().getInteger(PreferenceConstants.PREFERS_FIRST_EXIT_APP, 0);
+    }
+    public void setFirstExitApp(int val) {
+        Preference.getInstance().putInteger(PreferenceConstants.PREFERS_FIRST_EXIT_APP, val);
     }
 }
