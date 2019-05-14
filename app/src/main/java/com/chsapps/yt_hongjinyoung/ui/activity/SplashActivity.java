@@ -90,6 +90,8 @@ public class SplashActivity extends BaseActivity {
         i.setAction(TokenAPIService.ACTION_TYPE_TOKEN);
         startService(i);
 
+        Global.getInstance().isMainActivityAdShow = false;
+
         Utils.delay(subscription, DELAY_TIME, new DelayListenerListener() {
             @Override
             public void delayedTime() {
