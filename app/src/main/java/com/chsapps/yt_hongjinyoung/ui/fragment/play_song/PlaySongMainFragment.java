@@ -155,9 +155,15 @@ public class PlaySongMainFragment extends BaseFragment {
         });
     }
 
-    @Override
     public void onPause() {
         super.onPause();
+
+        WebView WebYoutubePlayer = WebPlayer.getPlayer();
+        if (WebYoutubePlayer != null && YoutubePlayerService.isVideoPlaying) {
+            Intent i = new Intent(context, YoutubePlayerService.class);
+            i.setAction(PlayerConstants.ACTION.ACTION_PLAY_OR_PAUSE);
+            context.startService(i);
+        }
     }
 
     @Override

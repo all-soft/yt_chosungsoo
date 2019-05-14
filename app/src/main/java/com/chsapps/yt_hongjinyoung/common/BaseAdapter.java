@@ -29,7 +29,7 @@ public class BaseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     protected static final int LIST_ITEM_TYPE_NONE = 2;
 
     protected Context context;
-    protected boolean isAddAd = true;
+    protected boolean isAddAd = false;
     protected static HashMap<Integer, UnifiedNativeAd> mapAdmobAd = new HashMap<>();
     protected static HashMap<Integer, Boolean> mapFailedLoadAdmobAd = new HashMap<>();
     protected int adTerm = 0;

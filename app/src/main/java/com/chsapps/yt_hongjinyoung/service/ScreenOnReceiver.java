@@ -17,12 +17,12 @@ public class ScreenOnReceiver extends BroadcastReceiver {
 
         } else if (action.equals(Intent.ACTION_SCREEN_OFF)) {
             LogUtil.e(TAG, "SCREEN OFF.");
-            WebView WebYoutubePlayer = WebPlayer.getPlayer();
-            if (WebYoutubePlayer != null && YoutubePlayerService.isVideoPlaying) {
-                Intent i = new Intent(context, YoutubePlayerService.class);
-                i.setAction(PlayerConstants.ACTION.ACTION_PLAY_OR_PAUSE);
-                context.startService(i);
-            }
+//            WebView WebYoutubePlayer = WebPlayer.getPlayer();
+//            if (WebYoutubePlayer != null && YoutubePlayerService.isVideoPlaying) {
+//                Intent i = new Intent(context, YoutubePlayerService.class);
+//                i.setAction(PlayerConstants.ACTION.ACTION_PLAY_OR_PAUSE);
+//                context.startService(i);
+//            }
         }
     }
 }

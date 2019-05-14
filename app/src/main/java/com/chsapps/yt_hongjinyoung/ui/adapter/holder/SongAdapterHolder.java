@@ -12,9 +12,13 @@ import com.chsapps.yt_hongjinyoung.R;
 import com.chsapps.yt_hongjinyoung.data.SongData;
 import com.chsapps.yt_hongjinyoung.ui.adapter.listener.SongAdapterHolderListener;
 
+import java.text.NumberFormat;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import java.text.NumberFormat;
+
 
 public class SongAdapterHolder extends RecyclerView.ViewHolder {
     private static final String TAG = SongAdapterHolder.class.getSimpleName();
@@ -37,6 +41,8 @@ public class SongAdapterHolder extends RecyclerView.ViewHolder {
     View btn_ico_delete;
     @BindView(R.id.tv_index)
     TextView tv_index;
+    @BindView(R.id.tv_playcount)
+    TextView tv_playcount;
 
     public SongAdapterHolder(Context context, View itemView, SongAdapterHolderListener listener) {
         super(itemView);
@@ -60,7 +66,14 @@ public class SongAdapterHolder extends RecyclerView.ViewHolder {
             btn_ico_delete.setVisibility(View.GONE);
         }
         layer_selected.setVisibility(isSelected ? View.VISIBLE : View.GONE);
-        tv_index.setText(String.valueOf(index));
+        tv_index.setText(String.valueOf(index+1));
+
+        if(songData.play_cnt > -1) {
+            tv_playcount.setVisibility(View.VISIBLE);
+            tv_playcount.setText(NumberFormat.getInstance().format(songData.play_cnt) + " 재생됨.");
+        } else {
+            tv_playcount.setVisibility(View.GONE);
+        }
     }
 
     @OnClick(R.id.btn_save)
