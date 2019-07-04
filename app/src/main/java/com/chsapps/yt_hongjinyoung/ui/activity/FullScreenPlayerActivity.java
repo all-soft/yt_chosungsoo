@@ -74,11 +74,15 @@ public class FullScreenPlayerActivity extends BaseActivity {
         );
 
         parent = (ViewGroup) player.getParent();
-        if(parent == null) {
+        if(parent != null) {
             parent.removeView(player);
         }
 
-        ll.addView(player, params);
+        try {
+            ll.addView(player, params);
+        } catch (Exception e) {
+            finish();
+        }
 
         WebPlayer.loadScript(JavaScript.playVideoScript());
 

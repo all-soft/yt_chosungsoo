@@ -21,6 +21,7 @@ import com.chsapps.yt_hongjinyoung.BuildConfig;
 import com.chsapps.yt_hongjinyoung.R;
 import com.chsapps.yt_hongjinyoung.app.AllSoft;
 import com.chsapps.yt_hongjinyoung.app.Global;
+import com.chsapps.yt_hongjinyoung.common.WrapContentLinearLayoutManager;
 import com.chsapps.yt_hongjinyoung.constants.Constants;
 import com.chsapps.yt_hongjinyoung.ui.activity.RecommendAppStoreActivity;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -287,7 +288,7 @@ public class Utils {
     }
 
     public static void initLayoutListView(Activity activity, RecyclerView list_view) {
-        list_view.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
+        list_view.setLayoutManager(new WrapContentLinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
         list_view.setHasFixedSize(true);
     }
 }

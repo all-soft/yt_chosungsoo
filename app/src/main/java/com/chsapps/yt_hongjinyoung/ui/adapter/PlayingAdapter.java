@@ -14,6 +14,7 @@ import com.chsapps.yt_hongjinyoung.ui.adapter.holder.AdmobNativeAdAdapterHolder;
 import com.chsapps.yt_hongjinyoung.ui.adapter.holder.PlayingAdapterHolder;
 import com.chsapps.yt_hongjinyoung.ui.adapter.listener.SongAdapterHolderListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlayingAdapter extends BaseAdapter {
@@ -22,7 +23,7 @@ public class PlayingAdapter extends BaseAdapter {
     private Context context;
     private SongAdapterHolderListener listener;
 
-    private List<SongData> arraySongs;
+    private List<SongData> arraySongs = new ArrayList<>();
 
     private String playingVideoId = "";
 
