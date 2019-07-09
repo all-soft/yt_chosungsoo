@@ -38,20 +38,28 @@ public class ExitPopup extends BaseDialog {
     @BindView(R.id.layer_review)
     ViewGroup layer_review;
 
+    private UnifiedNativeAdView preparedAdMob;
+    private UnifiedNativeAd preparedUnifiedNativeAd;
+
     public interface CommonPopupActionListener {
         void onActionPositiveBtn();
         void onActionNegativeBtn();
+        void prepareAdMob();
     }
 
-    public ExitPopup(Context context) {
+    public ExitPopup(Context context, UnifiedNativeAdView preparedAdView, UnifiedNativeAd preparedUnifiedNativeAd) {
         super(context, true, null);
         this.context = context;
+        this.preparedAdMob = preparedAdView;
+        this.preparedUnifiedNativeAd = preparedUnifiedNativeAd;
+
         initialize();
     }
 
     @Override
     public void show() {
         super.show();
+        update();
     }
 
     @Override
@@ -66,30 +74,6 @@ public class ExitPopup extends BaseDialog {
 
     private void initialize() {
         setContentView(R.layout.view_exit_popup);
-
-        int exitType = Global.getInstance().isFirstExitApp();
-        if(exitType == 0) {
-            //TODO : 앱 평가 팝업.
-            layer_review.setVisibility(View.VISIBLE);
-            layer_exit.setVisibility(View.GONE);
-            Global.getInstance().setFirstExitApp(1);
-        } else if(exitType == 1) {
-            //TODO : 친구 곡 소개 추천 팝업
-            layer_exit.setVisibility(View.VISIBLE);
-            layer_review.setVisibility(View.GONE);
-            Global.getInstance().setFirstExitApp(2);
-
-            image_share.setVisibility(View.VISIBLE);
-            adViewLayer.setVisibility(View.GONE);
-        } else {
-            //TODO : 광고 팝업
-            loadAd();
-            layer_exit.setVisibility(View.VISIBLE);
-            layer_review.setVisibility(View.GONE);
-
-            image_share.setVisibility(View.GONE);
-            adViewLayer.setVisibility(View.VISIBLE);
-        }
     }
 
 
@@ -166,6 +150,53 @@ public class ExitPopup extends BaseDialog {
     public void onClick_btn_layer_1_review() {
         dismiss();
         Utils.moveMarket();
+    }
+
+    private void update() {
+        int exitType = Global.getInstance().isFirstExitApp();
+        if(exitType == 0) {
+            //TODO : 앱 평가 팝업.
+            layer_review.setVisibility(View.VISIBLE);
+            layer_exit.setVisibility(View.GONE);
+            Global.getInstance().setFirstExitApp(1);
+        } else if(exitType == 1) {
+            //TODO : 친구 곡 소개 추천 팝업
+            layer_exit.setVisibility(View.VISIBLE);
+            layer_review.setVisibility(View.GONE);
+            Global.getInstance().setFirstExitApp(2);
+
+            image_share.setVisibility(View.VISIBLE);
+            adViewLayer.setVisibility(View.GONE);
+        } else {
+            //TODO : 광고 팝업
+            actionListener.prepareAdMob();
+            if(preparedAdMob != null) {
+                setAdView();
+            } else {
+                loadAd();
+            }
+            layer_exit.setVisibility(View.VISIBLE);
+            layer_review.setVisibility(View.GONE);
+
+            image_share.setVisibility(View.GONE);
+            adViewLayer.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void setAdView() {
+        try {
+            TextView headlineView = preparedAdMob.findViewById(R.id.ad_headline);
+            headlineView.setText(preparedUnifiedNativeAd.getHeadline());
+            preparedAdMob.setHeadlineView(headlineView);
+
+            MediaView mv = preparedAdMob.findViewById(R.id.media_view);
+            preparedAdMob.setMediaView(mv);
+
+            preparedAdMob.setNativeAd(preparedUnifiedNativeAd);
+            adViewLayer.removeAllViews();
+            adViewLayer.addView(preparedAdMob);
+        } catch (Exception e) {
+        }
     }
 
 }

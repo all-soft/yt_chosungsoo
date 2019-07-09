@@ -1,11 +1,11 @@
 <com.google.android.gms.ads.formats.UnifiedNativeAdView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="286dp"
+    android:layout_height="200dp"
     xmlns:tools="http://schemas.android.com/tools">
     <com.google.android.gms.ads.formats.MediaView
         android:id="@+id/media_view"
         android:layout_width="match_parent"
-        android:layout_height="286dp"
+        android:layout_height="150dp"
         tools:background="#ff0000"/>
 
     <RelativeLayout

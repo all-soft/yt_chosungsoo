@@ -11,4 +11,6 @@ public class Constants {
     public static final float MAXIMUM_RESIZE_FONT_SCALE = 1.5f;
 
     public static String FCM_TOPIC = "yt_hongjinyoung";
+
+    public static final long REFRESH_AD_TIME = 1000 * 60 * 30;
 }
