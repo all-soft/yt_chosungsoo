@@ -21,8 +21,6 @@ import com.chsapps.yt_hongjinyoung.ui.fragment.singer.SingerVideoFragment;
 import com.chsapps.yt_hongjinyoung.ui.view.popup.ResizeTextSizePopup;
 import com.chsapps.yt_hongjinyoung.utils.AdUtils;
 import com.chsapps.yt_hongjinyoung.utils.Utils;
-import com.fingerpush.android.FingerPushManager;
-import com.fingerpush.android.NetworkUtility;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.json.JSONObject;
@@ -52,54 +50,8 @@ public class SingerMainActivity extends BaseActivity implements NavigationView.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
 
-//        checkPermission();
-
-        setDeivce();
-
-        if (getIntent().getExtras() != null) {
-            onNewIntent(getIntent());
-        }
-    }
-
-
-//    @Override
-//    protected void onNewIntent(Intent intent) {
-//        super.onNewIntent(intent);
-//        if(intent != null){
-//            boolean isReceive = intent.getBooleanExtra("receive_push",false);
-//            if(isReceive){
-//                Bundle bundle = new Bundle();
-//                bundle.putString("push_type","app_launching");
-//                FirebaseAnalytics.getInstance(this).logEvent("push_event",bundle);
-//            }
-//        }
-//        setIntent(intent);
-//    }
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-
-        if (intent.getExtras() != null) {
-
-            String msgTag = intent.getExtras().getString("msgTag");
-            String mode = intent.getExtras().getString("mode");
-            String lCode = intent.getExtras().getString("lCode");
-
-            FingerPushManager.getInstance(this).checkPush(msgTag, mode, lCode, new NetworkUtility.ObjectListener() {
-                @Override
-                public void onComplete(String code, String message, JSONObject jsonObject) {
-
-                }
-
-                @Override
-                public void onError(String code, String message) {
-
-                }
-            });
-        }
-
-        if(intent != null) {
+        Intent intent = getIntent();
+        if (intent != null) {
             boolean isReceive = intent.getBooleanExtra("receive_push", false);
             if (isReceive) {
                 Bundle bundle = new Bundle();
@@ -107,66 +59,21 @@ public class SingerMainActivity extends BaseActivity implements NavigationView.O
                 FirebaseAnalytics.getInstance(this).logEvent("push_event", bundle);
             }
         }
-
-        setIntent(intent);
-
-    }
-
-    private void checkPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    != PackageManager.PERMISSION_GRANTED
-                    || checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-                    != PackageManager.PERMISSION_GRANTED) {
-
-                // Should we show an explanation?
-                if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                    // Explain to the user why we need to write the permission.
-                    Toast.makeText(this, "Read/Write external storage", Toast.LENGTH_SHORT).show();
-                }
-
-                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                        1001);
-
-                // MY_PERMISSION_REQUEST_STORAGE is an
-                // app-defined int constant
-
-            } else {
-                // 다음 부분은 항상 허용일 경우에 해당이 됩니다.
-                setDeivce();
-            }
-        } else {
-            setDeivce();
-        }
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        switch (requestCode) {
-            case 1001:
-                setDeivce();
-                break;
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if(intent != null){
+            boolean isReceive = intent.getBooleanExtra("receive_push",false);
+            if(isReceive){
+                Bundle bundle = new Bundle();
+                bundle.putString("push_type","app_launching");
+                FirebaseAnalytics.getInstance(this).logEvent("push_event",bundle);
+            }
         }
+        setIntent(intent);
     }
-
-    /**
-     * 핑거푸시 등록
-     */
-    private void setDeivce() {
-        FingerPushManager.getInstance(this).setDevice(new NetworkUtility.ObjectListener() {
-            @Override
-            public void onComplete(String code, String message, JSONObject jsonObject) {
-                // 200, 201 성공
-            }
-
-            @Override
-            public void onError(String code, String message) {
-                // 504 이미 등록된 경우
-            }
-        });
-
-    }
-
 
     @Override
     public void onBackPressed() {

@@ -115,19 +115,19 @@
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />
 
-        <!--<service-->
-            <!--android:name=".service.MyFirebaseMessagingService"-->
-            <!--android:stopWithTask="false">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="com.google.firebase.MESSAGING_EVENT" />-->
-            <!--</intent-filter>-->
-        <!--</service>-->
-
-        <service android:name="com.chsapps.yt_hongjinyoung.service.IntentService">
+        <service
+            android:name=".service.MyFirebaseMessagingService"
+            android:stopWithTask="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <!--<service android:name="com.chsapps.yt_hongjinyoung.service.IntentService">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.google.firebase.MESSAGING_EVENT" />-->
+            <!--</intent-filter>-->
+        <!--</service>-->
 
         <receiver
             android:name="com.adjust.sdk.AdjustReferrerReceiver"

@@ -24,8 +24,6 @@ import com.chsapps.yt_hongjinyoung.ui.view.popup.AppPolicyPopup;
 import com.chsapps.yt_hongjinyoung.ui.view.popup.CommonPopup;
 import com.chsapps.yt_hongjinyoung.utils.DelayListenerListener;
 import com.chsapps.yt_hongjinyoung.utils.Utils;
-import com.fingerpush.android.FingerPushManager;
-import com.fingerpush.android.NetworkUtility;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.json.JSONObject;
@@ -52,35 +50,14 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-
-        if (intent.getExtras() != null) {
-
-            String msgTag = intent.getExtras().getString("msgTag");
-            String mode = intent.getExtras().getString("mode");
-            String lCode = intent.getExtras().getString("lCode");
-
-            FingerPushManager.getInstance(this).checkPush(msgTag, mode, lCode, new NetworkUtility.ObjectListener() {
-                @Override
-                public void onComplete(String code, String message, JSONObject jsonObject) {
-
-                }
-
-                @Override
-                public void onError(String code, String message) {
-
-                }
-            });
-        }
-
-        if(intent != null) {
-            boolean isReceive = intent.getBooleanExtra("receive_push", false);
-            if (isReceive) {
+        if(intent != null){
+            boolean isReceive = intent.getBooleanExtra("receive_push",false);
+            if(isReceive){
                 Bundle bundle = new Bundle();
-                bundle.putString("push_type", "app_launching");
-                FirebaseAnalytics.getInstance(this).logEvent("push_event", bundle);
+                bundle.putString("push_type","app_launching");
+                FirebaseAnalytics.getInstance(this).logEvent("push_event",bundle);
             }
         }
-
         setIntent(intent);
     }
 

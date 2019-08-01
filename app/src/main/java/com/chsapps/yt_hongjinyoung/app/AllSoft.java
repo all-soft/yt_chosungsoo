@@ -84,7 +84,7 @@ public class AllSoft extends MultiDexApplication{
     }
 
     private void initAdjust() {
-        String appToken = "f5dxk3ay9vk0";
+        String appToken = "45wumy431xc0";
         String environment = AdjustConfig.ENVIRONMENT_PRODUCTION;
 //        String environment = AdjustConfig.ENVIRONMENT_SANDBOX;
         AdjustConfig config = new AdjustConfig(this, appToken, environment);
