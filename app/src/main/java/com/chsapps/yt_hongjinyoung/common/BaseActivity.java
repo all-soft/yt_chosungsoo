@@ -40,6 +40,13 @@ import com.chsapps.yt_hongjinyoung.ui.activity.PlayerActivity;
 import com.chsapps.yt_hongjinyoung.ui.view.CicleDialog;
 import com.chsapps.yt_hongjinyoung.ui.view.popup.ExitPopup;
 import com.chsapps.yt_hongjinyoung.ui.youtube_player.WebPlayer;
+import com.chsapps.yt_hongjinyoung.utils.AdUtils;
+import com.chsapps.yt_hongjinyoung.utils.LogUtil;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdLoader;
+import com.google.android.gms.ads.formats.NativeAdOptions;
+import com.google.android.gms.ads.formats.UnifiedNativeAd;
+import com.google.android.gms.ads.formats.UnifiedNativeAdView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -77,6 +84,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public CicleDialog cicleDialog;
 
+    protected static UnifiedNativeAd preparedUnifiedNativeAd = null;
+    protected static UnifiedNativeAdView preparedAdView = null;
+    private static long preparedAdTime = 0;
 
     public boolean isBannerAdSet = false;
     public boolean isHavePlayer = true;
@@ -177,6 +187,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        prepareAdMob(false);
         ActivityStack.getInstance().regOnResumeState(this);
 
         resizeTextSize(Global.getInstance().getResizeTextSize());
@@ -205,17 +217,21 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (baseFragment == null || !baseFragment.onBackPressed()) {
             if (doubleBackToExit) {
-                ExitPopup popup = new ExitPopup(this);
+                ExitPopup popup = new ExitPopup(this, preparedAdView, preparedUnifiedNativeAd);
                 popup.setActionListener(new ExitPopup.CommonPopupActionListener() {
                     @Override
                     public void onActionPositiveBtn() {
                         ActivityStack.getInstance().finishActivityStack();
-                        finish();
                     }
 
                     @Override
                     public void onActionNegativeBtn() {
 
+                    }
+
+                    @Override
+                    public void prepareAdMob() {
+                        BaseActivity.this.prepareAdMob(true);
                     }
                 });
                 popup.show();
@@ -588,5 +604,43 @@ public abstract class BaseActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    public void prepareAdMob(boolean isForcePrepare) {
+        if(isForcePrepare) {
+            preparedAdView = null;
+        }
+
+        long currentTime = System.currentTimeMillis();
+        if(preparedAdView != null && currentTime - preparedAdTime < Constants.REFRESH_AD_TIME) {
+            return;
+        }
+
+        AdLoader adLoader = new AdLoader.Builder(context, "ca-app-pub-5539000902582500/5397608635")
+                .forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
+                    @Override
+                    public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
+                        // Show the ad.
+                        try {
+                            LogUtil.e("HSSEO", "CACHE ADMOB..!!");
+                            preparedAdTime = System.currentTimeMillis();
+                            preparedUnifiedNativeAd = unifiedNativeAd;
+                            preparedAdView = (UnifiedNativeAdView) getLayoutInflater().inflate(R.layout.view_ad_content, null);
+                        } catch (Exception e) {
+                        }
+                    }
+                })
+                .withAdListener(new AdListener() {
+                    @Override
+                    public void onAdFailedToLoad(int errorCode) {
+                        // Handle the failure by logging, altering the UI, and so on.
+                    }
+                })
+                .withNativeAdOptions(new NativeAdOptions.Builder()
+                        // Methods in the NativeAdOptions.Builder class can be
+                        // used here to specify individual options settings.
+                        .build())
+                .build();
+        adLoader.loadAd(AdUtils.getInstance().getAdMobAdRequest());
     }
 }
