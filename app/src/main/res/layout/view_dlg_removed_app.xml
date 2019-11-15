@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/Black">
+
+    <RelativeLayout
+        android:id="@+id/layer_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center_horizontal"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:textSize="32sp"
+            android:gravity="center"
+            android:textColor="#7a8221"
+            android:text="@string/emergency_notice"/>
+
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="50dp"
+        android:paddingBottom="45dp"
+        android:layout_above="@id/layer_bottom"
+        android:layout_below="@id/layer_title">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_comments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="40dp"
+                android:paddingEnd="40dp"
+                android:textSize="21sp"
+                android:layout_centerInParent="true"
+                android:textColor="@color/White"
+                android:text="기존 [홍진영 노래듣기]이 스토어에서 제외 처리가 되어 부득이하게 서비스를 새버전으로 출시합니다."/>
+
+            <TextView
+                android:id="@+id/tv_comments1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="40dp"
+                android:paddingEnd="40dp"
+                android:layout_marginTop="15dp"
+                android:textSize="21sp"
+                android:layout_centerInParent="true"
+                android:textColor="@color/White"
+                android:text="많은 부분 불편 하신점 진심으로 죄송하며 새로운 음악다운 ㅂ전으로 업데이트 부탁드립니다."/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="40dp"
+                android:paddingEnd="40dp"
+                android:layout_marginTop="20dp"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:textColor="@color/White"
+                android:text="기존 버전은 더 이상 서비스 되지 않습니다."/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="40dp"
+                android:paddingEnd="40dp"
+                android:layout_marginTop="20dp"
+                android:textSize="21sp"
+                android:layout_centerInParent="true"
+                android:textColor="@color/White"
+                android:text="다시 한번 불편을 드려 진심으로 죄송합니다. 많은 부분 부족함을 느끼고 있습니다. 쉼없이 노력하여 최적의 서비스로 보답하겠습니다."/>
+        </LinearLayout>
+
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/layer_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:layout_alignParentBottom="true">
+
+        <RelativeLayout
+            android:id="@+id/btn_close"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:background="@drawable/xml_btn_edge_2b2e19">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:layout_centerInParent="true"
+                android:textColor="@color/White"
+                android:text="@string/btn_app_closed"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="30dp"
+            android:layout_height="match_parent"/>
+
+        <RelativeLayout
+            android:id="@+id/btn_new"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:background="@drawable/xml_btn_edge_20381d">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:textColor="@color/White"
+                android:text="@string/btn_app_new" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

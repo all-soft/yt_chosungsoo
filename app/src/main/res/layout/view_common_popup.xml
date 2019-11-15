@@ -10,37 +10,31 @@
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:background="@drawable/xml_btn_edge_ffffff"
-        android:orientation="vertical">
+        android:background="@drawable/xml_btn_edge_white"
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_marginBottom="20dp"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:textColor="@color/colorPrimary"
-            android:textSize="16sp"
+            android:textColor="#202020"
+            android:textSize="15sp"
             android:textStyle="bold"
             android:visibility="visible"
             tools:text="Title" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#d5d5d5"/>
 
         <TextView
             android:id="@+id/tv_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:paddingTop="25dp"
-            android:paddingBottom="25dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:gravity="center"
             android:textColor="#202020"
             android:textSize="15sp"
@@ -54,6 +48,7 @@
             android:layout_marginStart="9dp"
             android:layout_marginBottom="20dp"
             android:background="#d8d8d8"
+            android:padding="1dp"
             android:visibility="gone">
 
             <EditText
@@ -72,8 +67,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginTop="0dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
             <Button
@@ -81,11 +76,15 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:textColor="#939393"
+                android:textColor="@color/White"
                 android:text="@string/Cancel"
                 android:textStyle="bold"
-                android:background="#d7d7d7"
+                android:background="@color/color_2c2c2c"
                 android:visibility="visible" />
+
+            <View
+                android:layout_width="8dp"
+                android:layout_height="match_parent" />
 
             <Button
                 android:id="@+id/btn_positive"

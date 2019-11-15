@@ -3,10 +3,7 @@ package com.chsapps.yt_hongjinyoung.service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.webkit.WebView;
 
-import com.chsapps.yt_hongjinyoung.constants.PlayerConstants;
-import com.chsapps.yt_hongjinyoung.ui.youtube_player.WebPlayer;
 import com.chsapps.yt_hongjinyoung.utils.LogUtil;
 
 public class ScreenOnReceiver extends BroadcastReceiver {

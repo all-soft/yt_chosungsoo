@@ -1,7 +1,6 @@
 package com.chsapps.yt_hongjinyoung.utils;
 
 import android.util.Log;
-
 import com.chsapps.yt_hongjinyoung.common.BuildConfig;
 
 public class LogUtil {

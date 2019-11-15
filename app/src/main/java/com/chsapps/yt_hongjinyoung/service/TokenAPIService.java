@@ -10,16 +10,17 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.chsapps.yt_hongjinyoung.api.APIUtils;
-import com.chsapps.yt_hongjinyoung.constants.Constants;
+import com.chsapps.yt_hongjinyoung.api.model.request.ReqAPIToken;
+import com.chsapps.yt_hongjinyoung.api.model.response.BaseAPIData;
+import com.chsapps.yt_hongjinyoung.constants.APIConstants;
+import com.chsapps.yt_hongjinyoung.utils.LogUtil;
 import com.chsapps.yt_hongjinyoung.utils.NetworkUtils;
-import com.chsapps.yt_hongjinyoung.utils.Utils;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-
 
 public class TokenAPIService extends Service {
     private static final String TAG = TokenAPIService.class.getSimpleName();
@@ -37,20 +38,28 @@ public class TokenAPIService extends Service {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public void onCreate() {
+        LogUtil.e(TAG, "onCreate.!");
         context = this.getApplicationContext();
         super.onCreate();
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        String actionType = intent.getAction();
-        if (TextUtils.isEmpty(actionType)) {
-            return START_NOT_STICKY;
+        try {
+            LogUtil.e(TAG, "onStartCommand.!");
+            String actionType = intent.getAction();
+            LogUtil.e(TAG, "onStartCommand.! : " + actionType);
+            if (TextUtils.isEmpty(actionType)) {
+                return START_NOT_STICKY;
+            }
+
+            if(actionType.equals(ACTION_TYPE_TOKEN)) {
+                requestToken();
+            }
+        } catch (Exception e) {
+
         }
 
-        if(actionType.equals(ACTION_TYPE_TOKEN)) {
-            requestToken();
-        }
 
         return START_NOT_STICKY;
     }
@@ -71,11 +80,11 @@ public class TokenAPIService extends Service {
             return;
         }
 
+        ReqAPIToken param = new ReqAPIToken();
         subscription.add(APIUtils.getInstanse().getApiService()
-                .request_token(String.valueOf(Constants.APP_ID), Utils.getAppVersion(), Utils.getCC(), Utils.getLanguage(), Utils.getFirebaseToken(),Utils.getDeviceId())
+                .request_token(APIConstants.API_KEY, String.valueOf(param.app_type), param.app_ver, param.cc, param.lang, param.token)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .onErrorReturn(throwable -> null)
                 .doFinally(new Action() {
                     @Override
                     public void run() throws Exception {
@@ -83,11 +92,14 @@ public class TokenAPIService extends Service {
                     }
                 })
                 .retry(3)
-                .subscribe(response -> {
-                    if (response != null) {
-                        //TODO : token 값 비었다고 계속 에러남. 일단 그냥 넘어가게 처리.
-                        if (response.isSuccess()) {
+                .subscribe(new Consumer<BaseAPIData>() {
+                    @Override
+                    public void accept(BaseAPIData response) throws Exception {
+                        if(response != null) {
+                            //TODO : token 값 비었다고 계속 에러남. 일단 그냥 넘어가게 처리.
+                            if(response.isSuccess()) {
 
+                            }
                         }
                     }
                 }, new Consumer<Throwable>() {

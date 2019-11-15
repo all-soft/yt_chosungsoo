@@ -4,7 +4,6 @@ import android.annotation.TargetApi;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Handler;
@@ -12,28 +11,32 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.view.WindowManager;
 
 import com.chsapps.yt_hongjinyoung.app.Global;
-import com.chsapps.yt_hongjinyoung.constants.ParamConstants;
 import com.chsapps.yt_hongjinyoung.constants.PlayerConstants;
 import com.chsapps.yt_hongjinyoung.data.PlayTimeStatus;
 import com.chsapps.yt_hongjinyoung.data.PlayerStatus;
-import com.chsapps.yt_hongjinyoung.ui.youtube_player.ConstantStrings;
-import com.chsapps.yt_hongjinyoung.ui.youtube_player.JavaScript;
-import com.chsapps.yt_hongjinyoung.ui.youtube_player.WebPlayer;
-import com.chsapps.yt_hongjinyoung.ui.youtube_player.asynctask.ImageLoadTask;
-import com.chsapps.yt_hongjinyoung.ui.youtube_player.asynctask.LoadDetailsTask;
+import com.chsapps.yt_hongjinyoung.ui.view.player.ConstantStrings;
+import com.chsapps.yt_hongjinyoung.ui.view.player.JavaScript;
+import com.chsapps.yt_hongjinyoung.ui.view.player.WebPlayer;
+import com.chsapps.yt_hongjinyoung.ui.view.player.asynctask.ImageLoadTask;
+import com.chsapps.yt_hongjinyoung.ui.view.player.asynctask.LoadDetailsTask;
 import com.chsapps.yt_hongjinyoung.utils.LogUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
-public class YoutubePlayerService extends Service {
+public class YoutubePlayerService extends Service implements View.OnClickListener {
 
 
     private static final String TAG = YoutubePlayerService.class.getSimpleName();
@@ -64,12 +67,21 @@ public class YoutubePlayerService extends Service {
 
     private static WebPlayer webPlayer;
 
+    private static Intent fullScreenIntent;
     private static Handler secondsHandler = new Handler();
 
     /**
      * None static var.
      **/
-    private ScreenOnReceiver screenOnReceiver;
+    private WindowManager.LayoutParams param_player, params, parWebView, param_min_player;
+
+    private boolean visible = true;
+    private boolean isEntireWidth = false;
+    private boolean updateHead = true;
+
+    private int LAYOUT_FLAG;
+
+
     public static YoutubePlayerService getInstance() {
         return playerService;
     }
@@ -84,20 +96,24 @@ public class YoutubePlayerService extends Service {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public void onCreate() {
+        LogUtil.i(TAG, "func. onCreate");
         context = this.getApplicationContext();
         super.onCreate();
 
         EventBus.getDefault().register(this);
 
-        screenOnReceiver = new ScreenOnReceiver();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("android.intent.action.SCREEN_OFF");
-        registerReceiver(screenOnReceiver, filter);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            LAYOUT_FLAG = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+        } else {
+            LAYOUT_FLAG = WindowManager.LayoutParams.TYPE_PHONE;
+        }
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         playerService = this;
+
+//        try {
         LogUtil.i(TAG, "func. onStartCommand. action : " + intent.getAction());
 
         String actionType = intent.getAction();
@@ -105,11 +121,20 @@ public class YoutubePlayerService extends Service {
             return START_NOT_STICKY;
         }
 
+        if (webPlayer == null) {
+            webPlayer = new WebPlayer(this);
+            webPlayer.setupPlayer();
+        }
+
         if (intent.getAction().equals(PlayerConstants.ACTION.ACTION_START_FORGROUNT_WEB)) {
+            LogUtil.i(TAG, "func. 1");
             secondsHandler.removeCallbacks(seekRunnable);
             //play.
+            LogUtil.i(TAG, "func. 2");
             startPlayerService(intent);
+            LogUtil.i(TAG, "func. 3");
             setTotalTime();
+            LogUtil.i(TAG, "func. 4");
             currentTime = 0;
         } else if (intent.getAction().equals(PlayerConstants.ACTION.ACTION_STOP_FORGROUNT_WEB)) {
             secondsHandler.removeCallbacks(seekRunnable);
@@ -128,9 +153,16 @@ public class YoutubePlayerService extends Service {
             playPrevSong();
             setTotalTime();
             currentTime = 0;
-        } else if(intent.getAction().equals(PlayerConstants.ACTION.ACTION_CLOSE_PLAYER)) {
-            stopSelf();
+        } else if (intent.getAction().equals(PlayerConstants.ACTION.ACTION_CLOSE_PLAYER)) {
+            isVideoPlaying = true;
+            if (webPlayer != null) {
+                webPlayer.destroy();
+            }
+            webPlayer = null;
         }
+
+//        } catch (Exception e) {
+//        }
         return START_NOT_STICKY;
     }
 
@@ -138,14 +170,16 @@ public class YoutubePlayerService extends Service {
     public void onDestroy() {
         super.onDestroy();
 
-        unregisterReceiver(screenOnReceiver);
+        LogUtil.i(TAG, "func. onDestroy");
+
         EventBus.getDefault().unregister(this);
 
         isVideoPlaying = true;
-        if(webPlayer != null) {
+        if (webPlayer != null) {
             webPlayer.destroy();
         }
         webPlayer = null;
+        //ActivityStack.getInstance().finishActivityStack();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -164,7 +198,6 @@ public class YoutubePlayerService extends Service {
             secondsHandler.removeCallbacks(seekRunnable);
             secondsHandler.postDelayed(seekRunnable, 1000);
             currentTime++;
-
             EventBus.getDefault().post(new PlayTimeStatus(totalTime, currentTime));
         }
     };
@@ -182,6 +215,7 @@ public class YoutubePlayerService extends Service {
             case 0:
                 currentTime = 0;
                 secondsHandler.removeCallbacks(seekRunnable);
+//                LogUtil.e("PLAY.", "setPlayingStatus func) playingStatus. 0");
                 playerService.playNextSong();
                 break;
             case 1:
@@ -204,6 +238,7 @@ public class YoutubePlayerService extends Service {
                 break;
             case 2:
                 secondsHandler.removeCallbacks(seekRunnable);
+
                 isVideoPlaying = false;
                 break;
             case 3:
@@ -256,35 +291,24 @@ public class YoutubePlayerService extends Service {
 
     public static void seek(float seconds, boolean allowSeekAhead) {
         secondsHandler.removeCallbacks(seekRunnable);
-        currentTime = (int)seconds;
+        currentTime = (int) seconds;
 
         webPlayer.loadScript(JavaScript.seekTo(seconds, allowSeekAhead));
     }
 
     /////-----------------*****************----------------onStartCommand---------------*****************-----------
-    private void initLayer() {
-        if(webPlayer == null) {
-            webPlayer = new WebPlayer(this);
-            webPlayer.setupPlayer();
-        }
-    }
+
 
     private void startPlayerService(Intent intent) {
-        VID_ID = intent.getStringExtra(ParamConstants.PARAM_VID_ID);
-        PLIST_ID = intent.getStringExtra(ParamConstants.PARAM_LIST_IDS);
-        PLIST_SONG_IDX = intent.getStringExtra(ParamConstants.PARAM_LIST_SONG_INDEX);
-
-        initLayer();
+        VID_ID = intent.getStringExtra("VID_ID");
+        PLIST_ID = intent.getStringExtra("PLAY_LIST_IDS");
+        PLIST_SONG_IDX = intent.getStringExtra("PLAY_LIST_SONG_INDEX");
 
         Map hashMap = new HashMap();
         hashMap.put("Referer", "http://www.youtube.com");
         ConstantStrings.setPList(VID_ID, PLIST_ID, PLIST_SONG_IDX);
-        try {
-            webPlayer.loadDataWithUrl("https://www.youtube.com/player_api", ConstantStrings.getPlayListHTML(),
-                    "text/html", null, null);
-        } catch (Exception e) {
-            return;
-        }
+        webPlayer.loadDataWithUrl("https://www.youtube.com/player_api", ConstantStrings.getPlayListHTML(),
+                "text/html", null, null);
     }
 
     private void destroyPlayerService() {
@@ -310,7 +334,7 @@ public class YoutubePlayerService extends Service {
 
     private void playNextSong() {
         //Play Next
-        if(!ConstantStrings.setNextSongIndex()) {
+        if (!ConstantStrings.setNextSongIndex()) {
             return;
         }
         try {
@@ -318,7 +342,7 @@ public class YoutubePlayerService extends Service {
                     "text/html", null, null);
             nextVid = true;
         } catch (Exception e) {
-            return;
+
         }
 
     }
@@ -326,12 +350,13 @@ public class YoutubePlayerService extends Service {
     private void playPrevSong() {
         //Play Previous
         ConstantStrings.setPrevSongIndex();
+
         try {
             webPlayer.loadDataWithUrl("https://www.youtube.com/player_api", ConstantStrings.getPlayListHTML(),
                     "text/html", null, null);
             nextVid = true;
         } catch (Exception e) {
-            return;
+
         }
     }
 
@@ -346,7 +371,13 @@ public class YoutubePlayerService extends Service {
             JSONObject detailsJson = new JSONObject(details);
             title = detailsJson.getString("title");
             author = detailsJson.getString("author_name");
-        } catch (Exception e) {
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }
@@ -364,4 +395,11 @@ public class YoutubePlayerService extends Service {
     public static void startAgain() {
         webPlayer.loadScript(JavaScript.playVideoScript());
     }
+
+    //Clicks Handled
+    @Override
+    public void onClick(View v) {
+    }
+
+    private int playerType = -1;
 }

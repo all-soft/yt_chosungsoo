@@ -9,18 +9,25 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
+import com.chsapps.yt_hongjinyoung.api.APIUtils;
+import com.chsapps.yt_hongjinyoung.api.model.response.BaseAPIData;
+import com.chsapps.yt_hongjinyoung.constants.APIConstants;
 import com.chsapps.yt_hongjinyoung.constants.ParamConstants;
-import com.chsapps.yt_hongjinyoung.ui.youtube_player.ConstantStrings;
+import com.chsapps.yt_hongjinyoung.ui.view.player.ConstantStrings;
 import com.chsapps.yt_hongjinyoung.utils.LogUtil;
 import com.chsapps.yt_hongjinyoung.utils.NetworkUtils;
 
-import rx.subscriptions.CompositeSubscription;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class PlayAPIService extends Service {
     private static final String TAG = PlayAPIService.class.getSimpleName();
 
     private static Context context;
-    public static String ACTION_TYPE_PLAY = "com.chsapps.yt7080.play";
+    public static String ACTION_TYPE_PLAY = "com.chsapps.yt_hongjinyoung.play";
 
     //function.
     @Nullable
@@ -58,16 +65,39 @@ public class PlayAPIService extends Service {
         super.onDestroy();
 
         if(subscription != null) {
-            subscription.unsubscribe();
+            subscription.dispose();
         }
     }
 
-    CompositeSubscription subscription = new CompositeSubscription();
+    CompositeDisposable subscription = new CompositeDisposable();
     private void reqPlay(int song_idx) {
         if (!NetworkUtils.isNetworkConnected()) {
             stopSelf();
             return;
         }
+
+        subscription.add(APIUtils.getInstanse().getApiService()
+                .request_play_song(APIConstants.API_KEY, ConstantStrings.getCurrentSongAPIIndex())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .retry(3)
+                .doFinally(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        stopSelf();
+                    }
+                })
+                .subscribe(new Consumer<BaseAPIData>() {
+                    @Override
+                    public void accept(BaseAPIData baseAPIData) throws Exception {
+
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                    }
+                }));
     }
 
 }

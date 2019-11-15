@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:background="@null"
+    tools:background="@color/color_88000000">
+
+
+    <LinearLayout
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/xml_btn_edge_white"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <RelativeLayout
+            android:id="@+id/image_share"
+            android:layout_width="match_parent"
+            android:layout_height="340dp"
+            android:background="@drawable/ic_7080_banner"
+            tools:visibility="visible">
+
+            <View
+                android:id="@+id/btn_share"
+                android:layout_width="210dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="225dp"
+                android:layout_centerHorizontal="true"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_negative"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textColor="#4d4d4d"
+                android:textSize="17sp"
+                android:text="다음에"
+                android:textStyle="bold"
+                android:background="@null"
+                android:visibility="visible" />
+
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

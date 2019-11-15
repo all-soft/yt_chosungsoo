@@ -1,37 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.chsapps.yt_hongjinyoung">
 
+    <!--Permission-->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
 
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 
     <application
-        android:name="com.chsapps.yt_hongjinyoung.app.AllSoft"
-        android:hardwareAccelerated="true"
-        android:allowBackup="false"
+        android:name="com.chsapps.yt_hongjinyoung.app.yt7080"
+        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:hardwareAccelerated="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
+        android:usesCleartextTraffic="true">
 
-        <activity android:name="com.chsapps.yt_hongjinyoung.ui.activity.SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-                <action android:name="android.intent.action.VIEW"/>
-            </intent-filter>
-        </activity>
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="@string/ad_app_id" />
+            android:value="@string/admob_app_id"/>
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="763e87c34a8c31de60c4615861c6cefa52a49cd4" />
@@ -49,42 +45,52 @@
             android:name="android.max_aspect"
             android:value="2.1" />
 
+        <!--ACTIVITY-->
+        <activity android:name="com.chsapps.yt_hongjinyoung.ui.activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.chsapps.yt_hongjinyoung.ui.activity.RemovedAppActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <activity
             android:name="com.chsapps.yt_hongjinyoung.ui.activity.MainActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chsapps.yt_hongjinyoung.ui.activity.PlaySongActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chsapps.yt_hongjinyoung.ui.activity.CategoryPlaySongActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chsapps.yt_hongjinyoung.ui.activity.SearchSongActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chsapps.yt_hongjinyoung.ui.activity.BatterySaveActivity"
+            android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.chsapps.yt_hongjinyoung.ui.activity.SingerMainActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
-
-        <activity
-            android:name="com.chsapps.yt_hongjinyoung.ui.activity.PlayerActivity"
+            android:name="com.chsapps.yt_hongjinyoung.ui.activity.AppStoreActivity"
             android:screenOrientation="portrait" />
-
-        <activity android:name="com.chsapps.yt_hongjinyoung.ui.activity.SearchActivity"
-            android:screenOrientation="portrait" />
-
-        <activity android:name="com.chsapps.yt_hongjinyoung.ui.activity.BatterySaveActivity"
-            android:screenOrientation="portrait" />
-
-        <activity android:name="com.chsapps.yt_hongjinyoung.ui.activity.NewsWebActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name="com.chsapps.yt_hongjinyoung.ui.activity.RecommendAppStoreActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name="com.chsapps.yt_hongjinyoung.ui.activity.RemovedAppActivity"
-            android:screenOrientation="portrait"/>
 
         <activity
             android:name="com.chsapps.yt_hongjinyoung.ui.activity.FullScreenPlayerActivity"
             android:excludeFromRecents="true"
             android:screenOrientation="landscape" />
 
+        <activity
+            android:name="com.chsapps.yt_hongjinyoung.event.ui.activity.AppEventDetailActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"/>
+
         <!--SERVICE-->
+        <!--<service-->
+            <!--android:name="com.chsapps.yt_hongjinyoung.service.YoutubePlayerService"-->
+            <!--android:exported="true" />-->
         <service
             android:name="com.chsapps.yt_hongjinyoung.service.YoutubePlayerService"
             android:exported="true">
@@ -102,7 +108,22 @@
         <service android:name="com.chsapps.yt_hongjinyoung.service.PlayAPIService"
             android:exported="true"/>
 
+        <service android:name="com.chsapps.yt_hongjinyoung.service.TokenAPIService"
+            android:exported="true"/>
+
+        <service android:name="com.chsapps.yt_hongjinyoung.event.service.ClickEventService"
+            android:exported="true"/>
+
         <!--RECEIVER-->
+
+        <!--Firebase messaging-->
+        <service
+            android:name="com.chsapps.yt_hongjinyoung.service.MyFirebaseMessagingService"
+            android:stopWithTask="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
 
         <!--Firebase messaging-->
         <meta-data
@@ -114,20 +135,6 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />
-
-        <service
-            android:name=".service.MyFirebaseMessagingService"
-            android:stopWithTask="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-
-        <!--<service android:name="com.chsapps.yt_hongjinyoung.service.IntentService">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="com.google.firebase.MESSAGING_EVENT" />-->
-            <!--</intent-filter>-->
-        <!--</service>-->
 
         <receiver
             android:name="com.adjust.sdk.AdjustReferrerReceiver"

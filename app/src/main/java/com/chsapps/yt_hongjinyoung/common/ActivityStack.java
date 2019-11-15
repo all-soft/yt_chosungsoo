@@ -282,6 +282,12 @@ public class ActivityStack {
         ActivityRef ref = getActivityRef(activity);
         if (ref != null) {
             ref.isResume = false;
+
+//            Intent i = new Intent(activity, YoutubePlayerService.class);
+//            i.putExtra("ACTION_SET_YOUTUBE_PLAYER_TYPE", PlayerConstants.PLAYER_TYPE_FLOATING);
+//            i.setAction(PlayerConstants.ACTION.ACTION_SET_YOUTUBE_PLAYER_TYPE);
+//            activity.startService(i);
+
             return true;
         }
         return false;

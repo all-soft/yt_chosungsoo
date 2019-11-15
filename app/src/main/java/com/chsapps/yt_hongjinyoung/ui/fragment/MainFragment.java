@@ -3,32 +3,25 @@ package com.chsapps.yt_hongjinyoung.ui.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
-import android.view.KeyEvent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.chsapps.yt_hongjinyoung.R;
-import com.chsapps.yt_hongjinyoung.api.RequestServiceListener;
-import com.chsapps.yt_hongjinyoung.api.RequestUtils;
-import com.chsapps.yt_hongjinyoung.api.model.BaseAPIData;
-import com.chsapps.yt_hongjinyoung.api.model.SingersAPIData;
 import com.chsapps.yt_hongjinyoung.app.Global;
-import com.chsapps.yt_hongjinyoung.common.BaseFragment;
-import com.chsapps.yt_hongjinyoung.constants.ParamConstants;
-import com.chsapps.yt_hongjinyoung.data.SingersData;
-import com.chsapps.yt_hongjinyoung.ui.activity.SingerMainActivity;
-import com.chsapps.yt_hongjinyoung.ui.adapter.SingersAdapter;
-import com.chsapps.yt_hongjinyoung.ui.adapter.listener.SingerAdapterHolderListener;
-import com.chsapps.yt_hongjinyoung.utils.Utils;
+import com.chsapps.yt_hongjinyoung.ui.activity.SearchSongActivity;
+import com.chsapps.yt_hongjinyoung.ui.base.BaseFragment;
+import com.chsapps.yt_hongjinyoung.ui.view.popup.ResizeTextSizePopup;
+
+import javax.annotation.Nullable;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -36,19 +29,42 @@ import butterknife.OnClick;
 public class MainFragment extends BaseFragment {
     public final static String TAG = MainFragment.class.getSimpleName();
 
-    @BindView(R.id.et_search)
-    EditText et_search;
-    @BindView(R.id.list_view)
-    RecyclerView list_view;
-    @BindView(R.id.view_empty)
-    View view_empty;
-    @BindView(R.id.tv_empty_title)
-    TextView tv_empty_title;
-    @BindView(R.id.btn_selected)
-    TextView btn_selected;
+    @BindView(R.id.viewPager)
+    ViewPager viewPager;
 
-    private SingersData selectedData;
-    private SingersAdapter adapter;
+    @BindView(R.id.tab_popular)
+    ViewGroup tab_popular;
+    @BindView(R.id.tab_newest)
+    ViewGroup tab_newest;
+    @BindView(R.id.tab_genre)
+    ViewGroup tab_genre;
+    @BindView(R.id.tab_storage)
+    ViewGroup tab_storage;
+
+    @BindView(R.id.tv_popular)
+    TextView tv_popular;
+    @BindView(R.id.tv_newest)
+    TextView tv_newest;
+    @BindView(R.id.tv_genre)
+    TextView tv_genre;
+    @BindView(R.id.tv_storage)
+    TextView tv_storage;
+
+    @BindView(R.id.line_popular)
+    View line_popular;
+    @BindView(R.id.line_newest)
+    View line_newest;
+    @BindView(R.id.line_genre)
+    View line_genre;
+    @BindView(R.id.line_storage)
+    View line_storage;
+
+    @BindView(R.id.tv_badge_genre)
+    TextView tv_badge_genre;
+
+    private int selectedTabIdx = 0;
+
+    private MainViewPagerAdapter viewPagerAdapter;
 
     public static MainFragment newInstance(Bundle bundle) {
         if (bundle == null) {
@@ -88,36 +104,18 @@ public class MainFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        btn_selected.setVisibility(selectedData == null ? View.GONE : View.VISIBLE);
-        adapter.selectedSinger(selectedData);
     }
 
     @Override
     public void initialize() {
-        et_search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                onClick_btn_search();
-                return true;
-            }
-        });
-        adapter = new SingersAdapter(parentActivity, false, new SingerAdapterHolderListener() {
-            @Override
-            public void selected(SingersData singer) {
-                selectedData = singer;
-                adapter.selectedSinger(selectedData);
-                btn_selected.setVisibility(selectedData == null ? View.GONE : View.VISIBLE);
-            }
-        });
-        adapter.setIsAddedAd(false);
-        Utils.initLayoutListView(parentActivity, list_view);
-        list_view.setAdapter(adapter);
-
-        requestSinger();
+        setHasOptionsMenu(true);
+        initViewPager();
+        updateTab(0);
     }
 
     @Override
     public void clearMemory() {
+
     }
 
     @Override
@@ -133,75 +131,149 @@ public class MainFragment extends BaseFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        parentActivity.getMenuInflater().inflate(R.menu.main, menu);
+        parentActivity.getMenuInflater().inflate(
+                R.menu.menu_search,
+                actionBarMenu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.btn_search) {
+            startActivity(new Intent(parentActivity, SearchSongActivity.class));
+        } else if(item.getItemId() == R.id.btn_scale_font) {
+            ResizeTextSizePopup dlg = new ResizeTextSizePopup(parentActivity, new ResizeTextSizePopup.ResizeTextSizePopupListener() {
+                @Override
+                public void onChangedTextSize(int size) {
+                    parentActivity.resizeTextSize(true, size);
+                }
+            });
+            dlg.show();
+        }
         return super.onOptionsItemSelected(item);
     }
 
-    private void requestSinger() {
-        //onClick_btn_search();
-        if (RequestUtils.getInstanse().requestSinger(parentActivity, subscription, new RequestServiceListener() {
-            @Override
-            public void response(boolean is_success, BaseAPIData response) {
-                if (is_success) {
-                    if (response instanceof SingersAPIData) {
-                        adapter.insert(((SingersAPIData) response).message);
-                    }
-                }
-            }
+    @OnClick({R.id.tab_popular, R.id.tab_newest, R.id.tab_genre, R.id.tab_storage})
+    public void onClick_tab(View v) {
+        int idx = 0;
+        switch (v.getId()) {
+            case R.id.tab_popular:
+                idx = 0;
+                break;
+            case R.id.tab_newest:
+                idx = 1;
+                break;
+            case R.id.tab_genre:
+                idx = 2;
+                break;
+            case R.id.tab_storage:
+                idx = 3;
+                break;
+            default:
+                return;
+        }
 
-            @Override
-            public void complete() {
-                dismissLoading();
-                view_empty.setVisibility(adapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
-                list_view.setVisibility(adapter.getItemCount() > 0 ? View.VISIBLE : View.GONE);
+        updateTab(idx);
+    }
+
+    public MainGenreFragment genreFragment;
+    public class MainViewPagerAdapter extends FragmentStatePagerAdapter {
+
+
+        public MainViewPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public int getCount() {
+            return 4;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 0:
+                    return MainPopularFragment.newInstance();
+                case 1:
+                    return MainNewestFragment.newInstance();
+                case 2:
+                    genreFragment = MainGenreFragment.newInstance();
+                    return genreFragment;
+                case 3:
+                    return MainStorageFragment.newInstance();
             }
-        })) {
-            showLoading();
+            return null;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                case 0:
+                    return getResources().getString(R.string.tab_popular);
+                case 1:
+                    return getResources().getString(R.string.tab_newest);
+                case 2:
+                    return getResources().getString(R.string.tab_genre);
+                case 3:
+                    return getResources().getString(R.string.tab_storage);
+            }
+            return super.getPageTitle(position);
         }
     }
 
-    @OnClick(R.id.btn_search)
-    public void onClick_btn_search() {
-        String keyword = et_search.getText().toString();
-        if (TextUtils.isEmpty(keyword)) {
-            requestSinger();
-            return;
+    private void initViewPager() {
+
+        int newCnt = Global.getInstance().cntNewGenreTypeGenre + Global.getInstance().cntNewGenreTypeSinger;
+        if(newCnt > 0) {
+            tv_badge_genre.setVisibility(View.VISIBLE);
+            tv_badge_genre.setText(String.valueOf(newCnt));
+        } else {
+            tv_badge_genre.setVisibility(View.GONE);
         }
-        if (RequestUtils.getInstanse().requestSingersSearch(parentActivity, subscription, keyword, new RequestServiceListener() {
+
+
+        viewPagerAdapter = new MainViewPagerAdapter(parentActivity.getSupportFragmentManager());
+        viewPager.setAdapter(viewPagerAdapter);
+        viewPager.setCurrentItem(selectedTabIdx);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void response(boolean is_success, final BaseAPIData response) {
-                if (is_success) {
-                    if (response instanceof SingersAPIData) {
-                        adapter.insert(((SingersAPIData) response).message);
-                    }
-                }
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
             }
 
             @Override
-            public void complete() {
-                dismissLoading();
-                view_empty.setVisibility(adapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
-                list_view.setVisibility(adapter.getItemCount() > 0 ? View.VISIBLE : View.GONE);
+            public void onPageSelected(int position) {
+                updateTab(position);
             }
-        })) {
-            showLoading();
-        }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
-    @OnClick(R.id.btn_selected)
-    public void onClick_btn_selected() {
-        if (selectedData != null) {
-            Global.getInstance().setSingersData(selectedData);
+    public void updateTab(int selected_tab_id) {
+        if(selected_tab_id == 2)
+            Global.getInstance().isGenreTypeUpdate0 = true;
 
-            Intent intent = new Intent(parentActivity, SingerMainActivity.class);
-            intent.putExtra(ParamConstants.PARAM_SINGER_DATA, selectedData);
-            startActivity(intent);
+        viewPager.setCurrentItem(selected_tab_id);
 
-            selectedData = null;
+        selectedTabIdx = selected_tab_id;
+        TextView[] arrTextView= {tv_popular, tv_newest, tv_genre, tv_storage};
+        View[] arrLine= {line_popular, line_newest, line_genre, line_storage};
+        for(int i = 0 ; i < arrTextView.length ; i++) {
+            arrTextView[i].setTextColor(
+                    getResources().getColor(
+                            i == selectedTabIdx ? R.color.White: R.color.color_cccccc));
+
+            arrLine[i].setVisibility(
+                    i == selectedTabIdx ? View.VISIBLE : View.GONE);
         }
+        setTitle(viewPagerAdapter.getPageTitle(selectedTabIdx).toString());
+    }
+
+    public void updateGenreType(int type) {
+        if(genreFragment.setType(type))
+            genreFragment.requestCategory();
     }
 }

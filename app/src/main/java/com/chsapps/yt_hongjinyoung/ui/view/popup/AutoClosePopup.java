@@ -74,6 +74,7 @@ public class AutoClosePopup extends BaseDialog {
 
         if(msTime > 0) {
             Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+//            yt7080.SetClosePlayerTimer(msTime);
             if(listener != null) {
                 listener.autoClose(msTime);
             }

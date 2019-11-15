@@ -3,35 +3,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#88000000">
 
     <RelativeLayout
-        android:layout_width="200dp"
-        android:layout_height="130dp"
+        android:layout_width="250dp"
+        android:layout_height="150dp"
         android:layout_centerInParent="true"
         android:background="@color/White">
 
-        <com.airbnb.lottie.LottieAnimationView
+        <ProgressBar
             android:id="@+id/progress_bar"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="-20dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_centerHorizontal="true"
-            app:lottie_fileName="lego_loader.json"/>
+            android:layout_marginTop="40dp"/>
 
         <TextView
             android:id="@+id/progress_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/progress_bar"
             android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
             android:paddingEnd="10dp"
             android:paddingStart="10dp"
-            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
             android:visibility="visible"
             tools:visibility="visible"
-            android:text="@string/message_loading_ad"/>
+            android:text="@string/loading_ad"/>
 
     </RelativeLayout>
 </RelativeLayout>

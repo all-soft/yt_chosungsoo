@@ -23,7 +23,10 @@ public class BaseDialog extends Dialog {
 
     @Override
     public void show() {
-        super.show();
+        try {
+            super.show();
+        } catch (Exception e) {
+        }
     }
 
     @Override

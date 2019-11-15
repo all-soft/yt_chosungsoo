@@ -7,8 +7,7 @@ import android.text.Html;
 import android.widget.TextView;
 
 import com.chsapps.yt_hongjinyoung.R;
-import com.chsapps.yt_hongjinyoung.common.BaseActivity;
-import com.chsapps.yt_hongjinyoung.constants.ParamConstants;
+import com.chsapps.yt_hongjinyoung.ui.base.BaseActivity;
 import com.chsapps.yt_hongjinyoung.utils.Utils;
 
 import butterknife.BindView;
@@ -26,8 +25,8 @@ public class RemovedAppActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_removed_app);
-        market_url = getIntent().getStringExtra(ParamConstants.PARAM_MARKET_URL);
+        setContentView(R.layout.view_dlg_removed_app);
+        market_url = getIntent().getStringExtra("PARAM_MARKET_URL");
     }
 
     @Override
@@ -40,13 +39,13 @@ public class RemovedAppActivity extends BaseActivity {
     protected void clearMemory() {
     }
 
-    @OnClick(R.id.btn_close_application)
-    public void onClick_btn_close_application() {
+    @OnClick(R.id.btn_close)
+    public void onClick_btn_close() {
         finish();
     }
 
-    @OnClick(R.id.btn_update_application)
-    public void onClick_btn_update_application() {
+    @OnClick(R.id.btn_new)
+    public void onClick_btn_new() {
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(market_url)));
     }
 

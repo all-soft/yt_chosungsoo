@@ -94,13 +94,12 @@
         </LinearLayout>
 
     </LinearLayout>
-
     <LinearLayout
         android:id="@+id/layer_exit"
         android:layout_width="340dp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:background="@color/White"
+        android:background="@drawable/xml_btn_edge_white"
         android:orientation="vertical"
         android:visibility="gone"
         tools:visibility="visible">
@@ -116,8 +115,8 @@
                 android:id="@+id/btn_share"
                 android:layout_width="210dp"
                 android:layout_height="55dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="225dp" />
+                android:layout_marginTop="225dp"
+                android:layout_centerHorizontal="true"/>
 
         </RelativeLayout>
 
@@ -126,33 +125,32 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_gravity="center_horizontal"
-            tools:visibility="gone" />
+            tools:visibility="gone"/>
 
         <!--<com.google.android.gms.ads.AdView-->
-        <!--xmlns:ads="http://schemas.android.com/apk/res-auto"-->
-        <!--android:id="@+id/adView"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--ads:adSize="MEDIUM_RECTANGLE"-->
-        <!--ads:adUnitId="ca-app-pub-5539000902582500/6781044317"-->
-        <!--android:visibility="gone">-->
+            <!--xmlns:ads="http://schemas.android.com/apk/res-auto"-->
+            <!--android:id="@+id/adView"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--ads:adSize="MEDIUM_RECTANGLE"-->
+            <!--ads:adUnitId="ca-app-pub-5539000902582500/6781044317"-->
+            <!--android:visibility="gone">-->
         <!--</com.google.android.gms.ads.AdView>-->
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:gravity="center_horizontal"
-            android:text="@string/exit_application"
+            android:layout_marginTop="16dp"
+            android:textSize="14sp"
             android:textColor="#4d4d4d"
-            android:textSize="14sp" />
+            android:text="@string/exit_application"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_marginTop="16dp"
-            android:background="#80000000" />
-
+            android:background="#80000000"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -163,26 +161,26 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@null"
-                android:text="@string/Cancel"
                 android:textColor="#4d4d4d"
+                android:text="@string/Cancel"
                 android:textStyle="bold"
+                android:background="@null"
                 android:visibility="visible" />
 
             <View
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
-                android:background="#80000000" />
+                android:background="#80000000"/>
 
             <Button
                 android:id="@+id/btn_positive"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@null"
                 android:text="@string/Done"
                 android:textColor="#4d4d4d"
                 android:textStyle="bold"
+                android:background="@null"
                 android:visibility="visible" />
         </LinearLayout>
     </LinearLayout>

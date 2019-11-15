@@ -18,9 +18,9 @@ import android.text.TextUtils;
 
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.chsapps.yt_hongjinyoung.ui.activity.MainActivity;
 import com.chsapps.yt_hongjinyoung.R;
-import com.chsapps.yt_hongjinyoung.utils.GlideApp;
+import com.chsapps.yt_hongjinyoung.ui.activity.MainActivity;
+import com.chsapps.yt_hongjinyoung.ui.glide.GlideApp;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;

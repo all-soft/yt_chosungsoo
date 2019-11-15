@@ -6,119 +6,138 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/layer_top"
+        android:id="@+id/layer_bottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="20dp"
-        android:paddingStart="25dp"
-        android:paddingEnd="25dp"
-        android:paddingBottom="46dp"
-        android:background="@color/colorPrimary">
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:background="@color/Black">
 
         <RelativeLayout
-            android:layout_width="90dp"
-            android:layout_height="32dp"
-            android:background="@drawable/xml_btn_edge_side_ffffff">
+            android:id="@+id/tab_popular"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary">
 
             <TextView
+                android:id="@+id/tv_popular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:textColor="@color/White"
                 android:textSize="15sp"
-                android:text="@string/app_name"/>
+                android:text="@string/tab_popular"/>
 
+            <View
+                android:id="@+id/line_popular"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/White"
+                android:visibility="gone"/>
         </RelativeLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:textColor="@color/White"
-            android:textSize="34sp"
-            android:text="@string/main_fragment_title"/>
-
-    </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/layer_search"
-        android:layout_width="match_parent"
-        android:layout_height="59dp"
-        android:layout_below="@id/layer_top"
-        android:layout_marginTop="-28dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:paddingStart="0dp"
-        android:paddingEnd="20dp"
-        android:background="@drawable/xml_select_singer_edittext">
 
         <RelativeLayout
-            android:id="@+id/btn_search"
-            android:layout_width="39dp"
-            android:layout_height="39dp"
-            android:layout_marginStart="10dp"
-            android:layout_centerVertical="true"
-            tools:visibility="visible">
+            android:id="@+id/tab_newest"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary">
 
-            <ImageView
-                android:layout_width="19dp"
-                android:layout_height="19dp"
+            <TextView
+                android:id="@+id/tv_newest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:background="@drawable/stroke_17"/>
+                android:textColor="@color/color_cccccc"
+                android:textSize="15sp"
+                android:text="@string/tab_newest"/>
 
+            <View
+                android:id="@+id/line_newest"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/White"
+                android:visibility="gone"/>
         </RelativeLayout>
 
-        <EditText
-            android:id="@+id/et_search"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@id/btn_search"
-            android:paddingStart="5dp"
-            android:singleLine="true"
-            android:textSize="16sp"
-            android:textColor="@color/color_2c2c2c"
-            android:textColorHint="#a8a8a8"
-            android:hint="@string/search_singer"
-            android:background="@color/White"
-            android:imeOptions="actionSearch"
-            tools:visibility="visible"
-            tools:text=""/>
-    </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/tab_genre"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary">
 
-    <TextView
-        android:id="@+id/btn_selected"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:textColor="@color/White"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        android:text="@string/complete_selected"
-        android:background="#a0a0a0"/>
+            <TextView
+                android:id="@+id/tv_genre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="@color/color_cccccc"
+                android:textSize="15sp"
+                android:text="@string/tab_genre"/>
+
+            <TextView
+                android:id="@+id/tv_badge_genre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:padding="3dp"
+                android:layout_toEndOf="@id/tv_genre"
+                android:textStyle="bold"
+                android:textSize="10sp"
+                tools:text="100"
+                android:background="@drawable/xml_badge_ffffff"
+                android:visibility="gone"
+                tools:visibility="visible"/>
+
+            <View
+                android:id="@+id/line_genre"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/White"
+                android:visibility="gone"
+                tools:visibility="visible"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/tab_storage"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary">
+
+            <TextView
+                android:id="@+id/tv_storage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="@color/color_cccccc"
+                android:textSize="15sp"
+                android:text="@string/tab_storage"/>
+
+            <View
+                android:id="@+id/line_storage"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/White"
+                android:visibility="gone"/>
+        </RelativeLayout>
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/layer_search"
-        android:layout_above="@id/btn_selected"
-        android:paddingTop="10dp"
-        tools:visibility="visible">
+        android:layout_below="@id/layer_bottom">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/list_view"
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/view_empty"
-            layout="@layout/view_empty"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"/>
-
+        </android.support.v4.view.ViewPager>
     </RelativeLayout>
-
 </RelativeLayout>

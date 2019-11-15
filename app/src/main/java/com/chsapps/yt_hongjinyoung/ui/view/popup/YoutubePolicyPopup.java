@@ -64,9 +64,9 @@ public class YoutubePolicyPopup extends BaseDialog {
     @OnClick(R.id.btn_dont_see)
     public void onClick_btn_dont_see() {
         Global.getInstance().setShowYoutubePlayPolicy();
+
         if(listener != null)
             listener.play();
-
         dismiss();
     }
 

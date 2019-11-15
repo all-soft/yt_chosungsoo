@@ -13,14 +13,13 @@ import android.widget.SeekBar;
 
 import com.chsapps.yt_hongjinyoung.R;
 import com.chsapps.yt_hongjinyoung.app.Global;
-import com.chsapps.yt_hongjinyoung.common.BaseActivity;
 import com.chsapps.yt_hongjinyoung.constants.PlayerConstants;
 import com.chsapps.yt_hongjinyoung.data.PlayTimeStatus;
 import com.chsapps.yt_hongjinyoung.service.YoutubePlayerService;
-import com.chsapps.yt_hongjinyoung.ui.youtube_player.JavaScript;
-import com.chsapps.yt_hongjinyoung.ui.youtube_player.WebPlayer;
+import com.chsapps.yt_hongjinyoung.ui.base.BaseActivity;
+import com.chsapps.yt_hongjinyoung.ui.view.player.JavaScript;
+import com.chsapps.yt_hongjinyoung.ui.view.player.WebPlayer;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -55,7 +54,7 @@ public class FullScreenPlayerActivity extends BaseActivity {
 
     @Override
     protected void clearMemory() {
-        EventBus.getDefault().unregister(this);
+
     }
 
     @Override
@@ -63,11 +62,17 @@ public class FullScreenPlayerActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         this.active = true;
         fullScreenAct = this;
-        setContentView(R.layout.activity_fullscreen_player);
+        setContentView(R.layout.activity_fullscreen_web_player);
+
+//        EventBus.getDefault().register(this);
+
+        player = WebPlayer.getPlayer();
+        if(player == null) {
+            finish();
+            return;
+        }
 
         LinearLayout ll = (LinearLayout) findViewById(R.id.layout_fullscreen);
-        player = WebPlayer.getPlayer();
-
         WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                 WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.MATCH_PARENT
@@ -77,12 +82,7 @@ public class FullScreenPlayerActivity extends BaseActivity {
         if(parent != null) {
             parent.removeView(player);
         }
-
-        try {
-            ll.addView(player, params);
-        } catch (Exception e) {
-            finish();
-        }
+        ll.addView(player, params);
 
         WebPlayer.loadScript(JavaScript.playVideoScript());
 
@@ -109,9 +109,10 @@ public class FullScreenPlayerActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         if(active){
-            ((ViewGroup) player.getParent()).removeView(player);
-            if(parent != null) {
+            try {
+                ((ViewGroup) player.getParent()).removeView(player);
                 parent.addView(player);
+            } catch (Exception e) {
             }
 //            YoutubePlayerService.startAgain();
         }
@@ -173,35 +174,32 @@ public class FullScreenPlayerActivity extends BaseActivity {
     }
 
     private void updatePlayMode() {
-//        int randomType = Global.getInstance().getRandomType();
-//        int repeatType = Global.getInstance().getRepeatType();
-//
-//        /**
-//         * 0 : none repeat
-//         * 1 : repeat all
-//         * 2 : repeat one song
-//         * */
-//        icon_random.setBackgroundResource(randomType == 0 ? R.drawable.none_shuffle : R.drawable.shuffle);
-//        switch (repeatType) {
-//            case 0:
-//                icon_repeat.setBackgroundResource(R.drawable.none_repeat);
-//                break;
-//            case 1:
-//                icon_repeat.setBackgroundResource(R.drawable.repeat);
-//                break;
-//            case 2:
-//                icon_repeat.setBackgroundResource(R.drawable.repeat_one);
-//                break;
-//        }
+        int randomType = Global.getInstance().getRandomType();
+        int repeatType = Global.getInstance().getRepeatType();
+
+        /**
+         * 0 : none repeat
+         * 1 : repeat all
+         * 2 : repeat one song
+         * */
+        icon_random.setBackgroundResource(randomType == 0 ? R.drawable.none_shuffle : R.drawable.shuffle);
+        switch (repeatType) {
+            case 0:
+                icon_repeat.setBackgroundResource(R.drawable.none_repeat);
+                break;
+            case 1:
+                icon_repeat.setBackgroundResource(R.drawable.repeat);
+                break;
+            case 2:
+                icon_repeat.setBackgroundResource(R.drawable.repeat_one);
+                break;
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void playTime(PlayTimeStatus status) {
-        try {
-            currentVideoTotalTime = status.totalTime;
-            int current = status.currentTime == 0 ? 0 : status.currentTime * 100 / status.totalTime;
-            seekBar.setProgress(current);
-        } catch (Exception e) {
-        }
+        currentVideoTotalTime = status.totalTime;
+        int current = status.currentTime == 0 ? 0 : status.currentTime * 100 / status.totalTime;
+        seekBar.setProgress(current);
     }
 }

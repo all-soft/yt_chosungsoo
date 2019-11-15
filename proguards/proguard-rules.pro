@@ -30,6 +30,7 @@
 #data class
 -keep class com.chsapps.yt_hongjinyoung.api.model.** { *; }
 -keep class com.chsapps.yt_hongjinyoung.data.**{ *; }
+-keep class com.chsapps.yt_hongjinyoung.event.data.**{ *; }
 
 #webview
 -keepclassmembers class * {

@@ -3,15 +3,15 @@
     android:orientation="horizontal"
     android:id="@+id/player_control_top"
     android:layout_width="300dp"
-    android:layout_height="38dp"
+    android:layout_height="40dp"
     android:paddingStart="10dp"
     android:paddingEnd="10dp"
-    android:background="@drawable/xml_top_edge_ffffff">
+    android:background="@color/colorPrimary">
 
 
     <LinearLayout
         android:id="@+id/btn_home"
-        android:layout_width="wrap_content"
+        android:layout_width="70dp"
         android:layout_height="match_parent">
 
         <ImageView
@@ -25,19 +25,29 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:gravity="center"
-            android:textSize="12sp"
-            android:textColor="#0c0c0c"
+            android:textSize="18sp"
+            android:textColor="@color/White"
             android:layout_gravity="center_vertical"
-            android:text="@string/GoToHome" />
+            android:text="@string/floating_home" />
 
     </LinearLayout>
 
+
     <View
-        android:id="@+id/layer_top_move"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
         android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/btn_minimum"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textColor="@color/White"
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:text="@string/floating_minimum" />
 
     <ImageView
         android:id="@+id/btn_close"

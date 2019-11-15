@@ -19,6 +19,9 @@
     </declare-styleable>
 
     <!-- 페이지 인디케이터-->
+    <bool name="default_circle_indicator_centered">true</bool>
+    <bool name="default_circle_indicator_snap">false</bool>
+    <integer name="default_circle_indicator_orientation">0</integer>
     <!-- wheel view -->
     <declare-styleable name="AbstractWheelView">
         <attr name="visibleItems" format="integer" />
@@ -127,13 +130,12 @@
         <attr name="pathColor" format="color"/>
     </declare-styleable>
 
-    <declare-styleable name="slider_button">
-        <attr name="text" format="string"/>
-        <attr name="textSize" format="dimension"/>
-        <attr name="textColor" format="integer"/>
-        <attr name="thumbOffset" format="dimension"/>
-        <attr name="thumb" format="integer"/>
-        <attr name="sliderBackground" format="integer"/>
+    <declare-styleable name="InkPageIndicator">
+        <attr name="ipi_dotDiameter" format="dimension" />
+        <attr name="ipi_dotGap" format="dimension" />
+        <attr name="ipi_animationDuration" format="integer" />
+        <attr name="ipi_pageIndicatorColor" format="color" />
+        <attr name="ipi_currentPageIndicatorColor" format="color" />
     </declare-styleable>
 
 </resources>

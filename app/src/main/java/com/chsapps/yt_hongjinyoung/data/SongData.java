@@ -4,8 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
-import com.chsapps.yt_hongjinyoung.utils.LogUtil;
-
 public class SongData implements Parcelable {
     private final static String TAG = SongData.class.getSimpleName();
 
@@ -15,12 +13,10 @@ public class SongData implements Parcelable {
     protected SongData(Parcel in) {
         song_idx = in.readInt();
         thumbnail = in.readString();
-        thumbnails = in.readString();
         title = in.readString();
         videoid = in.readString();
-        videoId = in.readString();
         duration = in.readString();
-        date_reg = in.readString();
+        date_reg = in.readLong();
         long_yn = in.readString();
         play_cnt = in.readInt();
     }
@@ -54,41 +50,25 @@ public class SongData implements Parcelable {
 
     public int song_idx;
     public String thumbnail;
-    public String thumbnails;
     public String title;
     public String videoid;
-    public String videoId;
     public String duration;
-    public String date_reg;
+    public long date_reg;
     public String long_yn;
     public int play_cnt;
 
     private int total_sec = -1;
 
     public String getThumbnail() {
-        if(!TextUtils.isEmpty(thumbnail)) {
-            return thumbnail;
-        } else if(!TextUtils.isEmpty(thumbnails)) {
-            return thumbnails;
-        }
-        return "";
+        return getString(thumbnail);
     }
 
     public String getTitle() {
         return getString(title);
     }
 
-    public String getRealVideoId() {
-        if(TextUtils.isEmpty(videoId)) {
-            return getVideoid();
-        }
-        return getVideoId();
-    }
     public String getVideoid() {
         return getString(videoid);
-    }
-    public String getVideoId() {
-        return getString(videoId);
     }
 
     public String getDuration() {
@@ -99,6 +79,61 @@ public class SongData implements Parcelable {
         return getString(long_yn);
     }
 
+    public String getDurationTime() {
+        if(duration == null) {
+            return "";
+        }
+
+        String time = duration.replace("PT", "");
+        String[] hour = time.split("H");
+
+        String before = "";
+        StringBuilder stringBuilder = new StringBuilder();
+        if(time.contains("H") && hour.length > 0) {
+            try {
+                stringBuilder.append(hour[0]);
+            } catch (Exception e) {
+                stringBuilder.append("00");
+            }
+            stringBuilder.append(":");
+
+            before = hour[0] + "H";
+        }
+        if(time.contains("M")) {
+            boolean isEmptyBefore = true;
+            String minTime = time;
+            if(!TextUtils.isEmpty(before)) {
+                isEmptyBefore = false;
+                minTime = time.replace(before, "");
+            }
+            String[] min = minTime.split("M");
+            try {
+                stringBuilder.append(min[0].length() == 2 ? "" : "0").append(min[0]);
+            } catch (Exception e) {
+                stringBuilder.append("00");
+            }
+            before = (!isEmptyBefore ? before : "") + (min[0] + "M");
+        } else {
+            stringBuilder.append("00");
+        }
+
+        stringBuilder.append(":");
+        if(time.contains("S")) {
+            String secTime = time;
+            if(!TextUtils.isEmpty(before)) {
+                secTime = time.replace(before, "");
+            }
+            String[] sec = secTime.split("S");
+            try {
+                stringBuilder.append(sec[0].length() == 2 ? "" : "0").append(sec[0]);
+            } catch (Exception e) {
+                stringBuilder.append("00");
+            }
+        } else {
+            stringBuilder.append("00");
+        }
+        return stringBuilder.toString();
+    }
     public int getDurationSec() {
         if(duration == null) {
             return 0;
@@ -106,6 +141,7 @@ public class SongData implements Parcelable {
 
 
         if(total_sec > 0) {
+//            LogUtil.e("PLAY.", "getDurationSec : " + title + " / " + total_sec);
             return total_sec;
         }
 
@@ -155,19 +191,11 @@ public class SongData implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(song_idx);
         dest.writeString(thumbnail);
-        dest.writeString(thumbnails);
         dest.writeString(title);
         dest.writeString(videoid);
-        dest.writeString(videoId);
         dest.writeString(duration);
-        dest.writeString(date_reg);
+        dest.writeLong(date_reg);
         dest.writeString(long_yn);
         dest.writeInt(play_cnt);
-    }
-
-    public void log() {
-        LogUtil.i(TAG, "titlde : " + title);
-        LogUtil.i(TAG, "videoid : " + videoid);
-        LogUtil.i(TAG, "videoId : " + videoId);
     }
 }

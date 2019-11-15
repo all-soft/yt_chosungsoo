@@ -1,5 +1,7 @@
 package com.chsapps.yt_hongjinyoung.utils;
 
+import com.chsapps.yt_hongjinyoung.constants.APIConstants;
+
 public class SecureUtils {
     static {
         try {
@@ -20,7 +22,7 @@ public class SecureUtils {
 
     public static String getAppKey(){
         try {
-            return appKey();
+            return APIConstants.API_KEY;
         }catch (Exception e){
 
         }
@@ -29,7 +31,7 @@ public class SecureUtils {
 
     public static String getAppValue(){
         try {
-            return appValue();
+            return APIConstants.API_APPLICATION;
         }catch (Exception e){
 
         }

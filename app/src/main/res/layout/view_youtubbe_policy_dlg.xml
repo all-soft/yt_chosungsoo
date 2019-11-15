@@ -14,17 +14,15 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:layout_height="42dp"
             android:background="@color/colorPrimary">
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:gravity="center"
                 android:singleLine="true"
-                android:textSize="22sp"
+                android:textSize="15sp"
                 android:textColor="@color/White"
                 android:text="Youtube 컨텐츠 재생 안내"/>
 
@@ -46,8 +44,8 @@
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:gravity="center"
-                android:textSize="17sp"
-                android:textColor="@color/color_888888"
+                android:textSize="14sp"
+                android:textColor="@color/Black"
                 android:text="본 앱에서 재생하는 유투브 비디오는 유투브 재생 정책을 따르고 있습니다."/>
 
             <TextView
@@ -57,8 +55,8 @@
                 android:paddingEnd="10dp"
                 android:layout_marginTop="15dp"
                 android:gravity="center"
-                android:textSize="17sp"
-                android:textColor="@color/color_888888"
+                android:textSize="14sp"
+                android:textColor="@color/Black"
                 android:text="유투브 영상 재생 정책은 화면이 꺼지면 영상을 재생하지 못하게 되어 있습니다."/>
 
             <TextView
@@ -69,8 +67,8 @@
                 android:paddingEnd="10dp"
                 android:layout_marginTop="15dp"
                 android:gravity="center"
-                android:textSize="17sp"
-                android:textColor="@color/color_888888"
+                android:textSize="14sp"
+                android:textColor="@color/Black"
                 android:text="화면이 꺼진 상태이거나 영상 재생창이 비활성화 되어 있는 경우에는 비디오 재생이 불가한 점 양해 부탁드립니다."/>
         </LinearLayout>
 
@@ -79,6 +77,18 @@
             android:layout_height="40dp"
             android:orientation="horizontal">
 
+
+            <TextView
+                android:id="@+id/btn_dont_see"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#e9e9e9"
+                android:textColor="#4d4d4d"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:text="다시 보지 않기"/>
+
             <TextView
                 android:id="@+id/btn_play"
                 android:layout_width="0dp"
@@ -86,20 +96,10 @@
                 android:layout_weight="1"
                 android:background="@color/colorPrimary"
                 android:textColor="@color/White"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 android:gravity="center"
                 android:text="재생"/>
 
-            <TextView
-                android:id="@+id/btn_dont_see"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/color_888888"
-                android:textColor="@color/White"
-                android:textSize="16sp"
-                android:gravity="center"
-                android:text="다시 보지 않기"/>
 
         </LinearLayout>
 

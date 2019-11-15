@@ -4,42 +4,26 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-
         <item
-            android:id="@+id/nav_singers"
-            android:icon="@drawable/ico_leftmenu_01_favorite"
-            android:title="@string/menu_reselect_singers" />
-
-        <item
-            android:id="@+id/nav_share"
-            android:icon="@drawable/podcast"
-            android:title="@string/menu_play_together" />
-
+            android:id="@+id/nav_kakaotalk"
+            android:title="@string/main_menu_kakaotalk" />
         <item
             android:id="@+id/nav_search"
-            android:icon="@drawable/ico_leftmenu_03_search"
-            android:title="@string/menu_searching" />
+            android:title="@string/main_menu_search" />
+        <item
+            android:id="@+id/nav_grade_star"
+            android:title="@string/main_menu_rating" />
+        <item
+            android:id="@+id/nav_storage"
+            android:title="@string/main_menu_storage" />
 
         <item
-            android:id="@+id/nav_resize_font"
-            android:icon="@drawable/ico_leftmenu_04_scale"
-            android:title="@string/menu_resize_font" />
-
-        <!--<item
-            android:id="@+id/nav_auto_stop"
-            android:icon="@drawable/ico_leftmenu_05_timer"
-            android:title="@string/menu_auto_stop" />-->
+            android:id="@+id/nav_resize_text"
+            android:title="@string/main_menu_resize" />
 
         <item
-            android:id="@+id/nav_give_grade"
-            android:icon="@drawable/ico_leftmenu_06_star"
-            android:title="@string/menu_give_grade" />
-
-        <!--<item-->
-            <!--android:id="@+id/nav_another_app"-->
-            <!--android:icon="@drawable/music_1004"-->
-            <!--android:title="@string/menu_additional_music" />-->
-
+            android:id="@+id/nav_another_apps"
+            android:title="@string/main_menu_another_apps" />
     </group>
 
 </menu>

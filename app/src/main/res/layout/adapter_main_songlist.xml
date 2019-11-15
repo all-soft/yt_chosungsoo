@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:background="@color/White">
+
+    <LinearLayout
+        android:id="@+id/layer_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#888888"
+        android:orientation="horizontal"
+        android:paddingEnd="12dp"
+        tools:background="#00ff0000">
+
+        <RelativeLayout
+            android:layout_width="140dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            tools:background="#00ff0000">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true">
+
+                <ImageView
+                    android:id="@+id/iv_thumbnail"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    tools:background="@color/Black" />
+
+                <TextView
+                    android:id="@+id/tv_number"
+                    android:layout_width="31dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/Black"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:textColor="@color/White"
+                    android:textSize="15sp"
+                    android:visibility="visible"
+                    tools:text="1" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50dp"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp"
+                android:background="@color/Black">
+
+
+                <TextView
+                    android:id="@+id/tv_duration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:textColor="@color/White"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    tools:text="00:03:00" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp">
+
+            <RelativeLayout
+                android:id="@+id/btn_right"
+                android:layout_width="54dp"
+                android:layout_height="31dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp">
+
+                <RelativeLayout
+                    android:id="@+id/btn_play"
+                    android:layout_width="31dp"
+                    android:layout_height="31dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/drawable_circle_primary"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <View
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/play" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/btn_save"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="#ed5212"
+                    tools:visibility="visible">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="11dp"
+                            android:layout_height="11dp"
+                            android:layout_gravity="center_vertical"
+                            android:background="@drawable/ic_heart" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="2dp"
+                            android:text="저장"
+                            android:textColor="@color/White"
+                            android:textSize="10sp" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <CheckBox
+                    android:id="@+id/chk_select"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:checked="false"
+                    android:clickable="false"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layer_song_info"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="15dp"
+                android:layout_toStartOf="@id/btn_right">
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="11dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_played" />
+
+                <TextView
+                    android:id="@+id/tv_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="11dp"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:textColor="#ed5212"
+                    android:textSize="10sp"
+                    tools:text="28,000 재생됨" />
+
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/btn_right"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="5dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:lines="2"
+                    android:textColor="@color/Black"
+                    android:textSize="18sp"
+                    tools:text="나미 - 영원한 친구aaaaaaaaaaaaaaaaaaaaaaa" />
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@color/color_cccccc" />
+
+</RelativeLayout>

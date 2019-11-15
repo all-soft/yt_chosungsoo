@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:attrs="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_layer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/White">
+
+    <RelativeLayout
+        android:id="@+id/layer_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.chsapps.yt_hongjinyoung.event.ui.custom_view.InfiniteViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.chsapps.yt_hongjinyoung.event.ui.custom_view.InkPageIndicator
+            android:id="@+id/page_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="15dp"
+            app:ipi_dotDiameter="8dp"
+            app:ipi_dotGap="8dp"
+            app:ipi_animationDuration="320"/>
+    </RelativeLayout>
+</RelativeLayout>

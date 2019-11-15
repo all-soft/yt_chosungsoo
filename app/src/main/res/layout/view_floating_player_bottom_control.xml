@@ -1,111 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:id="@+id/player_control_bottom"
     android:layout_width="300dp"
-    android:layout_height="40dp"
-    android:background="@color/Black">
+    android:layout_height="50dp"
+    android:background="@color/colorPrimary">
 
 
-    <RelativeLayout
-        android:id="@+id/btn_minimum"
+    <TextView
+        android:id="@+id/btn_share"
         android:layout_width="70dp"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:paddingTop="3dp"
-            android:paddingBottom="3dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginBottom="7dp"
-            android:layout_alignParentBottom="true"
-            android:textSize="10sp"
-            android:textColor="@color/White"
-            android:gravity="center"
-            android:background="@drawable/xml_top_edge_ffffff_bg_000000"
-            android:text="@string/Minimum_player" />
-
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="150dp"
         android:layout_height="match_parent"
-        android:layout_centerHorizontal="true"
-        android:orientation="horizontal">
+        android:textSize="15sp"
+        android:textColor="@color/White"
+        android:gravity="center"
+        android:text="@string/Share" />
 
-        <RelativeLayout
-            android:id="@+id/btn_prev"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <ImageView
-                android:id="@+id/iv_prev"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_centerInParent="true"
-                android:background="@drawable/previous"/>
-
-        </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/btn_play"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <ImageView
-                android:id="@+id/iv_play"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_centerInParent="true"
-                android:background="@drawable/play"/>
-        </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/btn_next"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_centerInParent="true"
-                android:background="@drawable/next"/>
-        </RelativeLayout>
-
-    </LinearLayout>
 
     <RelativeLayout
-        android:id="@+id/btn_save"
-        android:layout_width="80dp"
+        android:id="@+id/btn_prev"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_alignParentEnd="true">
-
-        <TextView
-            android:id="@+id/tv_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/White"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="9dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="5dp"
-            android:textSize="10sp"
-            android:text="@string/change_save_mode"/>
+        android:layout_weight="1">
 
         <ImageView
-            android:layout_width="6dp"
-            android:layout_height="9dp"
-            android:layout_marginEnd="5dp"
-            android:layout_toStartOf="@id/tv_save"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="11dp"
-            android:background="@drawable/ico_battery_off"/>
+            android:id="@+id/iv_prev"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/previous"/>
 
     </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/btn_play"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
 
+        <ImageView
+            android:id="@+id/iv_play"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/play"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/btn_next"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
 
-</RelativeLayout>
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/next"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/btn_save"
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:textSize="15sp"
+        android:textColor="@color/White"
+        android:gravity="center"
+        android:text="@string/save_mode" />
+
+</LinearLayout>

@@ -6,15 +6,15 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.chsapps.yt_hongjinyoung.R;
-import com.chsapps.yt_hongjinyoung.api.model.RecommAppAPIData;
-import com.chsapps.yt_hongjinyoung.ui.adapter.holder.AppStoreAdapterHolder;
+import com.chsapps.yt_hongjinyoung.api.model.response.RecommandAppAPIData;
+import com.chsapps.yt_hongjinyoung.ui.adapter.viewholder.AppStoreAdapterHolder;
 
 import java.util.List;
 
 public class AppStoreAdapter extends RecyclerView.Adapter<AppStoreAdapterHolder>{
 
     private Context context;
-    private List<RecommAppAPIData.RecommandApp> arrayData;
+    private List<RecommandAppAPIData.RecommandApp> arrayData;
 
     private AppStoreAdapterHolder.AppStoreAdapterListener listener;
 
@@ -33,8 +33,8 @@ public class AppStoreAdapter extends RecyclerView.Adapter<AppStoreAdapterHolder>
         if(holder == null) {
             return;
         }
-        RecommAppAPIData.RecommandApp data = arrayData.get(position);
-        holder.update(data.title, data.image_url, data.app_url);
+        RecommandAppAPIData.RecommandApp data = arrayData.get(position);
+        holder.update(data.app_title, data.image_url, data.app_package_name);
     }
 
     @Override
@@ -45,11 +45,24 @@ public class AppStoreAdapter extends RecyclerView.Adapter<AppStoreAdapterHolder>
         return arrayData.size();
     }
 
-    public void addAll(List<RecommAppAPIData.RecommandApp> arrayKeywords) {
+    public void addAll(List<RecommandAppAPIData.RecommandApp> arrayKeywords) {
         if(this.arrayData != null)
             this.arrayData.clear();
         this.arrayData = arrayKeywords;
 
         notifyDataSetChanged();
+    }
+
+    public RecommandAppAPIData.RecommandApp getData(String packagename) {
+        try {
+            for(RecommandAppAPIData.RecommandApp data : arrayData) {
+                if(data.app_package_name.equals(packagename)) {
+                    return data;
+                }
+            }
+        } catch (Exception e) {
+            return null;
+        }
+        return null;
     }
 }

@@ -3,13 +3,14 @@ package com.chsapps.yt_hongjinyoung.preference;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.chsapps.yt_hongjinyoung.app.AllSoft;
+//import com.securepreferences.SecurePreferences;
+import com.chsapps.yt_hongjinyoung.app.yt7080;
 
 public class Preference {
     private final static String TAG = Preference.class.getSimpleName();
 
     private static Preference instance;
-    private SharedPreferences prefs = null;//new SecurePreferences(AllSoft.getContext());
+    private SharedPreferences prefs = null;//new SecurePreferences(yt7080.getContext());
     public static Preference getInstance() {
         if(instance == null) {
             instance = new Preference();
@@ -47,8 +48,7 @@ public class Preference {
     }
 
     private void initialize() {
-        prefs = AllSoft.getContext().getSharedPreferences(AllSoft.getContext().getPackageName(), Context.MODE_PRIVATE);
-
+        prefs = yt7080.getContext().getSharedPreferences(yt7080.getContext().getPackageName(), Context.MODE_PRIVATE);
     }
 
     public void clear() {

@@ -1,12 +1,8 @@
 package com.chsapps.yt_hongjinyoung.utils;
 
-import android.view.ViewGroup;
-
-import com.chsapps.yt_hongjinyoung.api.model.HomeData;
-import com.chsapps.yt_hongjinyoung.app.Global;
-import com.chsapps.yt_hongjinyoung.common.BaseActivity;
-import com.chsapps.yt_hongjinyoung.constants.AdConstants;
+//import com.google.ads.mediation.facebook.FacebookAdapter;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 
 public class AdUtils {
@@ -21,29 +17,23 @@ public class AdUtils {
         return instance;
     }
 
-    public static void showInterstitialAd(BaseActivity activity) {
-        //Admob mediation.
-        HomeData.AD_CONFIG adConfig = Global.getInstance().getAdConfig();
-        AdMobAdUtils.showAdMobInterstitialAd(activity, adConfig);
+    public void showAdMobBannerAd(AdView adMobAdView) {
+        //adMobAdView.setAdUnitId(ADConstants.ADMOB_BANNER_AD_ID);
+        AdRequest adRequest = AdUtils.getInstance().getAdMobAdRequest();
+        adMobAdView.loadAd(adRequest);
     }
-
-    public static boolean addBannerView(BaseActivity activity, boolean isBannerAdSet, ViewGroup layerAd) {
-        if (Global.getInstance().isShowBannerAdInBottom()) {
-            if (!isBannerAdSet) {
-                HomeData.AD_CONFIG adConfig = null;//Global.getInstance().getAdConfig();
-                //Admob mediation.
-                AdView adMobAdView = new AdView(activity);
-                layerAd.addView(adMobAdView);
-//                AdMobAdUtils.showAdMobBannerAd(adMobAdView, adConfig.getBanner_id());
-                AdMobAdUtils.showAdMobBannerAd(adMobAdView, AdConstants.AD_ID_BANNER);
-                return true;
-            }
-        }
-        return false;
+    public void showAdMobBannerAd(AdView adMobAdView, String adId) {
+        adMobAdView.setAdSize(AdSize.SMART_BANNER);
+        adMobAdView.setAdUnitId(adId);
+        adMobAdView.loadAd(getAdMobAdRequest());
     }
 
     public AdRequest getAdMobAdRequest() {
+//        Bundle extras = new FacebookAdapter.FacebookExtrasBundleBuilder()
+//                .setNativeAdChoicesIconExpandable(false)
+//                .build();
         AdRequest adRequest = new AdRequest.Builder()
+//                .addNetworkExtrasBundle(FacebookAdapter.class, extras)
 //                .addTestDevice("086A436107A5322A6AD435A899DADB5A")
                 .build();
         return adRequest;

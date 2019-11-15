@@ -2,7 +2,6 @@ package com.chsapps.yt_hongjinyoung.ui.view.popup;
 
 import android.content.Context;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.chsapps.yt_hongjinyoung.R;
 
 public class LoadingAdPopup extends BaseDialog {
@@ -29,9 +28,5 @@ public class LoadingAdPopup extends BaseDialog {
 
     private void initialize() {
         setContentView(R.layout.view_loading_ad);
-
-        LottieAnimationView lottieView = (LottieAnimationView)findViewById(R.id.progress_bar);
-        lottieView.playAnimation();
-        lottieView.loop(true);
     }
 }
