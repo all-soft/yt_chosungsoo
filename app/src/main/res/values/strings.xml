@@ -94,7 +94,9 @@
     <string name="message_battery_save_mode">배터리 절약모드는 실수로 화면을 탭하는 것을 방지하며 배터리 소모를 최소화합니다. 백그라운드 재생은 Youtube 서비스 이용 약관을 준수하여 제공되지 않습니다.</string>
 
     <string name="title_share_application">공유</string>
-    <string name="message_share_application">좋아하는 가수들만 선택!\n노래, 공연 영상을 중간에 광고없이, 끈김없이 평생 무료로 감상 가능!.\n 평생 무료! 다른 앱 사용중에도 편하게 음악을 들을 수 있는 홍진영 모아보기 앱을 설치해보세요.\nhttp://bit.ly/2RpZAWx
+    <string name="message_share_application">갓데리 홍진영의 히트곡/최신곡 평생 무료 감상가능!
+좋아하는 7080 트로트 다양한 장르도 한번에 모아들을 수 있는 홍진영 노래듣기앱 바로 설치해보세요~\n
+☞ http://bit.ly/2RpZAWx
 </string>
 
     <string name="save_mode">절약</string>
