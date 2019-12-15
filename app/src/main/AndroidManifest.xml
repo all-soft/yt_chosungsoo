@@ -87,6 +87,18 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"/>
 
+        <!--request song-->
+        <activity android:name="com.allsoft.request_song.RequestSongActivity"
+            android:screenOrientation="portrait"/>
+
+        <!--free app store-->
+        <activity android:name="com.allsoft.app_store.FreeAppStoreActivity"
+            android:screenOrientation="portrait"/>
+
+        <!--notification-->
+        <service android:name="com.allsoft.notification.CustomNotificationService"
+            android:exported="true"/>
+
         <!--SERVICE-->
         <!--<service-->
             <!--android:name="com.chsapps.yt_hongjinyoung.service.YoutubePlayerService"-->

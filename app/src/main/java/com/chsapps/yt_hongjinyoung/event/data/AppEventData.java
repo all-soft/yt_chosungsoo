@@ -21,6 +21,7 @@ public class AppEventData implements Parcelable {
         share_msg = in.readString();
         share_title = in.readString();
         layout = in.readInt();
+        p_name = in.readString();
     }
 
     public static final Creator<AppEventData> CREATOR = new Creator<AppEventData>() {
@@ -103,6 +104,13 @@ public class AppEventData implements Parcelable {
         return share_msg;
     }
 
+    public String getP_name() {
+        if (p_name == null) {
+            return "";
+        }
+        return p_name;
+    }
+
     public int event_idx;
     public int type;
     public String event_url;
@@ -114,6 +122,7 @@ public class AppEventData implements Parcelable {
     public String share_msg;
     public String share_title;
     public int layout;
+    public String p_name;
 
     @Override
     public int describeContents() {
@@ -133,5 +142,6 @@ public class AppEventData implements Parcelable {
         parcel.writeString(share_msg);
         parcel.writeString(share_title);
         parcel.writeInt(layout);
+        parcel.writeString(p_name);
     }
 }

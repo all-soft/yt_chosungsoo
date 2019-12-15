@@ -15,6 +15,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.allsoft.app_store.FreeAppStoreActivity;
+import com.allsoft.request_song.RequestSongActivity;
 import com.chsapps.yt_hongjinyoung.R;
 import com.chsapps.yt_hongjinyoung.app.Global;
 import com.chsapps.yt_hongjinyoung.common.BuildConfig;
@@ -125,7 +127,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     protected void initialize() {
-
         tempCntMovePlaySongList = Global.getInstance().cntMovePlaySongList;
 
 //        if (Global.getInstance().isShowInterstitialAdInMainActivity() && !Global.getInstance().isMainActivityAdShow)
@@ -308,6 +309,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         navigationView.getHeaderView(0).findViewById(R.id.menu_8).setOnClickListener(this);
         navigationView.getHeaderView(0).findViewById(R.id.menu_9).setOnClickListener(this);
         navigationView.getHeaderView(0).findViewById(R.id.menu_10).setOnClickListener(this);
+        navigationView.getHeaderView(0).findViewById(R.id.menu_request_song).setOnClickListener(this);
 
         TextView tv_url = navigationView.getHeaderView(0).findViewById(R.id.tv_url);
         if(BuildConfig.IS_DEBUG_MODE) {
@@ -409,7 +411,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 break;
             case R.id.menu_10:
             case R.id.nav_another_apps:
-                startActivity(new Intent(this, AppStoreActivity.class));
+                startActivity(new Intent(this, FreeAppStoreActivity.class));
                 break;
 
             case R.id.menu_1: {
@@ -436,6 +438,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 break;
             case R.id.menu_5:
                 Toast.makeText(this, "운세 보기", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menu_request_song:
+                startActivity(new Intent(this, RequestSongActivity.class));
                 break;
         }
     }

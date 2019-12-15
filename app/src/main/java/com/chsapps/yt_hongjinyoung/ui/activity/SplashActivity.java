@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 
+import com.allsoft.notification.NotificationUtils;
 import com.chsapps.yt_hongjinyoung.R;
 import com.chsapps.yt_hongjinyoung.api.APIUtils;
 import com.chsapps.yt_hongjinyoung.api.model.response.CategoryListData;

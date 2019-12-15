@@ -9,7 +9,11 @@ import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Parcelable;
+import android.provider.Settings;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -24,6 +28,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -217,5 +222,58 @@ public class Utils {
     public static void moveCompanyAppsMarket() {
         Intent goToMarket = new Intent(Intent.ACTION_VIEW).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK).setData(Uri.parse("market://search?q=pub:CHS32Apps"));
         yt7080.getContext().startActivity(goToMarket);
+    }
+
+
+    public static void initLayoutListView(Activity activity, RecyclerView list_view) {
+        list_view.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
+        list_view.setHasFixedSize(true);
+    }
+
+    public static void initLayoutHorizontalListView(Activity activity, RecyclerView list_view) {
+        list_view.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false));
+        list_view.setHasFixedSize(true);
+    }
+
+    public static boolean isInstallApp(String pakageName) {
+        return yt7080.getContext().getPackageManager().getLaunchIntentForPackage(pakageName) != null;
+    }
+    public static String getUUID(Context context) {
+        String androidId = "";
+        try {
+            androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+        } catch (Exception e) {
+        }
+
+        try {
+            if (!TextUtils.isEmpty(androidId) && !androidId.equals("9774d56d682e549c") && !androidId.equals("unknown") && !androidId.equals("000000000000000")) {
+                return UUID.nameUUIDFromBytes(androidId.getBytes("utf8")).toString();
+            }
+        } catch (Exception e) {
+        }
+        return getUniqueID(context);
+    }
+    public static String getUniqueID(Context context) {
+        int abi = 0;
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            abi = Build.SUPPORTED_ABIS[0].length();
+        } else {
+            abi = Build.CPU_ABI.length();
+        }
+
+        String deviceIdShort = "35" +
+                Build.BOARD.length() % 10 + Build.BRAND.length() % 10 +
+                abi % 10 + Build.DEVICE.length() % 10 +
+                Build.DISPLAY.length() % 10 + Build.HOST.length() % 10 +
+                Build.ID.length() % 10 + Build.MANUFACTURER.length() % 10 +
+                Build.MODEL.length() % 10 + Build.PRODUCT.length() % 10 +
+                Build.TAGS.length() % 10 + Build.TYPE.length() % 10 +
+                Build.USER.length() % 10; //13 digits
+
+        try {
+            return new UUID(deviceIdShort.hashCode(), Build.SERIAL.hashCode()).toString();
+        } catch (Exception e) {
+            return new UUID(deviceIdShort.hashCode(), "serial".hashCode()).toString();
+        }
     }
 }

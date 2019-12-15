@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.chsapps.yt_hongjinyoung.R;
 import com.chsapps.yt_hongjinyoung.event.AppEventManager;
@@ -35,8 +36,8 @@ public class EventBannerViewer extends RelativeLayout {
     ViewGroup layer_main;
     @BindView(R.id.view_pager)
     InfiniteViewPager view_pager;
-    @BindView(R.id.page_indicator)
-    InkPageIndicator page_indicator;
+    @BindView(R.id.tv_indicator)
+    TextView tv_indicator;
 
     private int layoutType = 1;
 
@@ -77,8 +78,6 @@ public class EventBannerViewer extends RelativeLayout {
         } else {
             view_pager.setAdapter(apdater);
         }
-        page_indicator.setViewPager(view_pager, apdater.getCount());
-
         view_pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
@@ -87,6 +86,7 @@ public class EventBannerViewer extends RelativeLayout {
 
             @Override
             public void onPageSelected(int position) {
+                updatePage(position);
                 refreshTimer();
             }
 
@@ -96,6 +96,7 @@ public class EventBannerViewer extends RelativeLayout {
             }
         });
         refreshTimer();
+        updatePage(0);
     }
 
     private void initialize(Context context) {
@@ -116,6 +117,20 @@ public class EventBannerViewer extends RelativeLayout {
         }
         params.height = height;
         layer_main.setLayoutParams(params);
+    }
+
+    private void updatePage(int position) {
+        int totalCount = apdater.getCount();
+        int realPosition = position + 1;
+        if(realPosition == 0) {
+            realPosition = 1;
+        } else if(position + 1 > totalCount) {
+            realPosition = (position + 1) % totalCount;
+            if(realPosition == 0) {
+                realPosition = totalCount;
+            }
+        }
+        tv_indicator.setText("" + realPosition + "/" + totalCount);
     }
 
     private void refreshTimer() {

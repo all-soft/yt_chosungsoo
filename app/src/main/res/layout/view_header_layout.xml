@@ -246,6 +246,36 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/menu_request_song"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <ImageView
+                    android:layout_width="19dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/ic_request" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:textColor="@color/Black"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="15sp"
+                    android:layout_marginStart="12dp"
+                    android:text="@string/main_menu_request_song"/>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/menu_9"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"

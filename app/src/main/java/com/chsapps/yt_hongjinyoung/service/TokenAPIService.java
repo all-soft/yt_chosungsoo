@@ -13,8 +13,10 @@ import com.chsapps.yt_hongjinyoung.api.APIUtils;
 import com.chsapps.yt_hongjinyoung.api.model.request.ReqAPIToken;
 import com.chsapps.yt_hongjinyoung.api.model.response.BaseAPIData;
 import com.chsapps.yt_hongjinyoung.constants.APIConstants;
+import com.chsapps.yt_hongjinyoung.utils.DelayListenerListener;
 import com.chsapps.yt_hongjinyoung.utils.LogUtil;
 import com.chsapps.yt_hongjinyoung.utils.NetworkUtils;
+import com.chsapps.yt_hongjinyoung.utils.Utils;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -27,6 +29,8 @@ public class TokenAPIService extends Service {
 
     private static Context context;
     public static String ACTION_TYPE_TOKEN = "com.chsapps.yt_hongjinyoung.token";
+
+    private CompositeDisposable subscription = new CompositeDisposable();
 
     //function.
     @Nullable
@@ -73,16 +77,25 @@ public class TokenAPIService extends Service {
         }
     }
 
-    CompositeDisposable subscription = new CompositeDisposable();
     private void requestToken() {
         if (!NetworkUtils.isNetworkConnected()) {
             stopSelf();
             return;
         }
 
+        if(TextUtils.isEmpty(Utils.getFirebaseToken())) {
+            Utils.delay(subscription, 1000, new DelayListenerListener() {
+                @Override
+                public void delayedTime() {
+                    requestToken();
+                }
+            });
+            return;
+        }
+
         ReqAPIToken param = new ReqAPIToken();
         subscription.add(APIUtils.getInstanse().getApiService()
-                .request_token(APIConstants.API_KEY, String.valueOf(param.app_type), param.app_ver, param.cc, param.lang, param.token)
+                .request_token(APIConstants.API_KEY, Utils.getUUID(context), String.valueOf(param.app_type), param.app_ver, param.cc, param.lang, param.token)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally(new Action() {

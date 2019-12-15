@@ -7,6 +7,7 @@ import com.chsapps.yt_hongjinyoung.event.data.AppEventData;
 import com.chsapps.yt_hongjinyoung.event.data.AppEventDatas;
 import com.chsapps.yt_hongjinyoung.event.ui.popup.MainEventPopup;
 import com.chsapps.yt_hongjinyoung.preference.Preference;
+import com.chsapps.yt_hongjinyoung.utils.Utils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,8 +29,31 @@ public class AppEventManager {
     }
 
     public void setAppNoticeAPIData(AppEventDatas noticeData) {
+        if (noticeData != null && noticeData.event_list != null) {
+            ArrayList<AppEventData> array = new ArrayList<>();
+            for (AppEventData item : noticeData.event_list) {
+                if (!TextUtils.isEmpty(item.getP_name())) {
+                    if (!Utils.isInstallApp(item.getP_name())) {
+                        array.add(item);
+                    }
+                } else {
+                    array.add(item);
+                }
+            }
+            noticeData.event_list.clear();
+            noticeData.event_list.addAll(array);
+
+            String noticePackageName = noticeData.notice.getP_name();
+            if (Utils.isInstallApp(noticePackageName)) {
+                noticeData.notice = null;
+                if (noticeData.event_list.size() > 0) {
+                    noticeData.notice = noticeData.event_list.get(0);
+                }
+            }
+        }
         this.eventDatas = noticeData;
     }
+
     public ArrayList<AppEventData> getEventListData() {
         try {
             return eventDatas.event_list;
@@ -108,7 +132,7 @@ public class AppEventManager {
 
 
     public boolean isShowMainPageEventPopup() {
-        if(eventDatas == null || TextUtils.isEmpty(eventDatas.notice.getEvent_url())) {
+        if(eventDatas == null || eventDatas.notice == null || TextUtils.isEmpty(eventDatas.notice.getEvent_url())) {
             return false;
         }
         long setTime = getDoNotSeeTodaySetTime();

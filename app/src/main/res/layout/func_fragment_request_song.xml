@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/White">
+
+    <TextView
+        android:id="@+id/btn_request_song"
+        android:layout_width="252dp"
+        android:layout_height="56dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="58dp"
+        android:paddingStart="40dp"
+        android:paddingEnd="40dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:gravity="center"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/White"
+        android:text="@string/request_song"
+        android:background="@drawable/func_request_song_btn_disable"/>
+
+    <LinearLayout
+        android:id="@+id/layer_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingBottom="50dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="26sp"
+            android:textColor="@color/Black"
+            android:textStyle="bold"
+            android:text="@string/commont_request_song_1"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:textSize="14sp"
+            android:textColor="#00579e"
+            android:text="@string/commont_request_song_2"/>
+
+        <EditText
+            android:id="@+id/et_input_singer"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textSize="14sp"
+            android:layout_marginTop="92dp"
+            android:hint="@string/input_singer"
+            android:singleLine="true"
+            android:textColor="@color/Black"
+            android:textColorHint="#9c9c9c"
+            android:background="@drawable/func_request_song_edittext_bg"/>
+
+        <EditText
+            android:id="@+id/et_input_song"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textSize="14sp"
+            android:layout_marginTop="15dp"
+            android:hint="@string/input_song"
+            android:singleLine="true"
+            android:textColor="@color/Black"
+            android:textColorHint="#9c9c9c"
+            android:background="@drawable/func_request_song_edittext_bg"/>
+    </LinearLayout>
+</RelativeLayout>

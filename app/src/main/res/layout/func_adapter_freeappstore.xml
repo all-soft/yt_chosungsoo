@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/layer_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="@drawable/func_fas_list_item_bg">
+
+        <ImageView
+            android:id="@+id/img_thumbnail"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:layout_marginStart="6dp"
+            android:duplicateParentState="true"
+            android:layout_marginTop="9dp"/>
+
+        <RelativeLayout
+            android:id="@+id/btn_install"
+            android:layout_width="50dp"
+            android:layout_height="70dp"
+            android:duplicateParentState="true"
+            android:orientation="vertical"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:duplicateParentState="true"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:duplicateParentState="true"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/func_fas_icon_install" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:duplicateParentState="true"
+                    android:gravity="center_horizontal"
+                    android:textSize="14sp"
+                    android:textColor="@color/func_fas_list_item_install_text"
+                    android:text="설치"/>
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:duplicateParentState="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="19dp"
+            android:layout_marginEnd="10dp"
+            android:layout_toEndOf="@id/img_thumbnail"
+            android:layout_toStartOf="@id/btn_install"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:duplicateParentState="true"
+                android:maxLines="2"
+                android:textColor="@color/Black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:text="모아보기 - 댄스 피트니스 세계인의 뱃살 빼는 비법"/>
+
+            <TextView
+                android:id="@+id/tv_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:duplicateParentState="true"
+                android:maxLines="2"
+                android:layout_marginTop="5dp"
+                android:textColor="#6c6c6c"
+                android:textSize="12sp"
+                tools:text="모아보기 - 댄스 피트니스 세계인의 뱃살 빼는 비법"/>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

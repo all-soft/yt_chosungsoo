@@ -27,6 +27,7 @@ public interface RequestService {
     @FormUrlEncoded
     @POST("/push/token2")
     Observable<BaseAPIData> request_token(@Header("applicationkey") String apiKey,
+                                          @Field("uid") String uuid,
                                           @Field("app_type") String app_type,
                                           @Field("app_ver") String app_ver,
                                           @Field("cc") String cc,
@@ -176,4 +177,17 @@ public interface RequestService {
                                                   @Field("lang") String lang,
                                                   @Field("app_id") int app_id,
                                                   @Field("app_idx") int idx);
+
+
+    /*
+    * Add Request song api.
+    * */
+    @FormUrlEncoded
+    @POST("/yt/song/request")
+    Observable<BaseAPIData> request_song_request(@Header("applicationkey") String apiKey,
+                                                 @Field("lang") String lang,
+                                                 @Field("appid") int app_id,
+                                                 @Field("song_name") String song_name,
+                                                 @Field("uuid") String uuid,
+                                                 @Field("singer_name") String singer_name);
 }

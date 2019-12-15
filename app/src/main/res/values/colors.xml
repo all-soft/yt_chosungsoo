@@ -17,4 +17,11 @@
     <color name="color_acacac">#acacac</color>
     <color name="color_list_selected">#19cc2822</color>
 
+    <!--request song-->
+    <color name="color_request_song_btn_disable">#d8d8d8</color>
+
+    <!--free app store-->
+    <color name="color_fas_list_item_bg">#19dd532f</color>
+    <color name="color_fas_list_item_install_text_pressed">#dd532f</color>
+
 </resources>
