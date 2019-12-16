@@ -1,7 +1,7 @@
 <resources>
     <!--<string name="facebook_app_id">2132860800350256</string>-->
 
-    <string name="admob_app_id">ca-app-pub-5539000902582500~5178400219</string>
+    <string name="admob_app_id">ca-app-pub-5539000902582500~3703427205</string>
     <string name="app_name">홍진영 노래듣기</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

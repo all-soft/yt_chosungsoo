@@ -15,8 +15,8 @@ android {
         applicationId "com.chsapps.yt_hongjinyoung"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 14
-        versionName "2.0"
+        versionCode 15
+        versionName "2.1"
         ndk.abiFilters 'armeabi-v7a','arm64-v8a','x86','x86_64'
 
         multiDexEnabled true
